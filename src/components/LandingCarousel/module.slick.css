@@ -126,7 +126,7 @@
 }
 
 .slick-arrow:hover {
-  background: rgba(0, 0, 0, 0.2);
+  
 }
 
 .slick-dots {
@@ -141,5 +141,9 @@
 }
 
 .slick-active .custom-dot {
-  background-color: white;
+  background-color: gray;
+}
+
+.slick-track div {
+  height: 100%;
 }

@@ -72,7 +72,7 @@ const LandingCarousel = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 4000,
     pauseOnHover: true,
     customPaging: () => (
       <div className="w-3 h-3 border-white border rounded-full cursor-pointer custom-dot"></div>

@@ -4,44 +4,37 @@ import Container from "./Container";
 import ariaPng from "../../public/image 5.png";
 import cosettePng from "../../public/image 6.png";
 import Button from "./Button";
-import { EnumMember } from "typescript";
+import NewProductBannerData from "@/types/NewProductBanner";
 
-type newArrivalData = {
-  title: string,
-  description: string,
-  image: StaticImageData,
-  align: "left" | "right",
-}
-
-const newArrivalItemsData: newArrivalData[] =  [
+const newArrivalItemsData: NewProductBannerData[] =  [
   {
     title: 'Aria',
     description: 'Seamlessly blends grace and comfort. With its sleek design and plush uphostery, “Aria” invites you to unwind in effortless elegance, enveloped in a world of tranquility and style',
-    image: ariaPng,
+    image: [ariaPng],
     align: 'right',
   }, {
     title: 'Cosette',
-    image: cosettePng,
+    image: [cosettePng],
     description: 'Experience the epitome of refine luxury with the exquisite  “Cosette” sofa, where elegance meets  uparalleld comfort',
     align: 'left',
   }
 ]
 
 
-const NewArrivalItem: React.FC<{item: newArrivalData}> = (props) => {
-  const alignment = `sm:${props.item.align === 'left' ? 'flex-row-reverse' : 'flex-row'}`
+const NewArrivalItem: React.FC<{item: NewProductBannerData}> = (props) => {
+  const alignment = (props.item.align === "left") ? "sm:flex-row" : "sm:flex-row-reverse";
   const textAlignment = `sm:text-${props.item.align}`;
 
   return (
     <div className={`w-full flex flex-col ${alignment} items-center justify-between mt-20`}>
-      <Image src={props.item.image} alt="Aria" className="w-full sm:w-[400px] h-[400px] object-cover" />
+      <Image src={props.item.image[0]} alt="Aria" className="w-full sm:w-[400px] h-[400px] object-cover" />
 
       <div className={`mt-5 w-full sm:w-1/3 text-left ${textAlignment}`}>
         <h1 className="text-3xl font-medium">{props.item.title}</h1>
         <p className="leading-loose mt-2">
           {props.item.description}
         </p>
-        <Button className="main-black sec-white mt-8" filled>Learn more</Button>
+        <Button className="mt-8" filled>Learn more</Button>
       </div>
     </div>
   );

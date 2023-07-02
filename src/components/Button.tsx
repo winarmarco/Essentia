@@ -1,34 +1,27 @@
-import React from "react";
+"use client";
+import React, { DOMAttributes } from "react";
 
 const Button: React.FC<{
   filled?: boolean | false;
-  className: string;
-  children: React.ReactNode;
-}> = (props) => {
-  const classes = props.className.split(" ");
-  const mainColour = classes
-    .find((str) => str.startsWith("main-"))
-    ?.replace("main-", "");
-  const secColour = classes
-    .find((str) => str.startsWith("sec-"))
-    ?.replace("sec-", "");
-
-  const bgColour = `bg-${props.filled ? mainColour : "transparent"}`;
-  const textColour = `text-${props.filled ? secColour : mainColour}`;
-  const borderColour = `${!props.filled && 'transition-all border-[1px] border-' + mainColour}`;
-  const hoverEffect = `${!props.filled && 'transition-all hover:bg-' + mainColour + ' hover:text-' + secColour}`;
-
-  console.log(hoverEffect)
-
+  className?: string | "";
+  children?: React.ReactNode;
+  onClick?: () => void,
+}> = ({ filled = false, className = "", children, onClick = () => {} }) => {
+  
+  
   return (
-    <button
+    <button onClick={onClick}
       className={`px-10 py-2 
-      ${bgColour} ${textColour}
-      ${borderColour} ${hoverEffect}
-        ${props.className}
+        ${
+          filled
+            ? `bg-black text-white`
+            : `bg-transparent text-black hover:bg-black hover:text-white border-[1px] border-black transition-colors`
+        }
+
+         ${className}
       `}
     >
-      {props.children}
+      {children}
     </button>
   );
 };
