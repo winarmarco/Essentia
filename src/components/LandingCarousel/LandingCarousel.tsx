@@ -2,12 +2,16 @@ import Image from "next/image";
 import React from "react";
 import sofaPic from "../../../public/image-40.jpg";
 import coffeeTablePic from "../../../public/image 44.jpg";
-import "./module.slick-theme.css";
-import "./module.slick.css";
-import Slider from "react-slick";
 
 import {StaticImageData} from "next/image";
 import {BiSolidRightArrow, BiSolidLeftArrow} from "react-icons/bi";
+
+import {Swiper, SwiperSlide} from "swiper/react";
+import {EffectFade, Navigation, Pagination} from "swiper";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 type LandingCarouselData = {
   image: StaticImageData;
@@ -62,43 +66,53 @@ const CarouselItem: React.FC<LandingCarouselData> = (props) => {
   );
 };
 
-
 const LandingCarousel = () => {
   const settings = {
-    dots: true,
-    fade: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    pauseOnHover: true,
-    customPaging: () => (
-      <div className="w-3 h-3 border-white border rounded-full cursor-pointer custom-dot"></div>
-    ),
+    spaceBetween: 30,
+    effect: "fade",
+    loop: true,
+    centeredSlides: true,
+    pagination: {
+      clickable: true,
+    },
+    style: {
+      "--swiper-navigation-color": "#ffffff",
+      "--swiper-pagination-color": "#ffffff",
+      "--swiper-pagination-bottom": "2rem",
+      "--swiper-pagination-bullet-inactive-color" : "#ffffff",
+      "--swiper-pagination-bullet-inactive-opacity": .6,
+      "--swiper-navigation-size": "2rem",
+      height: "100%",
+    } as React.CSSProperties,
+
+    modules: [EffectFade, Navigation, Pagination],
   };
   return (
     <div className="h-full">
-      <Slider
-        className="h-full"
-        {...settings}
-        nextArrow={
-          <button className="p-10">
-            <BiSolidRightArrow color="#ffffff" opacity={0.5} />
-          </button>
-        }
-        prevArrow={
-          <button>
-            <BiSolidLeftArrow color="#ffffff" opacity={0.5} />
-          </button>
-        }
-        arrows={true}
-      >
+      <Swiper navigation={{
+        prevEl: ".image-swiper-button-prev",
+        nextEl: ".image-swiper-next-prev",
+      }} {...settings} className="mySwiper">
+        <button className="absolute inset-y-0 left-0 z-10 flex items-center image-swiper-button-prev hover:bg-black hover:bg-opacity-20 transition-colors">
+        <div className="flex justify-center items-center w-10 h-10 text-white opacity-60">
+            <BiSolidLeftArrow />
+          </div>
+        </button>
         {landingCarouselDatas.map((data, index) => {
-          return <CarouselItem key={index} {...data} />;
+          return (
+            <SwiperSlide className="my-auto py-30" key={index}>
+              {({isActive}) => {
+                return <CarouselItem {...data} />;
+              }}
+            </SwiperSlide>
+          );
         })}
-      </Slider>
+        <button className="absolute inset-y-0 right-0 z-10 flex items-center image-swiper-button-next hover:bg-black hover:bg-opacity-20 transition-colors">
+          <div className="flex justify-center items-center w-10 h-10 text-white opacity-60">
+            <BiSolidRightArrow />
+          </div>
+        </button>
+      </Swiper>
     </div>
   );
 };

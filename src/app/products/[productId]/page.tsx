@@ -4,18 +4,15 @@ import "../../globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar/Navbar";
 import Container from "@/components/Container";
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 import Product from "@/types/Product";
 import {productData} from "@/dummyProductData";
 import Button from "@/components/Button";
 import {BsZoomIn} from "react-icons/bs";
 import {LiaTimesSolid} from "react-icons/lia";
-
-import {Swiper, SwiperClass, SwiperSlide} from "swiper/react";
+import {Swiper, SwiperSlide} from "swiper/react";
 import {EffectFade, Navigation, Pagination} from "swiper";
-
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
