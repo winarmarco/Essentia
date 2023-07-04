@@ -67,7 +67,7 @@ const Cart: React.FC<{shoppingCart: shoppingCartItem[]}> = (props) => {
 
   return (
     <div className="relative min-h-screen w-full flex flex-col">
-      <div className="sticky top-0 z-10 bg-white">
+      <div className="sticky top-0 z-30 bg-white">
         <Navbar />
       </div>
       <Container className="w-full flex flex-col flex-1 bg-white">
@@ -127,12 +127,12 @@ const Cart: React.FC<{shoppingCart: shoppingCartItem[]}> = (props) => {
             ))}
           </div>
           <div className="w-full md:w-1/2 sticky flex-grow top-0 pt-20 h-full">
-            <div className="flex flex-col p-5 mt-10 pt-10 md:pt-20 border border-gray-200">
+            <div className="flex flex-col p-5 mt-10 pt-16 border border-gray-200">
               <h2 className="text-3xl font-semibold">TOTAL</h2>
               <div className="border-b border-gray-200 pb-5 mt-5">
-                {products.map((product) => {
+                {products.map((product, index) => {
                   return (
-                    <div className="grid grid-cols-3">
+                    <div key={index} className="grid grid-cols-3">
                       <div className="flex gap-x-2 col-span-2">
                         <span className="font-medium">{product.title}</span>
                         <span>x {product.quantity}</span>
