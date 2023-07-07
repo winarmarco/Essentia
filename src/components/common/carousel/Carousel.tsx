@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {Swiper, SwiperProps, SwiperSlide} from "swiper/react";
 import {EffectFade, Navigation, Pagination} from "swiper";
@@ -7,20 +7,36 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+interface CarouselItemProps<T> {
+  data: T;
+  isActive: boolean;
+}
+
 type CarouselProps<T> = {
   leftButton: React.ReactNode;
   rightButton: React.ReactNode;
-  CarouselItem: React.FC<T>;
+  CarouselItem: React.FC<CarouselItemProps<T>>;
   datas: T[];
+  initialSlide?: number;
+  navigationColour?: string | undefined;
+  paginationColour?: string | undefined;
+  paginationBottomPadding?: string | undefined;
+  paginationBulletInactiveColor?: string | undefined;
+  paginationInactiveOpacity?: number | undefined;
 };
 
-const Carousel = <T extends object>({
+const Carousel = <T extends any>({
   leftButton,
   rightButton,
   datas,
   CarouselItem,
+  initialSlide = 0,
+  navigationColour = "#ffffff",
+  paginationColour = "#ffffff",
+  paginationBottomPadding = "6rem",
+  paginationBulletInactiveColor = "#ffffff",
+  paginationInactiveOpacity = 0.6,
 }: CarouselProps<T>) => {
-
   const settings: SwiperProps = {
     spaceBetween: 30,
     effect: "fade",
@@ -30,11 +46,11 @@ const Carousel = <T extends object>({
       clickable: true,
     },
     style: {
-      "--swiper-navigation-color": "#ffffff",
-      "--swiper-pagination-color": "#ffffff",
-      "--swiper-pagination-bottom": "2rem",
-      "--swiper-pagination-bullet-inactive-color": "#ffffff",
-      "--swiper-pagination-bullet-inactive-opacity": 0.6,
+      "--swiper-navigation-color": navigationColour,
+      "--swiper-pagination-color": paginationColour,
+      "--swiper-pagination-bottom": paginationBottomPadding,
+      "--swiper-pagination-bullet-inactive-color": paginationBulletInactiveColor,
+      "--swiper-pagination-bullet-inactive-opacity": paginationInactiveOpacity,
       "--swiper-navigation-size": "2rem",
       height: "100%",
     } as React.CSSProperties,
@@ -42,6 +58,7 @@ const Carousel = <T extends object>({
       prevEl: ".image-swiper-button-prev",
       nextEl: ".image-swiper-button-next",
     },
+    initialSlide: initialSlide,
     modules: [EffectFade, Navigation, Pagination],
   };
 
@@ -50,7 +67,7 @@ const Carousel = <T extends object>({
       {leftButton}
       {datas.map((data, index) => (
         <SwiperSlide className="my-auto py-30" key={index}>
-          {({isActive}) => <CarouselItem {...data} isActive={isActive} />}
+          {({isActive}) => <CarouselItem data={data} isActive={isActive} />}
         </SwiperSlide>
       ))}
       {rightButton}
@@ -58,5 +75,5 @@ const Carousel = <T extends object>({
   );
 };
 
-
 export default Carousel;
+export type {CarouselItemProps};

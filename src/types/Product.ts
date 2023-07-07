@@ -4,7 +4,7 @@ type Product = {
   title: string,
   description: string,
   shortDescription?: string | "",
-  image: string[] | StaticImageData[],
+  images: (string | StaticImageData)[];
   price: number,
 }
 
