@@ -1,14 +1,14 @@
 "use client";
 
 import "../../globals.css";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar/Navbar";
-import Container from "@/components/Container";
+import Footer from "@/components/common/footer/Footer";
+import Navbar from "@/components/common/navbar/Navbar";
+import Container from "@/components/common/Container";
 import React, {useRef, useState} from "react";
 import Image from "next/image";
 import Product from "@/types/Product";
 import {productData} from "@/dummyProductData";
-import Button from "@/components/Button";
+import Button from "@/components/common/Button";
 import {BsZoomIn} from "react-icons/bs";
 import {LiaTimesSolid} from "react-icons/lia";
 

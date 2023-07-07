@@ -1,10 +1,10 @@
 import React, {HTMLInputTypeAttribute} from "react";
 import "../globals.css";
-import Navbar from "@/components/Navbar/Navbar";
-import Container from "@/components/Container";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/common/navbar/Navbar";
+import Container from "@/components/common/Container";
+import Footer from "@/components/common/footer/Footer";
 import Product from "@/types/Product";
-import Button from "@/components/Button";
+import Button from "@/components/common/Button";
 import Image from "next/image";
 
 type inputField = {

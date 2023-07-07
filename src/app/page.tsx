@@ -1,18 +1,18 @@
-import Navbar from "@/components/Navbar/Navbar";
-import Main from "@/components/Main";
 import "./globals.css";
-import Category from "@/components/Category";
-import NewArrival from "@/components/NewArrival";
-import About from "@/components/About";
-import Feature from "@/components/Feature";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/common/navbar/Navbar";
+import Category from "@/components/page-components/home/category/Category";
+import About from "@/components/page-components/home/about/About";
+import Feature from "@/components/page-components/home/feature/Feature";
+import NewArrival from "@/components/page-components/home/new-product/NewProduct";
+import Footer from "@/components/common/footer/Footer";
+import LandingCarousel from "@/components/page-components/home/landing-carousel/LandingCarousel";
 
 const Home = () => {
   return (
-    <div>
+    <div className="flex flex-col">
       <div className="flex flex-col h-screen">
         <Navbar />
-        <Main />
+        <LandingCarousel />
       </div>
 
       <Category />

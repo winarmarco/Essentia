@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import "../globals.css";
-import Navbar from "@/components/Navbar/Navbar";
-import Container from "@/components/Container";
-import Footer from "@/components/Footer";
-import Button from "@/components/Button";
+import Navbar from "@/components/common/navbar/Navbar";
+import Container from "@/components/common/Container";
+import Footer from "@/components/common/footer/Footer";
+import Button from "@/components/common/Button";
 import Product from "@/types/Product";
 import Image from "next/image";
 

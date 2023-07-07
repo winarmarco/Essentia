@@ -1,9 +1,9 @@
-import Navbar from "@/components/Navbar/Navbar";
+import Navbar from "@/components/common/navbar/Navbar";
 import "../globals.css";
 import React from "react";
-import Container from "@/components/Container";
+import Container from "@/components/common/Container";
 import Product from "@/types/Product";
-import Footer from "@/components/Footer";
+import Footer from "@/components/common/footer/Footer";
 import { productData } from "@/dummyProductData";
 import Image from "next/image";
 

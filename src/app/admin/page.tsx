@@ -2,7 +2,7 @@
 
 import React, {Fragment, useEffect, useMemo, useRef, useState} from "react";
 import "../globals.css";
-import Navbar from "@/components/Navbar/Navbar";
+import Navbar from "@/components/common/navbar/Navbar";
 import {AiFillEdit, AiOutlineDown} from "react-icons/ai";
 import {SlGraph} from "react-icons/sl";
 import {ChartData, ChartOptions} from "chart.js";
@@ -11,10 +11,10 @@ import {CategoryScale, TimeScale} from "chart.js";
 import Chart from "chart.js/auto";
 import "chartjs-adapter-moment";
 import {ColumnDef} from "@tanstack/react-table";
-import DataTable from "@/components/DataTable/DataTable";
+import DataTable from "@/components/common/DataTable/DataTable";
 import {LiaTimesSolid} from "react-icons/lia";
 import Image from "next/image";
-import Button from "@/components/Button";
+import Button from "@/components/common/Button";
 import Product from "@/types/Product";
 import {productData} from "@/dummyProductData";
 import {spawn} from "child_process";
