@@ -7,10 +7,9 @@ import Carousel from "@/components/common/carousel/Carousel";
 type ProductDetailsCarouselProps = {
   images: (string | StaticImageData)[];
   initialSlide: number;
-  key?: React.Key;
 }
 
-const ProductDetailsCarousel:  React.FC<ProductDetailsCarouselProps>= ({images, initialSlide, key = 0}) => {
+const ProductDetailsCarousel:  React.FC<ProductDetailsCarouselProps>= ({images, initialSlide}) => {
   return (
     <Carousel
       leftButton={<ModalCarouselLeftButton />}
@@ -21,7 +20,6 @@ const ProductDetailsCarousel:  React.FC<ProductDetailsCarouselProps>= ({images, 
       paginationBulletInactiveColor="rgb(75 85 99)"
       paginationBottomPadding="2rem"
       initialSlide={initialSlide}
-      key={key}
     />
   );
 };

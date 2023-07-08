@@ -10,7 +10,7 @@ const ProductDetailsDescription: React.FC<Product>= ({name, description, price})
         {description.trim()}
       </p>
       <span className="mt-10">Price : {`$ ${price}`}</span>
-      <Button className="mt-20">Add to cart + </Button>
+      <Button className="mt-20" filled>Add to cart + </Button>
     </div>
   );
 };
