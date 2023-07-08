@@ -1,8 +1,9 @@
 import { StaticImageData } from "next/image";
 
 type Product = {
-  title: string,
+  name: string,
   description: string,
+  category: string,
   shortDescription?: string | "",
   images: (string | StaticImageData)[];
   price: number,

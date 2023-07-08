@@ -49,7 +49,7 @@ const ProductDetails: React.FC<{product: Product}> = (props) => {
         <Navbar />
       </Header>
 
-      <Main>
+      <Main className="flex-grow">
         <Container className="w-full flex flex-col pt-10">
           <span>{"Product > Chair"}</span>
           <div className="flex flex-col md:flex-row w-full flex-grow gap-x-6 ">

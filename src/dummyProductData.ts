@@ -2,7 +2,7 @@ import Product from "./types/Product";
 
 const productData: Product[] = [
   {
-    title: "Aria",
+    name: "Aria",
     images: [
       "/image 43.jpg",
       "/image 19.png",
@@ -15,50 +15,57 @@ const productData: Product[] = [
     Elevate your living space with the refined beauty of "Aria." Its meticulously crafted frame, carefully selected fabrics, and captivating presence enhance any room's aesthetic, creating a sanctuary of tranquility and style. Let "Aria" be your haven of relaxation, where design and comfort harmoniously coexist.
     `,
     price: 500.0,
+    category: "Sofa",
     shortDescription:
       "Seamlessly blends grace and comfort. With its sleek design and plush uphostery, “Aria” invites you to unwind in effortless elegance, enveloped in a world of tranquility and style",
   },
   {
-    title: "Cosette",
+    name: "Cosette",
     images: ["/image 6.png", "/image 44.jpg"],
     description:
       "Experience the epitome of refine luxury with the exquisite  “Cosette” sofa, where elegance meets  uparalleld comfort",
     price: 400.0,
+    category: "Sofa",
   },
   {
-    title: "Cosette",
+    name: "Cosette",
     images: ["/image 6.png", "/image 44.jpg"],
     description:
       "Experience the epitome of refine luxury with the exquisite  “Cosette” sofa, where elegance meets  uparalleld comfort",
     price: 400.0,
+    category: "Sofa",
   },
   {
-    title: "Cosette",
+    name: "Cosette",
     images: ["/image 6.png", "/image 44.jpg"],
     description:
       "Experience the epitome of refine luxury with the exquisite  “Cosette” sofa, where elegance meets  uparalleld comfort",
     price: 400.0,
+    category: "Sofa",
   },
   {
-    title: "Cosette",
+    name: "Cosette",
     images: ["/image 6.png", "/image 44.jpg"],
     description:
       "Experience the epitome of refine luxury with the exquisite  “Cosette” sofa, where elegance meets  uparalleld comfort",
     price: 400.0,
+    category: "Sofa",
   },
   {
-    title: "Cosette",
+    name: "Cosette",
     images: ["/image 6.png", "/image 44.jpg"],
     description:
       "Experience the epitome of refine luxury with the exquisite  “Cosette” sofa, where elegance meets  uparalleld comfort",
     price: 400.0,
+    category: "Sofa",
   },
   {
-    title: "Cosette",
+    name: "Cosette",
     images: ["/image 6.png", "/image 44.jpg"],
     description:
       "Experience the epitome of refine luxury with the exquisite  “Cosette” sofa, where elegance meets  uparalleld comfort",
     price: 400.0,
+    category: "Sofa",
   },
 ];
 

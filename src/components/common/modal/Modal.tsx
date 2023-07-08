@@ -13,7 +13,7 @@ const Modal: React.FC<Modal> = ({children, visible = false, closeModal}) => {
   return (
     <Container
       className={`fixed inset-0 items-center justify-center z-50 h-screen transition-all duration-500 flex ${
-        visible ? "opacity-100 visible" : "opacity-0 invisible hidden"
+        visible ? "opacity-100 visible" : "opacity-0 invisible"
       }`}
     >
       <div className="absolute inset-0 bg-white opacity-90 bg-gray flex items-center justify-center transition-opacity"></div>
@@ -27,8 +27,8 @@ const Modal: React.FC<Modal> = ({children, visible = false, closeModal}) => {
       </div>
 
       <div
-        className={`relative z-20 h-full pb-10 w-full md:w-[70%] ${
-          visible ? "opacity-100 visible" : "opacity-0 invisible hidden"
+        className={`relative z-20 h-full pb-10 w-full md:w-[70%] transition-all duration-500 ${
+          visible ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
         {children}
