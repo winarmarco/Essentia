@@ -25,7 +25,7 @@ type CarouselProps<T> = {
   paginationInactiveOpacity?: number | undefined;
 };
 
-const Carousel = <T extends any>({
+const Carousel = <T extends object>({
   leftButton,
   rightButton,
   datas,
