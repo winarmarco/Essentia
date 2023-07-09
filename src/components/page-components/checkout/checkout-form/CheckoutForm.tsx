@@ -6,21 +6,8 @@ import ShippingDetails from "../ShippingDetails.tsx/ShippingDetails";
 import PaymentMethod from "../PaymentMethod/PaymentMethod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Button from "@/components/common/Button";
+import { CustomerType } from "@/types/Customer";
 
-interface CheckoutFormData {
-  "first-name": String;
-  "last-name": String;
-  country: String;
-  address: String;
-  "apartment-number": String;
-  town: String;
-  state: String;
-  "zip-code": String;
-  "email-address": String;
-  "card-number": String;
-  "card-expiry": String;
-  "card-csc": String;
-}
 
 const CheckoutForm = () => {
   const {
@@ -28,9 +15,9 @@ const CheckoutForm = () => {
     handleSubmit,
     formState: {errors},
     setValue,
-  } = useForm<CheckoutFormData>();
+  } = useForm<CustomerType>();
 
-  const onSubmit: SubmitHandler<CheckoutFormData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<CustomerType> = (data) => console.log(data);
 
   return (
     <form
@@ -49,5 +36,3 @@ const CheckoutForm = () => {
 };
 
 export default CheckoutForm;
-
-export type {CheckoutFormData};

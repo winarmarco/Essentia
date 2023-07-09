@@ -1,12 +1,12 @@
 import Section from "@/components/common/section/section";
-import CheckoutFormInputField from "../checkout-form-input-field/CheckoutFormInputField";
+import CheckoutFormInputField from "../checkout-form/CheckoutFormInputField";
 import {UseFormRegister, UseFormSetValue} from "react-hook-form";
-import {CheckoutFormData} from "../checkout-form/CheckoutForm";
 import { formatCardNumber, formatExpiryDate } from "@/utils/functions/Formatter";
+import { CustomerType } from "@/types/Customer";
 
 const PaymentMethod: React.FC<{
-  registerForm: UseFormRegister<CheckoutFormData>;
-  setValue: UseFormSetValue<CheckoutFormData>;
+  registerForm: UseFormRegister<CustomerType>;
+  setValue: UseFormSetValue<CustomerType>;
 }> = ({registerForm, setValue}) => {
   return (
     <Section className="flex flex-col gap-y-5">

@@ -1,12 +1,12 @@
 import Section from "@/components/common/section/section";
 import React from "react";
-import CheckoutFormInputField from "../checkout-form-input-field/CheckoutFormInputField";
+import CheckoutFormInputField from "../checkout-form/CheckoutFormInputField";
 import {FieldValues, UseFormRegister} from "react-hook-form";
-import {CheckoutFormData} from "../checkout-form/CheckoutForm";
+import { CustomerType } from "@/types/Customer";
 
 
 const ShippingDetails: React.FC<{
-  registerForm: UseFormRegister<CheckoutFormData>;
+  registerForm: UseFormRegister<CustomerType>;
 }> = ({registerForm}) => {
   return (
     <Section className="flex flex-col gap-y-5">

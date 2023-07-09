@@ -1,4 +1,5 @@
 import DiscountType from "@/types/DiscountType";
+import InvoiceType from "@/types/Invoice";
 import ShoppingCartType from "@/types/ShoppingCart";
 
 const calculateSubtotals = (cart: ShoppingCartType) => {
@@ -27,5 +28,12 @@ const calculateDiscountDollar = (subtotal: number, discount: DiscountType) => {
   return discountAmount;
 };
 
+const calculateTotal = (invoice: InvoiceType) => {
+  const subtotals = calculateSubtotals(invoice.cart);
+  const discountDollarAmount = calculateDiscountDollar(subtotals, invoice.discount);
 
-export {calculateDiscountDollar, calculateSubtotals};
+  return Math.round(subtotals - discountDollarAmount);
+}
+
+
+export {calculateDiscountDollar, calculateSubtotals, calculateTotal};

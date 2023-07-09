@@ -3,7 +3,7 @@ import ShoppingCartType from "./ShoppingCart"
 
 type InvoiceType = {
   cart: ShoppingCartType;
-  discount?: DiscountType;
+  discount: DiscountType;
 }
 
 export default InvoiceType
