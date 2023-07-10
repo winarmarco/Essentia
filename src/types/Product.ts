@@ -5,7 +5,9 @@ type Product = {
   description: string,
   category: string,
   shortDescription?: string | "",
-  images: (string | StaticImageData)[];
+  images: string[];
+  featuredOnLandingCarousel?: boolean,
+  newProduct?: boolean,
   price: number,
 }
 

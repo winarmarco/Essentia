@@ -11,8 +11,9 @@ enum OrderStatus {
 type Order = {
   orderID: string;
   DateOrdered: Date;
+  DateCompleted?: Date;
   customer: CustomerType;
-  cart: InvoiceType;
+  invoice: InvoiceType;
   status: OrderStatus;
 }
 

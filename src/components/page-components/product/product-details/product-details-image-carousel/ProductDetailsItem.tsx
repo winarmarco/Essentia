@@ -1,9 +1,10 @@
-import Image, { StaticImageData } from "next/image";
-import { CarouselItemProps } from "@/components/common/carousel/Carousel";
+import Image, {StaticImageData} from "next/image";
+import {CarouselItemProps} from "@/components/common/carousel/Carousel";
+import Product from "@/types/Product";
 
-
-const ProductDetailsCarouselItem: React.FC<CarouselItemProps<string | StaticImageData>> = ({data, isActive}) => {
-
+const ProductDetailsCarouselItem: React.FC<
+  CarouselItemProps<string>
+> = ({data, isActive}) => {
   return (
     <div
       className={`px-10 md:px-20 items-center justify-center h-full ${

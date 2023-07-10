@@ -24,7 +24,7 @@ const Invoice: React.FC<{invoice: InvoiceType, title?: string}> = ({invoice, tit
   let total = subtotal - discountDollarAmount;
 
   return (
-    <div className="flex flex-col p-5 pt-[3rem] border border-gray-200">
+    <div className="flex flex-col p-5 pt-[3rem] border border-gray-200 max-w-[600px]">
       <h2 className="text-3xl font-semibold">{title}</h2>
 
       <div className="flex flex-col mt-5">

@@ -1,16 +1,16 @@
 interface CustomerType {
-  "first-name": String;
-  "last-name": String;
-  country: String;
-  address: String;
-  "apartment-number": String;
-  town: String;
-  state: String;
-  "zip-code": String;
-  "email-address": String;
-  "card-number": String;
-  "card-expiry": String;
-  "card-csc": String;
+  "first-name": string;
+  "last-name": string;
+  country: string;
+  address: string;
+  "apartment-number": string;
+  town: string;
+  state: string;
+  "zip-code": string;
+  "email-address": string;
+  "card-number": string;
+  "card-expiry": string;
+  "card-csc": string;
 }
 
 

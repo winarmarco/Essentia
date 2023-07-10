@@ -1,7 +1,7 @@
 import Section from "@/components/common/section/section";
 import CheckoutFormInputField from "../checkout-form/CheckoutFormInputField";
 import {UseFormRegister, UseFormSetValue} from "react-hook-form";
-import { formatCardNumber, formatExpiryDate } from "@/utils/functions/Formatter";
+import { formatCardNumber, formatExpiryDate } from "@/utils/functions/InputFormatter";
 import { CustomerType } from "@/types/Customer";
 
 const PaymentMethod: React.FC<{

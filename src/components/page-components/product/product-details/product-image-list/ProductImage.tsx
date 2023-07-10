@@ -1,8 +1,8 @@
 import React from "react";
 import {BsZoomIn} from "react-icons/bs";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
-const ProductImage: React.FC<{image: string | StaticImageData, className?: string, zoomHandler: () => void}> = ({image, className = "", zoomHandler}) => {
+const ProductImage: React.FC<{image: string, className?: string, zoomHandler: () => void}> = ({image, className = "", zoomHandler}) => {
   return (
     <div className={`w-full mt-10 relative group cursor-pointer ${className}}`} onClick={zoomHandler}>
       <div

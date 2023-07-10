@@ -1,13 +1,11 @@
 import {OrderSummary} from "@/types/Order";
 import {ChartData} from "chart.js";
-import {useMemo} from "react";
 import StatisticBox from "./StatisticBox";
 import {Line} from "react-chartjs-2";
-import DataTable from "@/components/common/DataTable/DataTable";
 import {salesTrendsDummyData} from "@/utils/dummy-data/StatisticAdmin";
 import {recentOrderDummyData} from "@/utils/dummy-data/RecentOrder";
-import recentOrderColumns from "./RecentOrderTableHeader";
 import chartOptions from "./StatisticChartOptions";
+import OrderTable from "../order/OrderTable/OrderTable";
 
 type StatisticAdminProps = {
   totalSales?: number;
@@ -22,8 +20,6 @@ const StatisticAdmin: React.FC<StatisticAdminProps> = ({
   salesTrendsData = salesTrendsDummyData,
   recentOrderData = recentOrderDummyData,
 }) => {
-
-  const columns = useMemo(() => recentOrderColumns,[]);
 
   return (
     <div className="grid grid-cols-2 gap-x-4 gap-y-5">
@@ -40,7 +36,7 @@ const StatisticAdmin: React.FC<StatisticAdminProps> = ({
         className="col-span-2"
         title="Recent Order"
         titleClass="font-semibold mb-8"
-        content={<DataTable data={recentOrderData} columns={columns} />}
+        content={<OrderTable ordersData={recentOrderData}/>}
       />
     </div>
   );

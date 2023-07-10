@@ -25,7 +25,7 @@ type CarouselProps<T> = {
   paginationInactiveOpacity?: number | undefined;
 };
 
-const Carousel = <T extends object>({
+const Carousel = <T extends any>({
   leftButton,
   rightButton,
   datas,
@@ -67,7 +67,7 @@ const Carousel = <T extends object>({
       {leftButton}
       {datas.map((data, index) => (
         <SwiperSlide className="my-auto py-30" key={index}>
-          {({isActive}) => <CarouselItem data={data} isActive={isActive} />}
+          {({isActive}) => <CarouselItem data={data} isActive={(datas.length === 1) ? true : isActive} />}
         </SwiperSlide>
       ))}
       {rightButton}

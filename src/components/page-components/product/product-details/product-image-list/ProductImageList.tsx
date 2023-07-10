@@ -4,7 +4,7 @@ import Image, {StaticImageData} from "next/image";
 import ProductImage from "./ProductImage";
 
 const ProductImageList: React.FC<{
-  images: (string | StaticImageData)[];
+  images: (string)[];
   zoomImage: (imageIndex: number) => void;
 }> = ({images, zoomImage}) => {
   return (
