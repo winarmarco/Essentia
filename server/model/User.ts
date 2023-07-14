@@ -1,37 +1,42 @@
-import { Document, Schema, model } from "mongoose";
-import { ICart } from "./Cart";
-import { IInvoice } from "./Invoice";
+import {Document, Error, HydratedDocument, Model, Schema, model} from "mongoose";
+import Cart, {ICart} from "./Cart";
+import {IInvoice} from "./Invoice";
+import {compare, genSalt, hash} from "bcryptjs";
+import ShippingAddress, { IShippingAddress } from "./ShippingAddress";
 
 enum UserRole {
   ADMIN = "ADMIN",
   CUSTOMER = "CUSTOMER",
 }
 
-interface UserAddressType {
-  streetAddress: string,
-  apartmentNumber: string,
-  town: string,
-  zipCode: string,
-}
-
 interface IUser extends Document {
-  role: UserRole,
-  firstName: string,
-  lastName: string,
-  email: string,
-  address: UserAddressType,
-  password: string,
-  cart: ICart["_id"],
+  role: UserRole;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  address: IShippingAddress["_id"];
+  password: string;
+  cart: ICart["_id"];
   history: IInvoice["_id"][];
 }
 
-const UserSchema: Schema<IUser> = new Schema({
+interface IUserMethods {}
+
+interface UserModel extends Model<IUser, {}, IUserMethods> {
+  signIn(
+    email: string,
+    password: string
+  ): Promise<HydratedDocument<IUser, IUserMethods>>;
+}
+
+const UserSchema: Schema<IUser, UserModel, IUserMethods> = new Schema({
   role: {
     type: String,
-    enum: Object.values(UserRole),
+    enum: {values: Object.values(UserRole), message: '{VALUE} is not supported'},
   },
   firstName: {
-    type : String,
+    type: String,
     required: true,
   },
   lastName: {
@@ -41,41 +46,97 @@ const UserSchema: Schema<IUser> = new Schema({
   email: {
     type: String,
     required: true,
+    validate: {
+      validator: function(v: string) {
+        const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return EMAIL_REGEX.test(v);
+      },
+      message: props => `${props.value} is not a valid email!`
+    },
+    unique: true,
   },
   address: {
-    type: {
-      streetAddress: {
-        type: String,
-        required: true,
-      },
-      apartmentNumber: {
-        type: String,
-      },
-      town: {
-        type: String,
-        required: true,
-      },
-      zipCode: {
-        type: String,
-        required: true,
-      }
-    },
+    type: Schema.Types.ObjectId,
+    ref: "ShippingAddress",
+    required: false,
   },
   password: {
     type: String,
     required: true,
   },
+  phoneNumber: {
+    type: String,
+    validate: {
+      validator: function(v: string) {
+        const PHONE_NUMBER_REGEX = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+        return PHONE_NUMBER_REGEX.test(v);
+      },
+      message: props => `${props.value} is not a valid phone number`,
+    },
+    required: true,
+  },
   cart: {
     type: Schema.Types.ObjectId,
-    ref: 'Cart',
+    ref: "Cart",
+    default: null,
   },
-  history: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Invoice',
-  }]
-})
+  history: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Invoice",
+    },
+  ],
+});
 
-const User = model<IUser>("User", UserSchema);
+
+UserSchema.static("signIn", async function signIn(email: string, password: string) {
+  try {
+    // First find user with given email
+    const user = await User.findOne({email});
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+    
+    // Compare with the encrypted password
+    const match = await compare(password, user.password);
+
+    if (!match) {
+      throw new Error("No user with that credentials");
+    }
+
+    return user;
+  } catch (err) {
+    throw err;
+  }
+});
+
+
+UserSchema.pre("save", async function (next) {
+  try {
+    const user = this;
+
+    // hashPassword
+    if (!user.isModified("password")) return next();
+
+    const salt = await genSalt(10);
+    const hashedPassword = await hash(user.password, salt);
+    user.password = hashedPassword;
+    
+    // create new cart for a new user
+    if (!user.cart) {
+      const newCart = new Cart();
+      const cart = await newCart.save();
+      user.cart = cart._id;
+    }
+
+    next();
+  } catch (err) {
+    next(new Error("Unknown error occured during password hashing."));
+  }
+});
+
+const User = model<IUser, UserModel>("User", UserSchema);
 
 export default User;
 export type {IUser};

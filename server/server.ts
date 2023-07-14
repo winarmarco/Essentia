@@ -2,13 +2,14 @@ import express from "express";
 import next from "next";
 import mongoose from "mongoose";
 import { Request, Response } from "express";
+import { userRouter } from "./routes/User";
 // const Note = require('./models/Note');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-mongoose.connect('mongodb://localhost/notes');
+mongoose.connect('mongodb://localhost:27017/essentia');
 
 app.prepare().then(() => {
   const server = express();
@@ -30,23 +31,7 @@ app.prepare().then(() => {
   //   res.json(savedNote);
   // });
 
-  server.get('/api/data', async (req: Request, res: Response) => {
-    const secretKey = req.headers['x-secret-key'];
-
-    if (secretKey !== "ABCD") {
-      return res.status(403).json({ error: "Unauthorized" });
-    }
-
-    const data = [{
-      _id: 1,
-      name: "Adam",
-    }, {
-      _id: 2,
-      name: "Amelia",
-    }]
-    console.log("Requested");
-    return res.status(200).json(data);
-  })
+  server.use('/api/', userRouter);
 
   server.all('*', (req: Request, res: Response) => {
     if (!req.path.match(/.\.(css|js|jpg|png)$/)) {
@@ -61,3 +46,4 @@ app.prepare().then(() => {
 }).catch((err: Error) => {
   console.log('Error:::::', err);
 });
+
