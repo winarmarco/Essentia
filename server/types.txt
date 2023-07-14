@@ -1,0 +1,82 @@
+type Category = {
+  name: String, // unique
+  key: String,
+};
+
+type Product = {
+  name: String,
+  price: Number,
+  stockQuantity: Number,
+  category: Category,
+  showOnLandingCarousel: Boolean,
+  newProduct: Boolean,
+  description: String,
+  shortDescrtiption: String,
+  images: Blob[], // min 2
+}
+
+enum UserRole  {
+  ADMIN = "Admin",
+  CUSTOMER = "Customer",
+}
+
+type UserAddressType = {
+  streetAddress: string,
+  apartmentNumber: string,
+  town: string,
+  zipCode: string,
+}
+
+type User = {
+  role : UserRole,
+  firstName: string,
+  lastName: string,
+  email: string,
+  address: UserAddressType,
+  cart: Cart,
+  history: Invoice,
+}
+
+type Cart = {
+  items: {
+    item: Product,
+    quantity: number,
+  }[],
+  countSubtotal: () => number,
+}
+
+type DiscountCode = {
+  discountCode: String, // unique
+  validStarts: Date,
+  validEnds: Date,
+  discountAmount: Number,
+  percentAmount: Boolean,
+  maxDiscountDollar: Number,
+  calculateDiscountDollar: (subTotal: number) => number;
+}
+
+type Invoice = {
+  cart: Cart,
+  discount: DiscountCode,
+  calculateTotal: () => Number;
+}
+
+enum OrderStatus {
+  Pending = "Pending",
+  Completed = "Completed",
+  Canelled = "Cancelled",
+}
+
+type Order = {
+  customer: User,
+  invoice: Invoice,
+  dateOrdrered: Date,
+  dateCompleted?: Date,
+  status: OrderStatus;
+}
+
+
+
+
+
+

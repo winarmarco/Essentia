@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/common/navbar/Navbar";
 import "../globals.css";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Container from "@/components/common/Container";
 import Product from "@/types/Product";
 import Footer from "@/components/common/footer/Footer";
@@ -12,8 +12,34 @@ import ProductCard from "@/components/page-components/product/product-card/Produ
 import ProductCateogoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
 import Header from "@/components/common/header/Header";
 import Main from "@/components/common/main/Main";
+import { GetStaticProps } from "next";
 
-const Products = () => {
+type Data = {
+  _id: Number,
+  name: String,
+}
+
+const Products: React.FC<Data> = (props) => {
+  const [data, setData] = useState<Data[]>([]);
+  useEffect(() => { 
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:3000/api/data", {
+        headers: {
+          "x-secret-key": "ABCD",
+        },
+        cache: "no-store",
+      })
+
+      const data = await res.json();
+
+      setData(data);
+    }
+    
+    fetchData();
+  }, []);
+
+  console.log(data);
+
   const [selectedFilter, setSelectedFilter] = useState(0);
 
   return (
@@ -51,5 +77,6 @@ const Products = () => {
     </div>
   );
 };
+
 
 export default Products;
