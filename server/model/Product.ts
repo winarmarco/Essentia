@@ -10,7 +10,7 @@ interface IProduct extends Document {
   newProduct: boolean,
   description: string,
   shortDescription: string,
-  images: URL,
+  images: string[],
 }
 
 const ProductSchema: Schema<IProduct> = new Schema({
@@ -25,6 +25,7 @@ const ProductSchema: Schema<IProduct> = new Schema({
   stockQuantity: {
     type: Number,
     required: true,
+    default: 0,
   },
   category: {
     type: Schema.Types.ObjectId,
@@ -33,7 +34,7 @@ const ProductSchema: Schema<IProduct> = new Schema({
   },
   newProduct: {
     type: Boolean,
-    required: true,
+    default: false,
   },
   description: {
     type: String,
@@ -41,9 +42,10 @@ const ProductSchema: Schema<IProduct> = new Schema({
   },
   shortDescription: {
     type: String,
+    default: "",
   },
   images: [{
-    type: URL,
+    type: String,
     required: true,
   }]
 })

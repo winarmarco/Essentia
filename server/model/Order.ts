@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 import { IInvoice } from "./Invoice";
 import { IUser } from "./User";
+import { IShippingAddress } from "./ShippingAddress";
 
 enum OrderStatus {
   PENDING = "Pending",
@@ -10,7 +11,7 @@ enum OrderStatus {
 
 
 interface IOrder {
-  customer: IUser["_id"],
+  shippingAddress: IShippingAddress;
   invoice: IInvoice["_id"];
   dateOrdered: Date;
   dateCompleted: Date;
@@ -18,7 +19,7 @@ interface IOrder {
 }
 
 const OrderSchema: Schema<IOrder> = new Schema({
-  customer: {type: Schema.Types.ObjectId, ref: 'User'},
+  shippingAddress: {type: Schema.Types.ObjectId, ref: 'ShippingAddress', required: true},
   invoice: {type: Schema.Types.ObjectId, ref: 'Invoice'},
   dateOrdered: {type: Date, required: true},
   dateCompleted: {type: Date},

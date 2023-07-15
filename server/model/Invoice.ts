@@ -13,7 +13,8 @@ const InvoiceSchema: Schema<IInvoice> = new Schema({
     required: true,
   },
   discountCode: {
-    type: DiscountCode,
+    type: Schema.Types.ObjectId,
+    ref: "DiscountCode",
   }
 })
 

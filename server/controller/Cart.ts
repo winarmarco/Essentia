@@ -2,24 +2,15 @@ import { NextFunction, Request, Response } from "express";
 import Order from "../model/Order";
 import { NotFoundError } from "../utils/Errors/NotFoundError";
 import Cart from "../model/Cart";
-
-export const createCart = (req: Request, res: Response, next: NextFunction) => {
-  const newCart = new Cart(req.body.cart);
-
-  try {
-    const cart = newCart.save();
-
-    res.json(cart);
-  } catch (error) {
-    next(error);
-  }
-}
+import User from "../model/User";
 
 export const getCart = async (req: Request, res: Response, next: NextFunction) => {
-  const { cartId } = req.params;
+  const { _id : userId } = req.body.user;
 
   try {
-    const cart = await Cart.findById(cartId);
+    const user = await User.findById(userId).populate("cart");
+    const cart = user?.cart;
+    console.log(user);
 
     if (!cart) throw new NotFoundError("Cart not found!");
 
@@ -30,10 +21,13 @@ export const getCart = async (req: Request, res: Response, next: NextFunction) =
 }
 
 export const updateCart = async (req: Request, res: Response, next: NextFunction) => {
-  const { cartId } = req.params;
+  const { _id: userId } = req.body.user;
+
 
   try {
-    const cart = await Cart.findByIdAndUpdate(cartId, req.body.cart);
+    const user = await User.findById(userId).populate("cart");
+    const cart = user?.cart;
+    
 
     if (!cart) throw new NotFoundError("Cart not found!");
 

@@ -12,35 +12,33 @@ import ProductCard from "@/components/page-components/product/product-card/Produ
 import ProductCateogoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
 import Header from "@/components/common/header/Header";
 import Main from "@/components/common/main/Main";
-import { GetStaticProps } from "next";
+import {GetStaticProps} from "next";
+import {IProduct} from "../../../server/model/Product";
 
-type Data = {
-  _id: Number,
-  name: String,
-}
+export const fetchProductData = async () => {
+  try {
+    const response = await fetch("http://localhost:3000/api/products", {
+      cache: "no-store",
+    });
+    const data = await response.json();
 
-const Products: React.FC<Data> = (props) => {
-  const [data, setData] = useState<Data[]>([]);
-  useEffect(() => { 
+    return data;
+  } catch (error) {}
+};
+
+const Products = () => {
+  const [products, setProducts] = useState<IProduct[]>();
+  const [selectedFilter, setSelectedFilter] = useState(0);
+
+  useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://localhost:3000/api/data", {
-        headers: {
-          "x-secret-key": "ABCD",
-        },
-        cache: "no-store",
-      })
-
-      const data = await res.json();
-
-      setData(data);
+      const fetchedProducts: IProduct[] = await fetchProductData();
+      setProducts(fetchedProducts);
     }
-    
+
     fetchData();
   }, []);
 
-  console.log(data);
-
-  const [selectedFilter, setSelectedFilter] = useState(0);
 
   return (
     <div className="relative min-h-screen w-full flex flex-col">
@@ -52,22 +50,29 @@ const Products: React.FC<Data> = (props) => {
         </Container>
       </Header>
 
-      <Main>
+      <Main className="flex-grow">
         <Container className="flex-grow h-full w-full">
           <div className="flex flex-row flex-grow w-full h-full">
             <div className="w-1/3 mr-20 sticky top-[12rem] h-full">
               <ProductCateogoryFilter
                 categoryFilters={categoryFilters}
-                selectedFilter={selectedFilter}
+                selectedFilter={0}
                 onSelect={(filter) => {
-                  setSelectedFilter(filter);
+                  console.log(filter); 
                 }}
               />
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6 w-full">
-              {productData.map((product, index) => {
-                return <ProductCard key={index} {...product} />;
+              {products && products.map((product) => {
+                return (
+                  <ProductCard
+                    key={product._id}
+                    name={product.name}
+                    _id={product._id}
+                    images={product.images}
+                  />
+                );
               })}
             </div>
           </div>
@@ -77,6 +82,5 @@ const Products: React.FC<Data> = (props) => {
     </div>
   );
 };
-
 
 export default Products;
