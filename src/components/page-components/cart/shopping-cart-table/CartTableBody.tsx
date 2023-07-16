@@ -1,4 +1,4 @@
-import ShoppingCartType from '@/types/ShoppingCart'
+import ShoppingCartType from '@/utils/types/ShoppingCart'
 import React from 'react'
 import CartTableLine from './CartTableLine'
 

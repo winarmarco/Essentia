@@ -5,10 +5,10 @@ import Container from "@/components/common/Container";
 import Footer from "@/components/common/footer/Footer";
 import Header from "@/components/common/header/Header";
 import Main from "@/components/common/main/Main";
-import ShoppingCart from "@/types/ShoppingCart";
+import ShoppingCart from "@/utils/types/ShoppingCart";
 import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
-import InvoiceType from "@/types/Invoice";
+import InvoiceType from "@/utils/types/Invoice";
 import { invoiceDummyData } from "@/utils/dummy-data/Invoice";
 
 const Cart: React.FC<{invoice: InvoiceType}> = ({invoice}) => {

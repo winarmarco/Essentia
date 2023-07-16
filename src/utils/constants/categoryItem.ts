@@ -1,25 +1,31 @@
-import CategoryItemType from "@/types/CategoryItem";
+import CategoryItemType from "@/utils/types/CategoryItem";
+import { IProductCategory } from "../types";
 
-const categoryItemData: CategoryItemType[] = [
+const categoryItemData: IProductCategory[] = [
   {
-    title: "BEDROOM",
-    href: '/product',
+    _id: "123",
+    name: "BEDROOM",
+    categoryKey: "bedroom",
   },
   {
-    title: "LIVING ROOM",
-    href: '/product',
+    _id: "234",
+    name: "LIVING ROOM",
+    categoryKey: 'living-room'
   },
   {
-    title: "OFFICE",
-    href: '/product',
+    _id: "231",
+    name: "OFFICE",
+    categoryKey: 'office',
   },
   {
-    title: "DINING",
-    href: '/product',
+    _id: "232",
+    name: "DINING",
+    categoryKey: 'dining',
   },
   {
-    title: "OUTDOOR",
-    href: '/product',
+    _id: "125",
+    name: "OUTDOOR",
+    categoryKey: 'outdoor',
   },
 ];
 

@@ -4,9 +4,9 @@ import Navbar from "@/components/common/navbar/Navbar";
 import "../globals.css";
 import React, {useEffect, useState} from "react";
 import Container from "@/components/common/Container";
-import Product from "@/types/Product";
+import Product from "@/utils/types/Product";
 import Footer from "@/components/common/footer/Footer";
-import {productData} from "@/dummyProductData";
+import {productData} from "@/utils/dummy-data/dummyProductData";
 import categoryFilters from "@/utils/constants/categoryFilter";
 import ProductCard from "@/components/page-components/product/product-card/ProductCard";
 import ProductCateogoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
@@ -56,9 +56,9 @@ const Products = () => {
             <div className="w-1/3 mr-20 sticky top-[12rem] h-full">
               <ProductCateogoryFilter
                 categoryFilters={categoryFilters}
-                selectedFilter={0}
+                selectedFilter={selectedFilter}
                 onSelect={(filter) => {
-                  console.log(filter); 
+                  setSelectedFilter(filter);
                 }}
               />
             </div>

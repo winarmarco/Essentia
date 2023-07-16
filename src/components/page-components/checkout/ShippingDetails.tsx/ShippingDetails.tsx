@@ -2,7 +2,7 @@ import Section from "@/components/common/section/section";
 import React from "react";
 import CheckoutFormInputField from "../checkout-form/CheckoutFormInputField";
 import {FieldValues, UseFormRegister} from "react-hook-form";
-import { CustomerType } from "@/types/Customer";
+import { CustomerType } from "@/utils/types/Customer";
 
 
 const ShippingDetails: React.FC<{

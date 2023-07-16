@@ -62,11 +62,14 @@ const Carousel = <T extends any>({
     modules: [EffectFade, Navigation, Pagination],
   };
 
+
+
   return (
     <Swiper {...settings}>
       {leftButton}
       {datas.map((data, index) => (
         <SwiperSlide className="my-auto py-30" key={index}>
+          {/* if datas length is only one, it must be active */}
           {({isActive}) => <CarouselItem data={data} isActive={(datas.length === 1) ? true : isActive} />}
         </SwiperSlide>
       ))}

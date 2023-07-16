@@ -1,4 +1,4 @@
-import FooterItemProps from "@/types/FooterItem";
+import FooterItemProps from "@/utils/types/FooterItem";
 import {AiOutlineFacebook, AiOutlineInstagram, AiOutlinePhone } from "react-icons/ai"
 import {CiLocationOn} from "react-icons/ci";
 

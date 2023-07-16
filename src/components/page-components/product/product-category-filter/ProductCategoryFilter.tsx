@@ -1,5 +1,5 @@
-import CategoryFilterType from "@/types/CategoryFilter";
-import CategoryItemType from "@/types/CategoryItem";
+import CategoryFilterType from "@/utils/types/CategoryFilter";
+import CategoryItemType from "@/utils/types/CategoryItem";
 import React from "react";
 import ProductCategoryFilterList from "./ProductCategoryFilterList";
 

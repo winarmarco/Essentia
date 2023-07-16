@@ -1,4 +1,4 @@
-import CategoryFilterType from "@/types/CategoryFilter";
+import CategoryFilterType from "@/utils/types/CategoryFilter";
 
 const categoryFilters: CategoryFilterType[] = [
   {

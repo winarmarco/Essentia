@@ -1,4 +1,4 @@
-import Product from "@/types/Product";
+import Product from "@/utils/types/Product";
 import Image from "next/image";
 import Link from "next/link";
 

@@ -1,10 +1,10 @@
 import React from "react";
 import InvoiceProductList from "./InvoiceProductList";
-import ShoppingCart from "@/types/ShoppingCart";
+import ShoppingCart from "@/utils/types/ShoppingCart";
 import InvoiceLine from "./InvoiceLine";
 import InvoiceSubtotals from "./InvoiceSubtotals";
-import InvoiceType from "@/types/Invoice";
-import DiscountType from "@/types/DiscountType";
+import InvoiceType from "@/utils/types/Invoice";
+import DiscountType from "@/utils/types/DiscountType";
 import InvoiceTotal from "./InvoiceTotal";
 import {
   calculateDiscountDollar,

@@ -20,8 +20,8 @@ const Category = () => {
           </h1>
         </div>
         <ul className="flex-1 justify-between h-full flex flex-col mt-10">
-          {categoryItemData.map((item, index) => (
-            <CategoryItem key={index} {...item}/>
+          {categoryItemData.map((item) => (
+            <CategoryItem key={item._id} {...item} />
           ))}
         </ul>
       </div>

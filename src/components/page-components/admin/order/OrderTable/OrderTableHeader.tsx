@@ -1,4 +1,4 @@
-import {OrderSummary} from "@/types/Order";
+import {OrderSummary} from "@/utils/types/Order";
 import {ColumnDef} from "@tanstack/react-table";
 import {useEffect, useMemo, useState} from "react";
 import { formatDate } from "@/utils/functions/DateFormatter";

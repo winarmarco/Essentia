@@ -1,5 +1,5 @@
 import DataTable from "@/components/common/DataTable/DataTable";
-import {OrderSummary} from "@/types/Order";
+import {OrderSummary} from "@/utils/types/Order";
 import React, {useMemo} from "react";
 import orderTableColumns from "./OrderTableHeader";
 

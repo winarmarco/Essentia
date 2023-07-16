@@ -1,15 +1,21 @@
 import { CarouselItemProps } from "@/components/common/carousel/Carousel";
-import LandingCarouselType from "@/types/LandingCarousel";
+import IProduct from "@/utils/types/Product";
 import Image from "next/image";
 
-const LandingCarouselItem: React.FC<CarouselItemProps<LandingCarouselType>> = ({data}) => {
-  const textAlign = `text-${data.align}`;
-  const justifyText = data.align === "right" ? "justify-end" : "";
+export interface LandingCarouselItemType extends IProduct {
+  alignment: "left" | "right";
+}
+
+const LandingCarouselItem: React.FC<CarouselItemProps<LandingCarouselItemType>> = ({ data }) => {
+  const { alignment, name, images, shortDescription } = data;
+
+  const textAlign = `text-${alignment}`;
+  const justifyText = alignment === "right" ? "justify-end" : "";
 
   return (
     <div className="h-full">
       <Image
-        src={data.image}
+        src={images[0]}
         alt="sofa pic"
         className="absolute inset-0 w-full h-full object-cover"
         fill
@@ -20,8 +26,8 @@ const LandingCarouselItem: React.FC<CarouselItemProps<LandingCarouselType>> = ({
       >
         <div className="w-full sm:w-[50%]">
           <div className="text-white p-20">
-            <h2 className="text-4xl mb-4 font-semibold">{data.title}</h2>
-            <p className="leading-8">{data.description}</p>
+            <h2 className="text-4xl mb-4 font-semibold">{name}</h2>
+            <p className="leading-8">{shortDescription}</p>
           </div>
         </div>
       </div>

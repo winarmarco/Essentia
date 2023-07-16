@@ -15,8 +15,8 @@ import DataTable from "@/components/common/DataTable/DataTable";
 import {LiaTimesSolid} from "react-icons/lia";
 import Image from "next/image";
 import Button from "@/components/common/Button";
-import Product from "@/types/Product";
-import {productData} from "@/dummyProductData";
+import Product from "@/utils/types/Product";
+import {productData} from "@/utils/dummy-data/dummyProductData";
 import {spawn} from "child_process";
 
 Chart.register(CategoryScale, TimeScale);

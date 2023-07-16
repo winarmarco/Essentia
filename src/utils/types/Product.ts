@@ -1,6 +1,6 @@
 import { StaticImageData } from "next/image";
 
-type Product = {
+interface IProduct {
   _id: string,
   name: string,
   description: string,
@@ -12,4 +12,4 @@ type Product = {
   price: number,
 }
 
-export default Product;
+export default IProduct;

@@ -1,5 +1,5 @@
 import Button from "@/components/common/Button";
-import Product from "@/types/Product";
+import Product from "@/utils/types/Product";
 import React from "react";
 
 const ProductDetailsDescription: React.FC<Product>= ({name, description, price}) => {

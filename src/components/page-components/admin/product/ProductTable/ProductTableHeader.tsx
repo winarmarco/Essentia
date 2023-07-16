@@ -1,7 +1,7 @@
 import {ColumnDef} from "@tanstack/react-table";
-import ShoppingCartType, {ShoppingCartItemType} from "@/types/ShoppingCart";
+import ShoppingCartType, {ShoppingCartItemType} from "@/utils/types/ShoppingCart";
 import RelativeImage from "@/components/common/relative-image/RelativeImage";
-import Product from "@/types/Product";
+import Product from "@/utils/types/Product";
 import {AiFillEdit} from "react-icons/ai";
 
 interface ProductTableType {

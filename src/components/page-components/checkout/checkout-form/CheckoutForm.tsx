@@ -6,7 +6,7 @@ import ShippingDetails from "../ShippingDetails.tsx/ShippingDetails";
 import PaymentMethod from "../PaymentMethod/PaymentMethod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Button from "@/components/common/Button";
-import { CustomerType } from "@/types/Customer";
+import { CustomerType } from "@/utils/types/Customer";
 
 
 const CheckoutForm = () => {

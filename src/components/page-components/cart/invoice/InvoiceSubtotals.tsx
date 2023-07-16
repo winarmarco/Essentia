@@ -1,7 +1,7 @@
 import React from "react";
 import InvoiceLine from "./InvoiceLine";
 import {spawn} from "child_process";
-import DiscountType from "@/types/DiscountType";
+import DiscountType from "@/utils/types/DiscountType";
 
 type InvoiceSubtotalsProps = {
   subtotal: number;

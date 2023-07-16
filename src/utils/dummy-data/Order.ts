@@ -1,4 +1,4 @@
-import { OrderStatus } from "@/types/Order";
+import { OrderStatus } from "@/utils/types/Order";
 import { invoiceDummyData } from "./Invoice";
 import dummyCustomerData from "./Customer";
 

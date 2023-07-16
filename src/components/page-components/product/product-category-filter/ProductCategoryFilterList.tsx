@@ -1,4 +1,4 @@
-import CategoryFilterType from "@/types/CategoryFilter";
+import CategoryFilterType from "@/utils/types/CategoryFilter";
 import React from "react";
 
 const ProductCategoryFilterList: React.FC<{

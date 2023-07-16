@@ -1,4 +1,4 @@
-import {ShoppingCartItemType} from "@/types/ShoppingCart";
+import {ShoppingCartItemType} from "@/utils/types/ShoppingCart";
 import React from "react";
 import InvoiceLine from "./InvoiceLine";
 

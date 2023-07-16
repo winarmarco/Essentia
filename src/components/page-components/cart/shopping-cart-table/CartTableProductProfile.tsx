@@ -1,4 +1,4 @@
-import ShoppingCartType, {ShoppingCartItemType} from "@/types/ShoppingCart";
+import ShoppingCartType, {ShoppingCartItemType} from "@/utils/types/ShoppingCart";
 
 type ProductProfileProps = {
   name: ShoppingCartItemType["product"]["name"];

@@ -2,7 +2,7 @@ import ProductDetailsCarouselItem from "./ProductDetailsItem";
 import { StaticImageData } from "next/image";
 import { ModalCarouselLeftButton, ModalCarouselRightButton } from "./ProductDetailsCarouselButtons";
 import Carousel from "@/components/common/carousel/Carousel";
-import Product from "@/types/Product";
+import Product from "@/utils/types/Product";
 
 
 type ProductDetailsCarouselProps = {

@@ -1,6 +1,6 @@
-import DiscountType from "@/types/DiscountType";
-import InvoiceType from "@/types/Invoice";
-import ShoppingCartType from "@/types/ShoppingCart";
+import DiscountType from "@/utils/types/DiscountType";
+import InvoiceType from "@/utils/types/Invoice";
+import ShoppingCartType from "@/utils/types/ShoppingCart";
 
 const calculateSubtotals = (cart: ShoppingCartType) => {
   const {items} = cart;

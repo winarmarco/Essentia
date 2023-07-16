@@ -1,6 +1,6 @@
 "use client";
 
-import {ShoppingCartItemType} from "@/types/ShoppingCart";
+import {ShoppingCartItemType} from "@/utils/types/ShoppingCart";
 import React, {useState} from "react";
 
 type CartQuantityButtonProps = {

@@ -1,5 +1,5 @@
 import RelativeImage from "@/components/common/relative-image/RelativeImage";
-import ShoppingCartType, {ShoppingCartItemType} from "@/types/ShoppingCart";
+import ShoppingCartType, {ShoppingCartItemType} from "@/utils/types/ShoppingCart";
 import React from "react";
 import ProductProfile from "./CartTableProductProfile";
 import CartProductProfile from "./CartTableProductProfile";

@@ -1,4 +1,4 @@
-import {OrderSummary} from "@/types/Order";
+import {OrderSummary} from "@/utils/types/Order";
 import {ChartData} from "chart.js";
 import StatisticBox from "./StatisticBox";
 import {Line} from "react-chartjs-2";

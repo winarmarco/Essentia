@@ -1,7 +1,7 @@
-import { productData } from "@/dummyProductData";
-import DiscountType from "@/types/DiscountType";
-import InvoiceType from "@/types/Invoice";
-import ShoppingCartType from "@/types/ShoppingCart";
+import { productData } from "@/utils/dummy-data/dummyProductData";
+import DiscountType from "@/utils/types/DiscountType";
+import InvoiceType from "@/utils/types/Invoice";
+import ShoppingCartType from "@/utils/types/ShoppingCart";
 
 const items: ShoppingCartType["items"] = [
   {

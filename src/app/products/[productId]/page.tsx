@@ -6,8 +6,8 @@ import Navbar from "@/components/common/navbar/Navbar";
 import Container from "@/components/common/Container";
 import React, {useEffect, useState} from "react";
 import Image, {StaticImageData} from "next/image";
-import Product from "@/types/Product";
-import {productData} from "@/dummyProductData";
+import Product from "@/utils/types/Product";
+import {productData} from "@/utils/dummy-data/dummyProductData";
 
 // Import Swiper styles
 import "swiper/css";

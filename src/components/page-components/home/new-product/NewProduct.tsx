@@ -1,7 +1,7 @@
 import React from "react";
 import Container from "../../../common/Container";
-import newArrivalItemsData from "@/utils/constants/newProduct";
-import newProductData from "@/utils/constants/newProduct";
+import newArrivalItemsData from "@/utils/dummy-data/newProduct";
+import newProductData from "@/utils/dummy-data/newProduct";
 import NewProductItem from "./NewProductItem";
 import Section from "@/components/common/section/section";
 
@@ -13,8 +13,8 @@ const NewArrival: React.FC = () => {
           NEW ARRIVAL
         </h1>
         <div>
-          {newProductData.map((newProduct, index) => {
-            return <NewProductItem key={index} newProduct={newProduct} />;
+          {newProductData.map((product, index) => {
+            return <NewProductItem key={index} {...product} />;
           })}
         </div>
       </Container>

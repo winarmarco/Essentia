@@ -1,5 +1,5 @@
 import React from "react";
-import Product from "@/types/Product";
+import Product from "@/utils/types/Product";
 import Image, {StaticImageData} from "next/image";
 import ProductImage from "./ProductImage";
 

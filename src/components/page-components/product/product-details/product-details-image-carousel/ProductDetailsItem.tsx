@@ -1,6 +1,6 @@
 import Image, {StaticImageData} from "next/image";
 import {CarouselItemProps} from "@/components/common/carousel/Carousel";
-import Product from "@/types/Product";
+import Product from "@/utils/types/Product";
 
 const ProductDetailsCarouselItem: React.FC<
   CarouselItemProps<string>
