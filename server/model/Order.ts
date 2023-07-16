@@ -23,7 +23,7 @@ const OrderSchema: Schema<IOrder> = new Schema({
   invoice: {type: Schema.Types.ObjectId, ref: 'Invoice'},
   dateOrdered: {type: Date, required: true},
   dateCompleted: {type: Date},
-  status: {type: String, enum: Object.values(OrderStatus)},
+  status: {type: String, enum: Object.values(OrderStatus), default: OrderStatus.PENDING},
 })
 
 
