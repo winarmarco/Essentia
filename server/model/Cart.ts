@@ -1,11 +1,13 @@
 import { Document, Schema, model } from "mongoose";
 import Product, { IProduct } from "./Product";
 
+interface ICartItem {
+  item: IProduct["_id"],
+  quantity: number;
+}
+
 interface ICart extends Document {
-  items: {
-    item: IProduct["_id"][],
-    quantity: number;
-  }[],
+  items: ICartItem[],
 }
 
 const CartSchema: Schema<ICart> = new Schema({

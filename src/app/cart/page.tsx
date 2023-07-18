@@ -10,10 +10,13 @@ import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
 import InvoiceType from "@/utils/types/Invoice";
 import { invoiceDummyData } from "@/utils/dummy-data/Invoice";
+import Input from "@/components/common/input/Input";
+import CouponInput from "@/components/page-components/cart/coupon-input/CouponInput";
 
-const Cart: React.FC<{invoice: InvoiceType}> = ({invoice}) => {
+const Cart: React.FC<{invoice: InvoiceType}> = () => {
+  
 
-  invoice = invoiceDummyData;
+  const invoice = invoiceDummyData;
 
   return (
     <div className="relative min-h-screen w-full flex flex-col">
@@ -28,6 +31,7 @@ const Cart: React.FC<{invoice: InvoiceType}> = ({invoice}) => {
             </div>
             <div className="w-1/3 sticky flex-grow top-[10rem] h-full">
               <Invoice invoice={invoice} />
+              <CouponInput />
             </div>
           </div>
         </Container>

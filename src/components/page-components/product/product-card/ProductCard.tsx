@@ -1,14 +1,10 @@
+import IProduct from "@/utils/types/Product";
 import Product from "@/utils/types/Product";
 import Image from "next/image";
 import Link from "next/link";
 
-interface ProductCardType {
-  name: string,
-  _id: string,
-  images: string[]
-}
 
-const ProductCard: React.FC<ProductCardType> = ({_id, name, images}) => {
+const ProductCard: React.FC<IProduct> = ({_id, name, images}) => {
   return (
     <Link href={`/products/${_id}`} >
       <div className="flex flex-col h-min group">

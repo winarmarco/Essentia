@@ -14,7 +14,7 @@ export interface IProduct extends Document {
   price: number;
   stockQuantity: number;
   showOnLandingCarousel: boolean;
-  category: IProductCategory;
+  category: IProductCategory | IProductCategory["_id"];
   newProduct: boolean;
   description: string;
   shortDescription: string;
@@ -22,12 +22,10 @@ export interface IProduct extends Document {
 }
 
 export interface IShoppingCart {
-  items: [
-    {
-      item: IProduct,
-      quantity: number,
-    }
-  ]
+  items: {
+    item: IProduct["_id"] | IProduct;
+    quantity: number;
+  }[];
 }
 
 export enum DiscountCodeStatus {
@@ -35,21 +33,21 @@ export enum DiscountCodeStatus {
   EXPIRED = "Expired",
 }
 
-
 export interface IDiscountCode {
-  discountCode: String;
-  validStart: Date;
-  validEnd: Date;
-  discountAmount: Number;
-  percentAmount: Boolean;
-  maxDiscountDollar: Number;
-  status: DiscountCodeStatus;
+  discountCode: String | undefined;
+  validStart: Date | undefined;
+  validEnd: Date | undefined;
+  discountAmount: Number | undefined;
+  percentAmount: Boolean | undefined;
+  maxDiscountDollar: Number | undefined;
+  status: DiscountCodeStatus | undefined;
 }
 
+export type IDiscountCodeClient = Pick<IDiscountCode, 'discountCode' | 'percentAmount' | 'discountAmount' | 'maxDiscountDollar'>;
 
 export interface IInvoice extends Document {
-  cart: IShoppingCart
-  discountCode: IDiscountCode
+  cart: IShoppingCart;
+  discountCode: IDiscountCode;
 }
 
 export enum OrderStatus {
@@ -57,7 +55,6 @@ export enum OrderStatus {
   COMPLETED = "Completed",
   CANCELLED = "Cancelled",
 }
-
 
 export interface IShippingAddress {
   streetAddress: string;
@@ -87,6 +84,6 @@ export interface IUser {
   phoneNumber: string;
   address: IShippingAddress;
   password: string;
-  cart: IShoppingCart
+  cart: IShoppingCart;
   history: IOrder[];
 }

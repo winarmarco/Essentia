@@ -1,12 +1,11 @@
 import ProductDetailsCarouselItem from "./ProductDetailsItem";
-import { StaticImageData } from "next/image";
 import { ModalCarouselLeftButton, ModalCarouselRightButton } from "./ProductDetailsCarouselButtons";
 import Carousel from "@/components/common/carousel/Carousel";
-import Product from "@/utils/types/Product";
+import IProduct from "@/utils/types/Product";
 
 
 type ProductDetailsCarouselProps = {
-  images: string[];
+  images: IProduct["images"];
   initialSlide: number;
 }
 

@@ -21,6 +21,7 @@ import ProductDetailsDescription from "@/components/page-components/product/prod
 import Modal from "@/components/common/modal/Modal";
 import ProductDetailsCarousel from "@/components/page-components/product/product-details/product-details-image-carousel/ProductDetailsCarousel";
 import {redirect, useParams, useRouter, useSearchParams} from "next/navigation";
+import IProduct from "@/utils/types/Product";
 
 const getProductDetails = async (productId: string) => {
   try {
@@ -36,7 +37,7 @@ const getProductDetails = async (productId: string) => {
 const ProductDetails = () => {
   const searchParams = useParams();
   const productId = searchParams["productId"];
-  const [productDetails, setProductDetails] = useState<Product>();
+  const [productDetails, setProductDetails] = useState<IProduct>();
   const [activeSlide, setActiveSlide] = useState(0);
   const [zoomImage, toggleZoomImage] = useState(false);
 
@@ -83,7 +84,7 @@ const ProductDetails = () => {
 
       <Main className="flex-grow">
         <Container className="w-full flex flex-col pt-10">
-          <span>{"Product > Chair"}</span>
+          <span>{"< Back"}</span>
           {productDetails && (
             <div className="flex flex-col md:flex-row w-full flex-grow gap-x-6 ">
               <ProductImageList

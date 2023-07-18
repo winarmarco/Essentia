@@ -1,10 +1,9 @@
 import React from "react";
-import Product from "@/utils/types/Product";
-import Image, {StaticImageData} from "next/image";
 import ProductImage from "./ProductImage";
+import IProduct from "@/utils/types/Product";
 
 const ProductImageList: React.FC<{
-  images: (string)[];
+  images: IProduct["images"];
   zoomImage: (imageIndex: number) => void;
 }> = ({images, zoomImage}) => {
   return (

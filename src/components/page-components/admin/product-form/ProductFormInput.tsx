@@ -4,6 +4,7 @@ import React, {
   InputHTMLAttributes,
 } from "react";
 import {FieldValues, Path, UseFormRegister} from "react-hook-form";
+import { twMerge } from "tailwind-merge";
 
 interface InputFieldProps<T extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
@@ -128,7 +129,7 @@ const ProductFormInput = <T extends object>({
 
 
   return (
-    <div className={`flex flex-col ${className}`}>
+    <div className={twMerge("flex flex-col", className)}>
       <label htmlFor={id} className="font-semibold">
         {label}
         {required && <span className="text-red-500"> *</span>}

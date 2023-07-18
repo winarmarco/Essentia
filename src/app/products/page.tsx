@@ -4,16 +4,14 @@ import Navbar from "@/components/common/navbar/Navbar";
 import "../globals.css";
 import React, {useEffect, useState} from "react";
 import Container from "@/components/common/Container";
-import Product from "@/utils/types/Product";
 import Footer from "@/components/common/footer/Footer";
-import {productData} from "@/utils/dummy-data/dummyProductData";
 import categoryFilters from "@/utils/constants/categoryFilter";
 import ProductCard from "@/components/page-components/product/product-card/ProductCard";
 import ProductCateogoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
 import Header from "@/components/common/header/Header";
 import Main from "@/components/common/main/Main";
-import {GetStaticProps} from "next";
-import {IProduct} from "../../../server/model/Product";
+import IProduct from "@/utils/types/Product";
+
 
 export const fetchProductData = async () => {
   try {
@@ -68,9 +66,7 @@ const Products = () => {
                 return (
                   <ProductCard
                     key={product._id}
-                    name={product.name}
-                    _id={product._id}
-                    images={product.images}
+                    {...product}
                   />
                 );
               })}
