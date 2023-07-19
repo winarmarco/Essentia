@@ -8,15 +8,12 @@ import { Schema } from "mongoose";
 export const getCart = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.headers.authorization;
 
-  console.log(userId);
-
   try {
     const user = await User.findById(userId).populate("cart");
 
     if (!user) throw new Error("Not Authenticated");
 
-    const cart = user.cart;
-
+    const cart = await user.cart.populate({path: "items.item"});
     res.json(cart);
   } catch (error) {
     next(error);

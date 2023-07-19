@@ -1,4 +1,6 @@
-import React, {useState} from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import "../globals.css";
 import Navbar from "@/components/common/navbar/Navbar";
 import Container from "@/components/common/Container";
@@ -9,14 +11,27 @@ import ShoppingCart from "@/utils/types/ShoppingCart";
 import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
 import InvoiceType from "@/utils/types/Invoice";
-import { invoiceDummyData } from "@/utils/dummy-data/Invoice";
-import Input from "@/components/common/input/Input";
 import CouponInput from "@/components/page-components/cart/coupon-input/CouponInput";
+import { IInvoiceClient } from "@/utils/types";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/utils/redux/store";
+import { fetchCart } from "@/utils/redux/Cart/CartActions";
 
 const Cart: React.FC<{invoice: InvoiceType}> = () => {
-  
+  const disptach =  useDispatch<AppDispatch>();
+  const cart = useSelector((state: RootState) => state.cart);
+  const discountCode = useSelector((state: RootState) => state.discountCode);
 
-  const invoice = invoiceDummyData;
+  useEffect(() => {
+    disptach(fetchCart());
+  }, [disptach]);
+
+ 
+  const invoice: IInvoiceClient = {
+    cart: cart,
+    discountCode: discountCode,
+  }
+
 
   return (
     <div className="relative min-h-screen w-full flex flex-col">
@@ -27,7 +42,7 @@ const Cart: React.FC<{invoice: InvoiceType}> = () => {
         <Container className="w-full flex flex-col bg-white">
           <div className="flex flex-col md:flex-row w-full flex-grow gap-x-20">
             <div className="w-2/3">
-              <CartTable items={invoice.cart.items} />
+              {(!cart.isLoading && cart.hasFetched) ? <CartTable items={cart.items} /> :<div>Loading...</div>}
             </div>
             <div className="w-1/3 sticky flex-grow top-[10rem] h-full">
               <Invoice invoice={invoice} />
@@ -40,5 +55,4 @@ const Cart: React.FC<{invoice: InvoiceType}> = () => {
     </div>
   );
 };
-
 export default Cart;

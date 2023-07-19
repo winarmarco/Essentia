@@ -5,23 +5,15 @@ import Footer from "@/components/common/footer/Footer";
 import Navbar from "@/components/common/navbar/Navbar";
 import Container from "@/components/common/Container";
 import React, {useEffect, useState} from "react";
-import Image, {StaticImageData} from "next/image";
-import Product from "@/utils/types/Product";
-import {productData} from "@/utils/dummy-data/dummyProductData";
 
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/effect-fade";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 import Header from "@/components/common/header/Header";
 import Main from "@/components/common/main/Main";
 import ProductImageList from "@/components/page-components/product/product-details/product-image-list/ProductImageList";
 import ProductDetailsDescription from "@/components/page-components/product/product-details/product-details-description/ProductDetailsDescription";
 import Modal from "@/components/common/modal/Modal";
 import ProductDetailsCarousel from "@/components/page-components/product/product-details/product-details-image-carousel/ProductDetailsCarousel";
-import {redirect, useParams, useRouter, useSearchParams} from "next/navigation";
-import IProduct from "@/utils/types/Product";
+import {redirect, useParams} from "next/navigation";
+import { IProduct } from "@/utils/types";
 
 const getProductDetails = async (productId: string) => {
   try {

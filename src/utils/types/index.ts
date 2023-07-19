@@ -14,18 +14,20 @@ export interface IProduct extends Document {
   price: number;
   stockQuantity: number;
   showOnLandingCarousel: boolean;
-  category: IProductCategory | IProductCategory["_id"];
+  category: IProductCategory;
   newProduct: boolean;
   description: string;
   shortDescription: string;
   images: string[];
 }
 
+export interface IShoppingCartItem {
+  item: IProduct;
+  quantity: number;
+}
+
 export interface IShoppingCart {
-  items: {
-    item: IProduct["_id"] | IProduct;
-    quantity: number;
-  }[];
+  items: IShoppingCartItem[];
 }
 
 export enum DiscountCodeStatus {
@@ -48,6 +50,11 @@ export type IDiscountCodeClient = Pick<IDiscountCode, 'discountCode' | 'percentA
 export interface IInvoice extends Document {
   cart: IShoppingCart;
   discountCode: IDiscountCode;
+}
+
+export interface IInvoiceClient {
+  cart: IShoppingCart;
+  discountCode: IDiscountCodeClient;
 }
 
 export enum OrderStatus {

@@ -3,7 +3,7 @@ import CartQuantityButton from "@/components/page-components/cart/shopping-cart-
 import {findProductIndexInCart} from "@/utils/functions/CheckInCart";
 import {addItemToCart, fetchCart, removeItemFromCart} from "@/utils/redux/Cart/CartActions";
 import {AppDispatch, RootState} from "@/utils/redux/store";
-import IProduct from "@/utils/types/Product";
+import { IProduct } from "@/utils/types";
 import React, { useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { addToCart } from "../../../../../../server/controller/Cart";
@@ -21,9 +21,8 @@ const ProductDetailsDescription: React.FC<IProduct> = ({
   const addedToCart = (productIndex !== -1);
 
   useEffect(() => {
-    console.log("Fetching cart");
     dispatch(fetchCart());
-  }, []);
+  }, [dispatch]);
 
   console.log(addedToCart, cart, productIndex, cart.isLoading);
 

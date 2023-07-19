@@ -1,6 +1,6 @@
 import React from "react";
 import ProductImage from "./ProductImage";
-import IProduct from "@/utils/types/Product";
+import { IProduct } from "@/utils/types";
 
 const ProductImageList: React.FC<{
   images: IProduct["images"];

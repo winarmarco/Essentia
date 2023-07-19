@@ -5,13 +5,13 @@ import React, {useState} from "react";
 import { twMerge } from "tailwind-merge";
 
 type CartQuantityButtonProps = {
-  className: string;
+  className?: string;
   initQuantity: ShoppingCartItemType["quantity"];
   incrementQtyHandler?: () => void;
   decrementQtyHandler?: () => void;
 };
 
-const CartQuantityButton: React.FC<CartQuantityButtonProps> = ({className, initQuantity, incrementQtyHandler, decrementQtyHandler}) => {
+const CartQuantityButton: React.FC<CartQuantityButtonProps> = ({className = "", initQuantity, incrementQtyHandler, decrementQtyHandler}) => {
   const [quantity, setQuantity] = useState(initQuantity);
 
   return (

@@ -1,24 +1,21 @@
 import React from "react";
 import InvoiceProductList from "./InvoiceProductList";
-import ShoppingCart from "@/utils/types/ShoppingCart";
-import InvoiceLine from "./InvoiceLine";
 import InvoiceSubtotals from "./InvoiceSubtotals";
-import InvoiceType from "@/utils/types/Invoice";
-import DiscountType from "@/utils/types/DiscountType";
 import InvoiceTotal from "./InvoiceTotal";
 import {
   calculateDiscountDollar,
   calculateSubtotals,
 } from "@/utils/functions/Invoice";
+import { IInvoiceClient } from "@/utils/types";
 
-const Invoice: React.FC<{invoice: InvoiceType, title?: string}> = ({invoice, title = "INVOICE"}) => {
-  const {cart, discount} = invoice;
+const Invoice: React.FC<{invoice: IInvoiceClient, title?: string}> = ({invoice, title = "INVOICE"}) => {
+  const {cart, discountCode} = invoice;
 
   let subtotal = calculateSubtotals(cart);
-  let discountDollarAmount = 0;
+  let discountDollarAmount: number = 0;
 
-  if (discount) {
-    discountDollarAmount = calculateDiscountDollar(subtotal, discount);
+  if (discountCode.discountCode) {
+    discountDollarAmount = calculateDiscountDollar(subtotal, discountCode);
   }
 
   let total = subtotal - discountDollarAmount;
@@ -35,7 +32,7 @@ const Invoice: React.FC<{invoice: InvoiceType, title?: string}> = ({invoice, tit
         <div className="mt-4 pb-4 border-b border-gray-200">
           <InvoiceSubtotals
             subtotal={subtotal}
-            discount={discount}
+            discount={discountCode}
             discountDollarAmount={discountDollarAmount}
           />
         </div>

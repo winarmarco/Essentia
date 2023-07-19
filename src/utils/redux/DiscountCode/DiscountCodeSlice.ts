@@ -35,3 +35,5 @@ export const discountCodeSlice = createSlice({
     })
   }
 })
+
+export const discountCodeReducer = discountCodeSlice.reducer;

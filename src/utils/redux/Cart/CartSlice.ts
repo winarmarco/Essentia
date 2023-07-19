@@ -4,11 +4,13 @@ import { addItemToCart, fetchCart, removeItemFromCart } from "./CartActions";
 
 
 export interface CartState extends IShoppingCart{
+  hasFetched: boolean,
   isLoading: boolean,
 }
 
 const initialCartState: CartState = {
   items: [],
+  hasFetched: false,
   isLoading: false,
 }
 
@@ -36,10 +38,11 @@ export const cartSlice = createSlice({
 
     builder
       .addCase(fetchCart.fulfilled, (state, action: PayloadAction<IShoppingCart>) => {
-        const {items} = action.payload;
+        const { items } = action.payload;
         return {
           ...state,
           items,
+          hasFetched: true,
           isLoading: false,
         }
       }) 

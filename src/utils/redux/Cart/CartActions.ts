@@ -19,7 +19,7 @@ export const addItemToCart = createAsyncThunk(
     });
 
     const data = await res.json();
-    console.log(data);
+    
     return data;
   }
 );
@@ -39,7 +39,7 @@ export const removeItemFromCart = createAsyncThunk(
     });
 
     const data = await res.json();
-    console.log(data);
+    
     return data;
   }
 );

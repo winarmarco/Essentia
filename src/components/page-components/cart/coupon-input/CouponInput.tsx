@@ -19,8 +19,8 @@ const CouponInput: React.FC<CouponInput> = ({id, ...others}) => {
 
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
-      <div className="flex flex-col">
-        <label>Coupon Input</label>
+      <div className="flex flex-row items-center gap-x-4 mt-8 w-3/4">
+        <label>Coupon Code</label>
         <TextInput id="discountCode" register={register} {...others} />
       </div>
     </form>
