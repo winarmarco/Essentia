@@ -1,6 +1,6 @@
 import { Document, Schema, model } from "mongoose";
 import Cart, { ICart } from "./Cart";
-import DiscountCode, { IDiscountCode } from "./DiscountCode";
+import DiscountCode, { IDiscountCode } from "./DiscountCoupon";
 
 interface IInvoice extends Document {
   cart: ICart["_id"],

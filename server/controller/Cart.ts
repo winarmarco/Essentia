@@ -30,7 +30,7 @@ export const addToCart = async (req: Request, res: Response, next: NextFunction)
 
     if (!user)  throw new Error("Not Authenticated");
 
-    const cart: ICart = user.cart;
+    const cart: ICart =  await user.cart.populate({path: "items.item"});
   
     const index = cart.items.findIndex((cartItem) => cartItem.item.equals(productId));
 
@@ -64,7 +64,7 @@ export const removeFromCart = async (req: Request, res: Response, next: NextFunc
 
     if (!user) throw new Error("Not Authenticated");
 
-    const cart: ICart = user.cart;
+    const cart: ICart = await user.cart.populate({path: "items.item"});
     
     const index = cart.items.findIndex((cartItem) => cartItem.item.equals(productId));
 

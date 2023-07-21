@@ -1,28 +1,27 @@
 import { Document, Schema, model } from "mongoose";
 
-enum DiscountCodeStatus {
+enum IDiscountCouponStatus {
   ACTIVE = "Active",
   EXPIRED = "Expired",
 }
 
-interface IDiscountCode extends Document {
+interface IDiscountCoupon extends Document {
   discountCode: String,
   validStart: Date,
   validEnd: Date,
   discountAmount: Number,
   percentAmount: Boolean,
   maxDiscountDollar: Number,
-  status: DiscountCodeStatus,
+  status: IDiscountCouponStatus,
 }
 
-const DiscountCodeSchema: Schema<IDiscountCode> = new Schema({
+const DiscountCouponSchema: Schema<IDiscountCoupon> = new Schema({
   discountCode: {
     type: String,
     required: true,
   },
   validStart: {
     type: Date,
-    required: true,
     default: new Date(),
   },
   validEnd: {
@@ -41,15 +40,15 @@ const DiscountCodeSchema: Schema<IDiscountCode> = new Schema({
   },
   status: {
     type: String,
-    enum: Object.values(DiscountCodeStatus),
-    default: DiscountCodeStatus.ACTIVE,
+    enum: Object.values(IDiscountCouponStatus),
+    default: IDiscountCouponStatus.ACTIVE,
   }
 })
 
 
-const DiscountCode = model<IDiscountCode>("DiscountCode", DiscountCodeSchema);
+const DiscountCoupon = model<IDiscountCoupon>("DiscountCoupon", DiscountCouponSchema);
 
-export default DiscountCode;
-export type {IDiscountCode};
+export default DiscountCoupon;
+export type {IDiscountCoupon};
 
 

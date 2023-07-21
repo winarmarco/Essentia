@@ -1,15 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { headers } from "next/dist/client/components/headers";
 
-const GET_DISCOUNT_CODE = "discountCode/get";
+const GET_DISCOUNT_COUPON = "discountCoupon/get";
 
 
-export const getDiscountCode = createAsyncThunk(GET_DISCOUNT_CODE, async (discountCodeId: string) => {
+export const getDiscountCoupon = createAsyncThunk(GET_DISCOUNT_COUPON, async (discountCode: string) => {
   try {
-    const res = await fetch("http://localhsot:3000/api/discount-code", {
+    const res = await fetch("http://localhost:3000/api/discount-coupon/get", {
       method: "POST", 
       body: JSON.stringify({
-        discountCode: {_id: discountCodeId},
+        discountCoupon: {discountCode},
       }),
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +16,7 @@ export const getDiscountCode = createAsyncThunk(GET_DISCOUNT_CODE, async (discou
     })
 
     const data = await res.json();
-
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

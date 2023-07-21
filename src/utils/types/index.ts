@@ -30,31 +30,31 @@ export interface IShoppingCart {
   items: IShoppingCartItem[];
 }
 
-export enum DiscountCodeStatus {
+export enum DiscountCouponStatus {
   ACTIVE = "Active",
   EXPIRED = "Expired",
 }
 
-export interface IDiscountCode {
+export interface IDiscountCoupon {
   discountCode: String | undefined;
   validStart: Date | undefined;
   validEnd: Date | undefined;
   discountAmount: Number | undefined;
   percentAmount: Boolean | undefined;
   maxDiscountDollar: Number | undefined;
-  status: DiscountCodeStatus | undefined;
+  status: DiscountCouponStatus | undefined;
 }
 
-export type IDiscountCodeClient = Pick<IDiscountCode, 'discountCode' | 'percentAmount' | 'discountAmount' | 'maxDiscountDollar'>;
+export type IDiscountCouponClient = Pick<IDiscountCoupon, 'discountCode' | 'percentAmount' | 'discountAmount' | 'maxDiscountDollar'>;
 
 export interface IInvoice extends Document {
   cart: IShoppingCart;
-  discountCode: IDiscountCode;
+  discountCode: IDiscountCoupon;
 }
 
 export interface IInvoiceClient {
   cart: IShoppingCart;
-  discountCode: IDiscountCodeClient;
+  discountCode: IDiscountCouponClient;
 }
 
 export enum OrderStatus {

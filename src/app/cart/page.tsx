@@ -20,7 +20,7 @@ import { fetchCart } from "@/utils/redux/Cart/CartActions";
 const Cart: React.FC<{invoice: InvoiceType}> = () => {
   const disptach =  useDispatch<AppDispatch>();
   const cart = useSelector((state: RootState) => state.cart);
-  const discountCode = useSelector((state: RootState) => state.discountCode);
+  const discountCode = useSelector((state: RootState) => state.discountCoupon);
 
   useEffect(() => {
     disptach(fetchCart());

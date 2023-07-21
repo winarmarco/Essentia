@@ -1,12 +1,12 @@
-import { IDiscountCode, IDiscountCodeClient } from "@/utils/types";
+import { IDiscountCouponClient } from "@/utils/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { getDiscountCode } from "./DiscountCodeActions";
+import { getDiscountCoupon } from "./DiscountCodeActions";
 
-export interface DiscountCodeState extends IDiscountCodeClient {
+export interface DiscountCouponState extends IDiscountCouponClient {
   isLoading: boolean,
 }
 
-const initialDiscountCodeState: DiscountCodeState = {
+const initialDiscountCouponState: DiscountCouponState = {
   discountCode: undefined,
   percentAmount: undefined,
   discountAmount: undefined,
@@ -16,18 +16,19 @@ const initialDiscountCodeState: DiscountCodeState = {
 
 
 export const discountCodeSlice = createSlice({
-  name: "discountCode",
-  initialState: initialDiscountCodeState,
+  name: "discountCoupon",
+  initialState: initialDiscountCouponState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-    .addCase(getDiscountCode.fulfilled, (state, action: PayloadAction<IDiscountCodeClient>) => {
+    .addCase(getDiscountCoupon.fulfilled, (state, action: PayloadAction<IDiscountCouponClient>) => {
       return {
         ...state,
+        ...action.payload,
         isLoading: false,
       }
     })
-    .addCase(getDiscountCode.pending,  (state, action) => {
+    .addCase(getDiscountCoupon.pending,  (state, action) => {
       return {
         ...state,
         isLoading: true,
