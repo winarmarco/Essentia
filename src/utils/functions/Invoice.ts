@@ -1,7 +1,7 @@
 import DiscountType from "@/utils/types/DiscountType";
 import InvoiceType from "@/utils/types/Invoice";
-import { IDiscountCodeClient, IShoppingCart } from "../types";
-import { IDiscountCode } from "../types";
+import { IDiscountCouponClient, IShoppingCart } from "../types";
+import { IDiscountCoupon } from "../types";
 import { IInvoice } from "../../../server/model/Invoice";
 
 const calculateSubtotals = (cart: IShoppingCart) => {
@@ -17,7 +17,7 @@ const calculateSubtotals = (cart: IShoppingCart) => {
   return subtotal;
 };
 
-const calculateDiscountDollar = (subtotal: number, discount: IDiscountCodeClient | IDiscountCode) => {
+const calculateDiscountDollar = (subtotal: number, discount: IDiscountCouponClient | IDiscountCoupon) => {
   const TO_PERENTAGE = 0.01;
 
   // if it is a percentage discount, calculate it

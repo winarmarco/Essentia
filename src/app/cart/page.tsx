@@ -20,17 +20,10 @@ import { fetchCart } from "@/utils/redux/Cart/CartActions";
 const Cart: React.FC<{invoice: InvoiceType}> = () => {
   const disptach =  useDispatch<AppDispatch>();
   const cart = useSelector((state: RootState) => state.cart);
-  const discountCode = useSelector((state: RootState) => state.discountCoupon);
 
   useEffect(() => {
     disptach(fetchCart());
   }, [disptach]);
-
- 
-  const invoice: IInvoiceClient = {
-    cart: cart,
-    discountCode: discountCode,
-  }
 
 
   return (
@@ -45,7 +38,7 @@ const Cart: React.FC<{invoice: InvoiceType}> = () => {
               {(!cart.isLoading && cart.hasFetched) ? <CartTable items={cart.items} /> :<div>Loading...</div>}
             </div>
             <div className="w-1/3 sticky flex-grow top-[10rem] h-full">
-              <Invoice invoice={invoice} />
+              <Invoice />
               <CouponInput />
             </div>
           </div>

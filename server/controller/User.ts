@@ -3,7 +3,6 @@ import User from "../model/User";
 import { NotFoundError } from "../utils/Errors/NotFoundError";
 
 export const signUp = async (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.body);
   const newUser = new User(req.body.user);
 
   try {

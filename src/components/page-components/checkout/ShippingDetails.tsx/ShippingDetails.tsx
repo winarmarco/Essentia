@@ -3,10 +3,11 @@ import React from "react";
 import CheckoutFormInputField from "../checkout-form/CheckoutFormInputField";
 import {FieldValues, UseFormRegister} from "react-hook-form";
 import { CustomerType } from "@/utils/types/Customer";
+import { CheckoutFormData } from "../checkout-form/CheckoutForm";
 
 
 const ShippingDetails: React.FC<{
-  registerForm: UseFormRegister<CustomerType>;
+  registerForm: UseFormRegister<CheckoutFormData>;
 }> = ({registerForm}) => {
   return (
     <Section className="flex flex-col gap-y-5">
@@ -17,13 +18,13 @@ const ShippingDetails: React.FC<{
       </div>
       <div className="grid grid-cols-2 gap-x-10">
         <CheckoutFormInputField
-          id="first-name"
+          id="firstName"
           label="First Name"
           register={registerForm}
           required
         />
         <CheckoutFormInputField
-          id="last-name"
+          id="lastName"
           label="Last name"
           register={registerForm}
           required
@@ -31,40 +32,40 @@ const ShippingDetails: React.FC<{
       </div>
 
       <CheckoutFormInputField
-        id="country"
+        id="shippingAddress.country"
         label="Country / Region"
         register={registerForm}
         required
       />
       <CheckoutFormInputField
-        id="address"
+        id="shippingAddress.streetAddress"
         label="Street address"
         placeholder="House number and street name"
         register={registerForm}
         required
       />
       <CheckoutFormInputField
-        id="apartment-number"
+        id="shippingAddress.apartmentNumber"
         label="Apartment number (optional)"
         placeholder="Apartment, suite, unit, etc. (optional)"
         register={registerForm}
       />
 
       <CheckoutFormInputField
-        id="town"
+        id="shippingAddress.town"
         label="Town / City"
         register={registerForm}
         required
       />
       <CheckoutFormInputField
-        id="state"
+        id="shippingAddress.state"
         label="State"
         register={registerForm}
         required
       />
 
       <CheckoutFormInputField
-        id="zip-code"
+        id="shippingAddress.zipCode"
         label="ZIP Code"
         register={registerForm}
         type="number"
@@ -74,7 +75,7 @@ const ShippingDetails: React.FC<{
       />
 
       <CheckoutFormInputField
-        id="email-address"
+        id="email"
         label="Email address"
         type="email"
         register={registerForm}

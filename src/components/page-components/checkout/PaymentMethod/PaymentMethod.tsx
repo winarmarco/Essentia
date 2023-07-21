@@ -2,11 +2,11 @@ import Section from "@/components/common/section/section";
 import CheckoutFormInputField from "../checkout-form/CheckoutFormInputField";
 import {UseFormRegister, UseFormSetValue} from "react-hook-form";
 import { formatCardNumber, formatExpiryDate } from "@/utils/functions/InputFormatter";
-import { CustomerType } from "@/utils/types/Customer";
+import { CheckoutFormData } from "../checkout-form/CheckoutForm";
 
 const PaymentMethod: React.FC<{
-  registerForm: UseFormRegister<CustomerType>;
-  setValue: UseFormSetValue<CustomerType>;
+  registerForm: UseFormRegister<CheckoutFormData>;
+  setValue: UseFormSetValue<CheckoutFormData>;
 }> = ({registerForm, setValue}) => {
   return (
     <Section className="flex flex-col gap-y-5">
@@ -17,14 +17,14 @@ const PaymentMethod: React.FC<{
         <span>Credit card</span>
       </div>
       <CheckoutFormInputField
-        id="card-number"
+        id="cardNumber"
         label="Card Number"
         placeholder="**** **** **** ****"
         required
         register={registerForm}
         onChange={(e) => {
           const inputtedCardNumber = e.target.value;
-          setValue("card-number", formatCardNumber(inputtedCardNumber));
+          setValue("cardNumber", formatCardNumber(inputtedCardNumber));
         }}
 
         maxLength={19}
@@ -32,19 +32,19 @@ const PaymentMethod: React.FC<{
 
       <div className="grid grid-cols-2 gap-x-5">
         <CheckoutFormInputField
-          id="card-expiry"
+          id="cardExpiry"
           label="Expiration (MM/YY)"
           placeholder="MM / YY"
           required
           onChange={(e) => {
             const inputtedValue = e.target.value;  
-            setValue("card-expiry", formatExpiryDate(inputtedValue))
+            setValue("cardExpiry", formatExpiryDate(inputtedValue))
           }}
           maxLength={5}
           register={registerForm}
         />
         <CheckoutFormInputField
-          id="card-csc"
+          id="cardCsc"
           label="Card Security Code"
           placeholder="CSC"
           required

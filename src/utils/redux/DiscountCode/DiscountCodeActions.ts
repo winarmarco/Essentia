@@ -16,7 +16,6 @@ export const getDiscountCoupon = createAsyncThunk(GET_DISCOUNT_COUPON, async (di
     })
 
     const data = await res.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

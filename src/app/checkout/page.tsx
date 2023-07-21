@@ -20,7 +20,7 @@ const Checkout = () => {
             <CheckoutForm />
           </div>
           <div className="w-1/3 sticky flex-grow top-[10rem] h-full">
-            <Invoice invoice={invoiceDummyData} />
+            <Invoice />
           </div>
         </div>
       </Container>

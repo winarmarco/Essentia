@@ -9,6 +9,7 @@ import upload from "./utils/middleware/upload";
 import { productRouter } from "./routes/Product";
 import { categoryRouter } from "./routes/Category";
 import { discountCouponeRouter } from "./routes/DiscountCoupon";
+import { orderRouter } from "./routes/Order";
 // const Note = require('./models/Note');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -73,6 +74,7 @@ app.prepare().then(() => {
   server.use('/api/products', productRouter);
   server.use('/api/category', categoryRouter);
   server.use('/api/discount-coupon', discountCouponeRouter);
+  server.use('/api/checkout', orderRouter);
 
   server.all('*', (req: Request, res: Response) => {
     if (!req.path.match(/.\.(css|js|jpg|png)$/)) {

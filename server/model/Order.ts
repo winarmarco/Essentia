@@ -9,10 +9,12 @@ enum OrderStatus {
   CANCELLED = "Cancelled",
 }
 
-
 interface IOrder {
-  shippingAddress: IShippingAddress;
+  shippingAddress: IShippingAddress["_id"];
   invoice: IInvoice["_id"];
+  email: IUser["email"];
+  firstName: IUser["firstName"];
+  lastName: IUser["lastName"];
   dateOrdered: Date;
   dateCompleted: Date;
   status: OrderStatus;
@@ -21,7 +23,10 @@ interface IOrder {
 const OrderSchema: Schema<IOrder> = new Schema({
   shippingAddress: {type: Schema.Types.ObjectId, ref: 'ShippingAddress', required: true},
   invoice: {type: Schema.Types.ObjectId, ref: 'Invoice'},
-  dateOrdered: {type: Date, required: true},
+  email: {type: String, required: true},
+  firstName: {type: String, required: true},
+  lastName: {type: String, required: true},
+  dateOrdered: {type: Date, default: new Date()},
   dateCompleted: {type: Date},
   status: {type: String, enum: Object.values(OrderStatus), default: OrderStatus.PENDING},
 })

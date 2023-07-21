@@ -1,14 +1,20 @@
 import { Document, Schema, model } from "mongoose";
 
 interface IShippingAddress extends Document {
+  country: string;
   streetAddress: string;
   apartmentNumber: string;
   town: string;
+  state: string;
   zipCode: string;
 }
 
 
 const ShippingAddressShema: Schema<IShippingAddress> = new Schema({
+  country: {
+    type: String,
+    required: true,
+  },
   streetAddress: {
     type: String,
     required: true,
@@ -18,6 +24,10 @@ const ShippingAddressShema: Schema<IShippingAddress> = new Schema({
     default: '',
   },
   town: {
+    type: String,
+    required: true,
+  },
+  state: {
     type: String,
     required: true,
   },
