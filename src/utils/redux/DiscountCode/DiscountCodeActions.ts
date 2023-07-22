@@ -1,4 +1,5 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { CaseReducer, createAsyncThunk } from "@reduxjs/toolkit";
+import { DiscountCouponState, initialDiscountCouponState } from "./DiscountCodeSlice";
 
 const GET_DISCOUNT_COUPON = "discountCoupon/get";
 
@@ -21,3 +22,10 @@ export const getDiscountCoupon = createAsyncThunk(GET_DISCOUNT_COUPON, async (di
     console.log(error);
   }
 })
+
+export const removeDiscountCoupon: CaseReducer<DiscountCouponState> = (state) => {
+  return {
+    ...state,
+    ...initialDiscountCouponState,
+  };
+}

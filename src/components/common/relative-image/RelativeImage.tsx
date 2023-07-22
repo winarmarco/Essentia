@@ -1,7 +1,7 @@
 import Image, {StaticImageData} from "next/image";
 import React, {HTMLAttributes} from "react";
 
-type RelativeImageProps = HTMLAttributes<HTMLDivElement> & {
+interface RelativeImageProps extends HTMLAttributes<HTMLDivElement> {
   src: string | StaticImageData;
   alt: string;
 };

@@ -1,8 +1,10 @@
 import { IShoppingCart } from "../types";
-import IProduct from "../types/Product";
+import { IProduct } from "../types";
 
 export const findProductIndexInCart = (cart: IShoppingCart, productId: IProduct["_id"]) =>{
   const cartItems = cart.items;
+
+  if (!cartItems) return -1;
 
 
   const index = cartItems.findIndex((cartItem) => {

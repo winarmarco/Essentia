@@ -24,13 +24,6 @@ const handleCheckout = async (checkoutData: CheckoutFormData & {discountCoupon: 
   const {shippingAddress, discountCoupon, firstName, lastName, email} = checkoutData;
 
   try {
-    console.log({
-      shippingAddress,
-      discountCoupon,
-      firstName,
-      lastName,
-      email,
-    })
     const res = await fetch("http://localhost:3000/api/checkout", {
       method: "POST",
       body: JSON.stringify({

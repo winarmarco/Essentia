@@ -1,17 +1,9 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/input/Input";
+import { ISignUpUser } from "@/utils/types";
 import Link from "next/link";
 import { stringify } from "querystring";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-interface ISignUpForm {
-  firstName: string,
-  lastName: string,
-  phoneNumber: string,
-  email: string,
-  password: string,
-  confirmPassword: string,
-}
 
 
 const SignUpForm = () => {
@@ -20,10 +12,10 @@ const SignUpForm = () => {
     handleSubmit,
     formState: {errors},
     setValue,
-  } = useForm<ISignUpForm>();
+  } = useForm<ISignUpUser>();
 
 
-  const onSubmit: SubmitHandler<ISignUpForm> = async (data) => {
+  const onSubmit: SubmitHandler<ISignUpUser> = async (data) => {
     try {
       const res = await fetch("http://localhost:3000/api/signup", {
         method: "POST",
@@ -59,7 +51,7 @@ const SignUpForm = () => {
         <Button filled className="w-full">Sign up</Button>
       </div>
       <div className="flex flex-col gap-y-2">
-        <span>{"Already have an account?"} <Link href={'/auth/login'} className="underline">Sign up</Link></span>
+        <span>{"Already have an account?"} <Link href={'/auth/login'} className="underline">Sign in</Link></span>
       </div>
     </form>
   );

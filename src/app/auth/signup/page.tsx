@@ -16,7 +16,7 @@ const SignUp: React.FC = () => {
         <Navbar />
       </Header>
       <Main className="flex-grow relative">
-        <Container className="w-full h-full flex justify-center items-center absolute inset-0">
+        <Container className="w-full h-full flex justify-center items-center relative">
           <div className="flex w-1/2 px-10">
             <SignUpForm />
           </div>

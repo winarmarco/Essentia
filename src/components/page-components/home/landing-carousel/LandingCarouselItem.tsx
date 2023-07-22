@@ -1,5 +1,5 @@
 import { CarouselItemProps } from "@/components/common/carousel/Carousel";
-import IProduct from "@/utils/types/Product";
+import { IProduct } from "@/utils/types";
 import Image from "next/image";
 
 export interface LandingCarouselItemType extends IProduct {
@@ -13,12 +13,13 @@ const LandingCarouselItem: React.FC<CarouselItemProps<LandingCarouselItemType>> 
   const justifyText = alignment === "right" ? "justify-end" : "";
 
   return (
-    <div className="h-full">
+    <div className="h-full relative">
       <Image
         src={images[0]}
         alt="sofa pic"
         className="absolute inset-0 w-full h-full object-cover"
         fill
+        priority
       />
       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       <div

@@ -1,20 +1,22 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 const ADD_ITEM = "cart/addItem";
 const REMOVE_ITEM = "cart/removeItem";
 const GET_CART = "cart/getCart";
 
-export const addItemToCart = createAsyncThunk(
-  ADD_ITEM,
-  async (itemId: string) => {
+
+export const addItemToCart = createAsyncThunk(ADD_ITEM, async (itemId: string, {dispatch, getState}) => {
+    const state = getState() as RootState;
+
     const res = await fetch("http://localhost:3000/api/cart/add", {
       method: "POST",
       body: JSON.stringify({
         product: {_id: itemId},
-        user: {_id: "64b10ed056a74e371d0d792a"},
       }),
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${state.auth.token}`,
       },
     });
 
@@ -24,41 +26,48 @@ export const addItemToCart = createAsyncThunk(
   }
 );
 
-export const removeItemFromCart = createAsyncThunk(
-  REMOVE_ITEM,
-  async (itemId: string) => {
-    const res = await fetch("http://localhost:3000/api/cart/remove", {
-      method: "POST",
-      body: JSON.stringify({
-        product: {_id: itemId},
-        user: {_id: "64b10ed056a74e371d0d792a"},
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await res.json();
-    
-    return data;
+export const removeItemFromCart = createAsyncThunk(REMOVE_ITEM, async (itemId: string, {dispatch, getState}) => {
+    const state = getState() as RootState;
+    try {
+      const res = await fetch("http://localhost:3000/api/cart/remove", {
+        method: "POST",
+        body: JSON.stringify({
+          product: {_id: itemId},
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${state.auth.token}`
+        },
+      });
+  
+      const data = await res.json();
+      
+      return data; 
+    } catch (error) {
+      throw error;
+    }
   }
 );
 
-export const fetchCart = createAsyncThunk(GET_CART, async () => {
+export const fetchCart = createAsyncThunk(GET_CART, async (args, {dispatch, getState, rejectWithValue}) => {
+  const state = getState() as RootState;
+  
   try {
     const res = await fetch("http://localhost:3000/api/cart", {
       headers: {
         "Content-Type": "application/json",
-        Authorization: "64b10ed056a74e371d0d792a",
+        Authorization: `Bearer ${state.auth.token}`,
       },
     });
 
-    console.log({res});
+    if (!res.ok) throw new Error("Failed to fetch cart");
 
     const data = await res.json();
-    console.log({data});
+  
     return data;
   } catch (error) {
-    console.log(error);
+    const err = error as Error;
+
+    return rejectWithValue(err.message);
   }
 });

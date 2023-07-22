@@ -3,8 +3,8 @@ import React from "react";
 import CartProductProfile from "./CartTableProductProfile";
 import CartQuantityButton from "./CartQuantityButton";
 import {IShoppingCartItem} from "@/utils/types";
-import {useDispatch} from "react-redux";
-import {AppDispatch} from "@/utils/redux/store";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootState} from "@/utils/redux/store";
 import {
   addItemToCart,
   removeItemFromCart,
@@ -12,6 +12,9 @@ import {
 
 const CartTableLine: React.FC<IShoppingCartItem> = ({item, quantity}) => {
   const dispatch = useDispatch<AppDispatch>();
+  const token = useSelector((state: RootState) => state.auth.token);
+
+  console.log(token);
 
   return (
     <div className="grid grid-cols-[2fr_1fr_1fr] py-5 text-center">

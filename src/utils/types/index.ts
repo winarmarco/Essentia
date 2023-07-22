@@ -96,3 +96,17 @@ export interface IUser {
   cart: IShoppingCart;
   history: IOrder[];
 }
+
+export interface ISignUpUser {
+  firstName: IUser["firstName"],
+  lastName: IUser["lastName"],
+  phoneNumber: IUser["phoneNumber"],
+  email: IUser["email"],
+  password: IUser["password"],
+  confirmPassword: IUser["password"],
+}
+
+export interface ISignInUser{
+  email: IUser["email"],
+  password: IUser["password"],
+}

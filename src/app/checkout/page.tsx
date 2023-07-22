@@ -1,13 +1,32 @@
-import React, {HTMLInputTypeAttribute} from "react";
+"use client";
+import React, {useEffect} from "react";
 import "../globals.css";
 import Navbar from "@/components/common/navbar/Navbar";
 import Container from "@/components/common/Container";
 import Footer from "@/components/common/footer/Footer";
 import Invoice from "@/components/page-components/cart/invoice/Invoice";
-import {invoiceDummyData} from "@/utils/dummy-data/Invoice";
 import CheckoutForm from "@/components/page-components/checkout/checkout-form/CheckoutForm";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { AppDispatch, RootState } from "@/utils/redux/store";
+import { fetchCart } from "@/utils/redux/Cart/CartActions";
+import Loading from "@/components/common/loading/Loading";
 
 const Checkout = () => {
+  const disptach =  useDispatch<AppDispatch>();
+  const router = useRouter();
+  const cart = useSelector((state: RootState) => state.cart);
+  const auth = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    if (auth.isAuthenticated) {
+      disptach(fetchCart());
+    } else {
+      router.push("/auth/login");
+    }
+  }, [disptach, auth, router]);
+
+
   return (
     <div className="relative min-h-screen w-full flex flex-col">
       <div className="sticky top-0 z-30 bg-white">
@@ -20,7 +39,7 @@ const Checkout = () => {
             <CheckoutForm />
           </div>
           <div className="w-1/3 sticky flex-grow top-[10rem] h-full">
-            <Invoice />
+            {(cart.hasFetched && !cart.isLoading) ? <Invoice cart={cart} /> : <Loading />}
           </div>
         </div>
       </Container>

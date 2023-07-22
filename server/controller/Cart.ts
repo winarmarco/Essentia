@@ -4,9 +4,10 @@ import { NotFoundError } from "../utils/Errors/NotFoundError";
 import Cart, { ICart } from "../model/Cart";
 import User from "../model/User";
 import { Schema } from "mongoose";
+import { AuthenticatedRequest } from "../utils/middleware/authentication";
 
 export const getCart = async (req: Request, res: Response, next: NextFunction) => {
-  const userId = req.headers.authorization;
+  const userId = (req as AuthenticatedRequest).token;
 
   try {
     const user = await User.findById(userId).populate("cart");
@@ -21,7 +22,7 @@ export const getCart = async (req: Request, res: Response, next: NextFunction) =
 }
 
 export const addToCart = async (req: Request, res: Response, next: NextFunction) => {
-  const { _id: userId } = req.body.user;
+  const userId = (req as AuthenticatedRequest).token;
   const { _id: productId } = req.body.product;
 
 
@@ -56,7 +57,7 @@ export const addToCart = async (req: Request, res: Response, next: NextFunction)
 }
 
 export const removeFromCart = async (req: Request, res: Response, next: NextFunction) => {
-  const { _id: userId } = req.body.user;
+  const userId = (req as AuthenticatedRequest).token;
   const { _id: productId } = req.body.product;
 
   try {
