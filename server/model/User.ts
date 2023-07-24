@@ -3,6 +3,7 @@ import Cart, {ICart} from "./Cart";
 import {IInvoice} from "./Invoice";
 import {compare, genSalt, hash} from "bcryptjs";
 import ShippingAddress, { IShippingAddress } from "./ShippingAddress";
+import { RequiredError } from "../utils/Errors/RequiredError";
 
 enum UserRole {
   ADMIN = "ADMIN",
@@ -17,6 +18,7 @@ interface IUser extends Document {
   phoneNumber: string;
   address: IShippingAddress["_id"];
   password: string;
+  confirmPassword: string;
   cart: ICart["_id"];
   history: IInvoice["_id"][];
 }
@@ -37,15 +39,15 @@ const UserSchema: Schema<IUser, UserModel, IUserMethods> = new Schema({
   },
   firstName: {
     type: String,
-    required: true,
+    required: [true, "First Name is required"],
   },
   lastName: {
     type: String,
-    required: true,
+    required: [true, "Last Name is required"],
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "Email is required"],
     validate: {
       validator: function(v: string) {
         const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -62,7 +64,11 @@ const UserSchema: Schema<IUser, UserModel, IUserMethods> = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Password is required"],
+  },
+  confirmPassword: {
+    type: String,
+    required: [true, "Confirm Password is required"],
   },
   phoneNumber: {
     type: String,
@@ -73,7 +79,7 @@ const UserSchema: Schema<IUser, UserModel, IUserMethods> = new Schema({
       },
       message: props => `${props.value} is not a valid phone number`,
     },
-    required: true,
+    required: [true, "Phone number is required"],
   },
   cart: {
     type: Schema.Types.ObjectId,
@@ -116,12 +122,15 @@ UserSchema.pre("save", async function (next) {
   try {
     const user = this;
 
+    if (user.password !== user.confirmPassword) throw new Error("Password and Confirm Password doesnt match");
+
     // hashPassword
     if (!user.isModified("password")) return next();
 
     const salt = await genSalt(10);
     const hashedPassword = await hash(user.password, salt);
     user.password = hashedPassword;
+    user.confirmPassword = hashedPassword;
     
     // create new cart for a new user
     if (!user.cart) {
@@ -132,7 +141,7 @@ UserSchema.pre("save", async function (next) {
 
     next();
   } catch (err) {
-    next(new Error("Unknown error occured during password hashing."));
+    throw err;
   }
 });
 

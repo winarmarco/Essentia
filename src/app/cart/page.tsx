@@ -18,20 +18,23 @@ import Link from "next/link";
 import Button from "@/components/common/Button";
 import { useRouter } from "next/navigation";
 import Loading from "@/components/common/loading/Loading";
+import { removeDiscountCoupon } from "@/utils/redux/DiscountCode/DiscountCodeActions";
+import { discountCodeActions } from "@/utils/redux/DiscountCode/DiscountCodeSlice";
+import { Router } from "next/router";
 
 const Cart: React.FC<{invoice: InvoiceType}> = () => {
-  const disptach =  useDispatch<AppDispatch>();
+  const dispatch =  useDispatch<AppDispatch>();
   const router = useRouter();
   const cart = useSelector((state: RootState) => state.cart);
   const auth = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      disptach(fetchCart());
+      dispatch(fetchCart());
     } else {
       router.push("/auth/login");
     }
-  }, [disptach, auth, router]);
+  }, [dispatch, auth, router]);
 
 
   return (
@@ -40,23 +43,25 @@ const Cart: React.FC<{invoice: InvoiceType}> = () => {
         <Navbar />
       </Header>
       <Main className="flex-grow">
-        <Container className="w-full flex flex-col bg-white">
+        {(!cart.isLoading && cart.hasFetched) ? <Container className="w-full flex flex-col bg-white">
           <div className="flex flex-col md:flex-row w-full flex-grow gap-x-20">
             <div className="w-2/3">
-              {(!cart.isLoading && cart.hasFetched) ? <CartTable items={cart.items} /> : <Loading />}
+              <CartTable items={cart.items} />
             </div>
             <div className="w-1/3 sticky flex-grow top-[10rem] h-full">
-              {(!cart.isLoading && cart.hasFetched) ? <Invoice cart={cart}/> : <Loading />}
+              <Invoice cart={cart}/>
               <CouponInput />
               <Link href="/checkout">
                 <Button className="mt-[8rem] w-full" filled>Checkout</Button>
               </Link>
             </div>
           </div>
-        </Container>
+        </Container> : <Loading />}
       </Main>
       <Footer />
     </div>
   );
 };
+
 export default Cart;
+

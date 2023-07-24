@@ -20,9 +20,11 @@ export const signIn = createAsyncThunk(SIGN_IN, async (signInData: ISignInUser) 
 
     const data = await res.json();
 
+    if (!res.ok) throw new Error(data.message);
+
     return data;
   } catch (error) {
-    return error;
+    throw error;
   }
 })
 
@@ -40,9 +42,12 @@ export const signUp = createAsyncThunk(SIGN_UP, async (signUpData: ISignUpUser) 
 
     const data = await res.json();
 
+    if (!res.ok) throw new Error(data.message);
+
     return data;
   } catch (error) {
-    return error;
+    console.log(error);
+    throw error;
   }
 }) 
 
@@ -51,5 +56,6 @@ export const signOut: CaseReducer<AuthenticationState> = (state, action) => {
   return {
     ...state,
     token: undefined,
+    isAuthenticated: false,
   }
 }

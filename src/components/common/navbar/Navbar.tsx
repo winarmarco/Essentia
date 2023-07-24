@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/utils/redux/store";
 import {signOut} from "@/utils/redux/Auth/AuthActions";
 import {authActions} from "@/utils/redux/Auth/AuthSlice";
+import { useRouter } from "next/navigation";
 
 const Logo = () => {
   return (
@@ -29,12 +30,14 @@ const NavLink: React.FC<{href: string; children: React.ReactNode}> = (
 
 const LogoutButton: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
 
   return (
     <Button
       filled
       onClick={() => {
         dispatch(authActions.signOut());
+        router.push('/');
       }}
     >
       Logout

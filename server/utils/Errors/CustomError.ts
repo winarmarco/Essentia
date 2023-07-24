@@ -1,6 +1,6 @@
 import { Error } from "mongoose";
 
-export class MongooseError extends Error {
+export class CustomError extends Error {
   errorCode: number;
 
   constructor(message: string, errorCode: number) {

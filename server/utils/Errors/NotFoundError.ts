@@ -1,7 +1,7 @@
 import { Error } from "mongoose";
-import { MongooseError } from "./MongooseError";
+import { CustomError } from "./CustomError";
 
-export class NotFoundError extends MongooseError {
+export class NotFoundError extends CustomError {
   constructor(message: string, errorCode = 404) {
     super(message, errorCode);
   }

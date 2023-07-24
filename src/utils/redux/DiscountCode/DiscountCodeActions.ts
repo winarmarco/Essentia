@@ -25,7 +25,6 @@ export const getDiscountCoupon = createAsyncThunk(GET_DISCOUNT_COUPON, async (di
 
 export const removeDiscountCoupon: CaseReducer<DiscountCouponState> = (state) => {
   return {
-    ...state,
     ...initialDiscountCouponState,
   };
 }
