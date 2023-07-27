@@ -1,6 +1,6 @@
 import { IShoppingCart } from "@/utils/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { addItemToCart, fetchCart, removeItemFromCart } from "./CartActions";
+import { addItemToCart, checkoutCart, fetchCart, removeItemFromCart } from "./CartActions";
 
 
 export interface CartState extends IShoppingCart{
@@ -50,6 +50,13 @@ export const cartSlice = createSlice({
         return {
           ...state,
           isLoading: true,
+        }
+      }),
+
+    builder
+      .addCase(checkoutCart.fulfilled, (state) => {
+        return {
+          ...initialCartState,
         }
       })
 

@@ -1,15 +1,15 @@
 "use client";
 
-import Navbar from "@/components/common/navbar/Navbar";
+import Navbar from "@/components/shared/navbar/Navbar";
 import "../globals.css";
 import React, {useEffect, useState} from "react";
-import Container from "@/components/common/Container";
-import Footer from "@/components/common/footer/Footer";
+import Container from "@/components/shared/Container";
+import Footer from "@/components/shared/footer/Footer";
 import categoryFilters from "@/utils/constants/categoryFilter";
 import ProductCard from "@/components/page-components/product/product-card/ProductCard";
 import ProductCateogoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
-import Header from "@/components/common/header/Header";
-import Main from "@/components/common/main/Main";
+import Header from "@/components/shared/header/Header";
+import Main from "@/components/shared/main/Main";
 import IProduct from "@/utils/types/Product";
 
 

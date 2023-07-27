@@ -1,11 +1,11 @@
-import TextInput from "@/components/common/input/TextInput";
+import TextInput from "@/components/shared/input/TextInput";
 import React, {InputHTMLAttributes} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {IDiscountCoupon} from "@/utils/types";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/utils/redux/store";
 import {getDiscountCoupon} from "@/utils/redux/DiscountCode/DiscountCodeActions";
-import Button from "@/components/common/Button";
+import Button from "@/components/shared/Button";
 
 interface CouponInput extends InputHTMLAttributes<HTMLInputElement> {}
 

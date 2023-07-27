@@ -1,8 +1,4 @@
-import DiscountType from "@/utils/types/DiscountType";
-import InvoiceType from "@/utils/types/Invoice";
-import { IDiscountCouponClient, IShoppingCart } from "../types";
-import { IDiscountCoupon } from "../types";
-import { IInvoice } from "../../../server/model/Invoice";
+import { IDiscountCouponClient, IShoppingCart, IDiscountCoupon, IInvoice } from "../types";
 
 const calculateSubtotals = (cart: IShoppingCart) => {
   const {items} = cart;
@@ -32,7 +28,7 @@ const calculateDiscountDollar = (subtotal: number, discount: IDiscountCouponClie
 
 const calculateTotal = (invoice: IInvoice) => {
   const subtotals = calculateSubtotals(invoice.cart);
-  const discountDollarAmount = calculateDiscountDollar(subtotals, invoice.discountCode);
+  const discountDollarAmount = (invoice.discountCoupon) ? calculateDiscountDollar(subtotals, invoice.discountCoupon) : 0;
 
   return Math.round(subtotals - discountDollarAmount);
 }

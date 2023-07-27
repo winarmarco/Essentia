@@ -1,6 +1,6 @@
 type StatisticBoxProps = {
   title: string;
-  content: React.ReactNode;
+  children?: React.ReactNode;
   className?: string | "";
   titleClass?: string | "";
   contentClass?: string | "";
@@ -13,7 +13,7 @@ const StatisticBox: React.FC<StatisticBoxProps> = (props) => {
     >
       <span className={`${props.titleClass}`}>{props.title}</span>
       <span className={`text-2xl font-bold h-full ${props.contentClass}`}>
-        {props.content}
+        {props.children}
       </span>
     </div>
   );

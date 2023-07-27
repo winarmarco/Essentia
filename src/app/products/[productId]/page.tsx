@@ -1,16 +1,16 @@
 "use client";
 
 import "../../globals.css";
-import Footer from "@/components/common/footer/Footer";
-import Navbar from "@/components/common/navbar/Navbar";
-import Container from "@/components/common/Container";
+import Footer from "@/components/shared/footer/Footer";
+import Navbar from "@/components/shared/navbar/Navbar";
+import Container from "@/components/shared/Container";
 import React, {useEffect, useState} from "react";
 
-import Header from "@/components/common/header/Header";
-import Main from "@/components/common/main/Main";
+import Header from "@/components/shared/header/Header";
+import Main from "@/components/shared/main/Main";
 import ProductImageList from "@/components/page-components/product/product-details/product-image-list/ProductImageList";
 import ProductDetailsDescription from "@/components/page-components/product/product-details/product-details-description/ProductDetailsDescription";
-import Modal from "@/components/common/modal/Modal";
+import Modal from "@/components/shared/modal/Modal";
 import ProductDetailsCarousel from "@/components/page-components/product/product-details/product-details-image-carousel/ProductDetailsCarousel";
 import {redirect, useParams} from "next/navigation";
 import { IProduct } from "@/utils/types";

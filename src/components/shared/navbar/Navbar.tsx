@@ -23,7 +23,7 @@ const NavLink: React.FC<{href: string; children: React.ReactNode}> = (
 ) => {
   return (
     <li>
-      <Link href={props.href}>{props.children}</Link>
+      <Link replace={true} href={props.href}>{props.children}</Link>
     </li>
   );
 };
@@ -57,8 +57,8 @@ const NavLinks: React.FC<{isAuth: boolean}> = ({isAuth}) => {
 
   return (
     <ul className="flex gap-x-10 items-center">
-      <NavLink href="/about">About</NavLink>
-      <NavLink href="/contact">Contact</NavLink>
+      <NavLink href="/">About</NavLink>
+      <NavLink href="/">Contact</NavLink>
       <NavLink href="/products">Products</NavLink>
       {isAuth && <NavLink href="/cart">My Cart</NavLink>}
       {isAuth ? <LogoutButton /> : <LoginButton />}

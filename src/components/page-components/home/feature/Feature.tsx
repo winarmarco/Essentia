@@ -1,8 +1,8 @@
 import React from "react";
-import Container from "../../../common/Container";
+import Container from "../../../shared/Container";
 import Link from "next/link";
 import {AiOutlineRight} from "react-icons/ai";
-import RelativeImage from "@/components/common/relative-image/RelativeImage";
+import RelativeImage from "@/components/shared/relative-image/RelativeImage";
 
 const Feature = () => {
   return (

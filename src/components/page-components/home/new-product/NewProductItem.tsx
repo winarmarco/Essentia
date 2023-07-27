@@ -1,5 +1,5 @@
-import Button from "@/components/common/Button";
-import RelativeImage from "@/components/common/relative-image/RelativeImage";
+import Button from "@/components/shared/Button";
+import RelativeImage from "@/components/shared/relative-image/RelativeImage";
 import NewProductType from "@/utils/types/NewProduct";
 import IProduct from "@/utils/types/Product";
 import Image from "next/image";

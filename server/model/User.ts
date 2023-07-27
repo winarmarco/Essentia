@@ -66,10 +66,6 @@ const UserSchema: Schema<IUser, UserModel, IUserMethods> = new Schema({
     type: String,
     required: [true, "Password is required"],
   },
-  confirmPassword: {
-    type: String,
-    required: [true, "Confirm Password is required"],
-  },
   phoneNumber: {
     type: String,
     validate: {
@@ -122,7 +118,6 @@ UserSchema.pre("save", async function (next) {
   try {
     const user = this;
 
-    if (user.password !== user.confirmPassword) throw new Error("Password and Confirm Password doesnt match");
 
     // hashPassword
     if (!user.isModified("password")) return next();
@@ -130,7 +125,6 @@ UserSchema.pre("save", async function (next) {
     const salt = await genSalt(10);
     const hashedPassword = await hash(user.password, salt);
     user.password = hashedPassword;
-    user.confirmPassword = hashedPassword;
     
     // create new cart for a new user
     if (!user.cart) {

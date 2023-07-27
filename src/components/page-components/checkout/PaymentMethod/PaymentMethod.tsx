@@ -1,13 +1,18 @@
-import Section from "@/components/common/section/section";
-import CheckoutFormInputField from "../checkout-form/CheckoutFormInputField";
-import {UseFormRegister, UseFormSetValue} from "react-hook-form";
-import { formatCardNumber, formatExpiryDate } from "@/utils/functions/InputFormatter";
-import { CheckoutFormData } from "../checkout-form/CheckoutForm";
+import Section from "@/components/shared/section/section";
+import {FieldErrors, UseFormRegister, UseFormSetValue} from "react-hook-form";
+import {
+  formatCardNumber,
+  formatCsc,
+  formatExpiryDate,
+} from "@/utils/functions/InputFormatter";
+import {CheckoutFormData} from "../checkout-form/CheckoutForm";
+import Input from "@/components/shared/input/Input";
 
 const PaymentMethod: React.FC<{
   registerForm: UseFormRegister<CheckoutFormData>;
   setValue: UseFormSetValue<CheckoutFormData>;
-}> = ({registerForm, setValue}) => {
+  errors: FieldErrors<CheckoutFormData>;
+}> = ({registerForm, setValue, errors}) => {
   return (
     <Section className="flex flex-col gap-y-5">
       <div className="flex flex-col gap-y-4">
@@ -16,7 +21,7 @@ const PaymentMethod: React.FC<{
         </span>
         <span>Credit card</span>
       </div>
-      <CheckoutFormInputField
+      <Input
         id="cardNumber"
         label="Card Number"
         placeholder="**** **** **** ****"
@@ -26,30 +31,36 @@ const PaymentMethod: React.FC<{
           const inputtedCardNumber = e.target.value;
           setValue("cardNumber", formatCardNumber(inputtedCardNumber));
         }}
-
         maxLength={19}
+        errors={errors}
       />
 
       <div className="grid grid-cols-2 gap-x-5">
-        <CheckoutFormInputField
+        <Input
           id="cardExpiry"
           label="Expiration (MM/YY)"
           placeholder="MM / YY"
           required
           onChange={(e) => {
-            const inputtedValue = e.target.value;  
-            setValue("cardExpiry", formatExpiryDate(inputtedValue))
+            const inputtedValue = e.target.value;
+            setValue("cardExpiry", formatExpiryDate(inputtedValue));
           }}
           maxLength={5}
           register={registerForm}
+          errors={errors}
         />
-        <CheckoutFormInputField
+        <Input
           id="cardCsc"
           label="Card Security Code"
           placeholder="CSC"
           required
           register={registerForm}
           maxLength={3}
+          onChange={(e) => {
+            const inputtedValue = e.target.value;
+            setValue("cardCsc", formatCsc(inputtedValue));
+          }}
+          errors={errors}
         />
       </div>
     </Section>

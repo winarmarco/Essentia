@@ -1,4 +1,4 @@
-import { CarouselItemProps } from "@/components/common/carousel/Carousel";
+import { CarouselItemProps } from "@/components/shared/carousel/Carousel";
 import { IProduct } from "@/utils/types";
 import Image from "next/image";
 

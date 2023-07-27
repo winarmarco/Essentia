@@ -4,7 +4,7 @@ import  { IDiscountCoupon } from "./DiscountCoupon";
 
 interface IInvoice extends Document {
   cart: ICart["_id"],
-  discountCode: IDiscountCoupon["_id"],
+  discountCoupon: IDiscountCoupon["_id"],
 }
 
 const InvoiceSchema: Schema<IInvoice> = new Schema({
@@ -13,7 +13,7 @@ const InvoiceSchema: Schema<IInvoice> = new Schema({
     ref: "Cart",
     required: true,
   },
-  discountCode: {
+  discountCoupon: {
     type: Schema.Types.ObjectId,
     ref: "DiscountCode",
   }

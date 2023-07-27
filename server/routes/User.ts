@@ -13,7 +13,7 @@ router.post('/signup',
     .isEmail().withMessage("Is not email")
     .custom(async (value) => {
       const userWithEmail = await User.findOne({email: value});
-      if (userWithEmail) throw new Error("That email has been taken");
+      if (userWithEmail) return Promise.reject("That email has been taken");
     }),
   body("user.firstName")
     .notEmpty().withMessage("First Name is required"),
@@ -25,9 +25,10 @@ router.post('/signup',
     .notEmpty().withMessage("Password is required"),
   body("user.confirmPassword")
     .notEmpty().withMessage("Confirm Password is required")
-    .custom((value, {req})=> {
-      if (value !== req.body.user.password) throw new Error("Password and Confirm Password doesnt match");
-    }),
+    .custom(async (value, {req})=> {
+      if (value !== req.body.user.password) return Promise.reject("Password and Confirm Password doesnt match");
+    })
+  ,
  signUp);
 
 // POST

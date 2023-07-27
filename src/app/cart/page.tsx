@@ -2,11 +2,11 @@
 
 import React, { useEffect } from "react";
 import "../globals.css";
-import Navbar from "@/components/common/navbar/Navbar";
-import Container from "@/components/common/Container";
-import Footer from "@/components/common/footer/Footer";
-import Header from "@/components/common/header/Header";
-import Main from "@/components/common/main/Main";
+import Navbar from "@/components/shared/navbar/Navbar";
+import Container from "@/components/shared/Container";
+import Footer from "@/components/shared/footer/Footer";
+import Header from "@/components/shared/header/Header";
+import Main from "@/components/shared/main/Main";
 import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
 import InvoiceType from "@/utils/types/Invoice";
@@ -15,9 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/utils/redux/store";
 import { fetchCart } from "@/utils/redux/Cart/CartActions";
 import Link from "next/link";
-import Button from "@/components/common/Button";
+import Button from "@/components/shared/Button";
 import { useRouter } from "next/navigation";
-import Loading from "@/components/common/loading/Loading";
+import Loading from "@/components/shared/loading/Loading";
 import { removeDiscountCoupon } from "@/utils/redux/DiscountCode/DiscountCodeActions";
 import { discountCodeActions } from "@/utils/redux/DiscountCode/DiscountCodeSlice";
 import { Router } from "next/router";

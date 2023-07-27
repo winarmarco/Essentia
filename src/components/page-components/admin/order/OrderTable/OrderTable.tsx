@@ -1,9 +1,8 @@
-import DataTable from "@/components/common/DataTable/DataTable";
-import {OrderSummary} from "@/utils/types/Order";
+import DataTable from "@/components/shared/DataTable/DataTable";
 import React, {useMemo} from "react";
-import orderTableColumns from "./OrderTableHeader";
+import orderTableColumns, { IOrderColumn } from "./OrderTableHeader";
 
-type OrderTableProps = {ordersData: OrderSummary[]; initPageSize?: number};
+type OrderTableProps = {ordersData: IOrderColumn[]; initPageSize?: number};
 
 const OrderTable: React.FC<OrderTableProps> = ({ordersData, initPageSize = 10}) => {
   const columns = useMemo(() => orderTableColumns, []);

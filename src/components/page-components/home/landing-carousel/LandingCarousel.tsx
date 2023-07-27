@@ -1,6 +1,6 @@
 "use client"
 
-import Carousel from "@/components/common/carousel/Carousel";
+import Carousel from "@/components/shared/carousel/Carousel";
 import LandingCarouselItem from "./LandingCarouselItem";
 import {BiSolidRightArrow, BiSolidLeftArrow} from "react-icons/bi";
 import landingCarouselDatas from "@/utils/dummy-data/landingCarouselData";

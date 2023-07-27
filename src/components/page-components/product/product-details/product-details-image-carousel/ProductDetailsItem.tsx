@@ -1,5 +1,5 @@
 import Image, {StaticImageData} from "next/image";
-import {CarouselItemProps} from "@/components/common/carousel/Carousel";
+import {CarouselItemProps} from "@/components/shared/carousel/Carousel";
 import Product from "@/utils/types/Product";
 
 const ProductDetailsCarouselItem: React.FC<

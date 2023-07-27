@@ -3,9 +3,9 @@ import Product from "@/utils/types/Product";
 import React, {useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import ProductFormInput from "./ProductFormInput";
-import Button from "@/components/common/Button";
+import Button from "@/components/shared/Button";
 import ProductImage from "../../product/product-details/product-image-list/ProductImage";
-import Modal from "@/components/common/modal/Modal";
+import Modal from "@/components/shared/modal/Modal";
 import ProductDetailsCarousel from "../../product/product-details/product-details-image-carousel/ProductDetailsCarousel";
 
 const ProductForm = () => {

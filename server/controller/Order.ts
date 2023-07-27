@@ -5,14 +5,23 @@ import User from "../model/User";
 import Invoice from "../model/Invoice";
 import ShippingAddress from "../model/ShippingAddress";
 import Cart from "../model/Cart";
+import { validationResult } from "express-validator";
+import { parseExpressValidatorError } from "../utils/helperFunctions/ErrorParser";
+import { CustomError } from "../utils/Errors/CustomError";
 
 export const createOrder = async (req: Request, res: Response, next: NextFunction) => {
   const userId = req.headers.authorization;
-  console.log({body: req.body});
-  const { firstName, lastName, email, discountCoupon, shippingAddress } = req.body;
-  console.log(shippingAddress);
-
+  
+  
   try {
+    const validationErrors = validationResult(req);
+
+    if (!validationErrors.isEmpty()) {
+      console.log(validationErrors.array());
+      throw new Error(parseExpressValidatorError(validationErrors, true));
+    }
+
+    const { firstName, lastName, email, discountCoupon, shippingAddress } = req.body;
     // get User's cart when checkout
     const user = await User.findById(userId).populate("cart");
 
@@ -58,7 +67,7 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
 
     res.json(order);
   } catch (error) {
-    next(error);
+    res.status(400).json({message: (error as CustomError).message});
   }
 }
 
@@ -66,13 +75,43 @@ export const getOrder = async (req: Request, res: Response, next: NextFunction) 
   const { orderId } = req.params;
 
   try {
-    const order = await Order.findById(orderId);
+    const order = await Order.find({_id: orderId});
+    console.log(order);
 
     if (!order) throw new NotFoundError("Order not found!");
 
     res.json(order);
   } catch (error) {
-    next(error);
+    console.log(error)
+  }
+}
+
+export const getOrders = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const orders = await Order.find().populate([
+      {
+        path: "invoice",
+        populate: [
+          {
+            path: "cart",
+            populate: {
+              path: "items",
+              populate: "item",
+            },
+          },
+          {
+            path: "discountCoupon",
+          }
+        ]
+      },
+    ]);
+
+
+    if (!orders) throw new NotFoundError("Order not found!");
+
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
   }
 }
 

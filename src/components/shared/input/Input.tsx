@@ -4,6 +4,12 @@ import TextInput from "./TextInput";
 import FileInput from "./FileInput";
 import CheckboxInput from "./CheckboxInput";
 import TextAreaInput from "./TextAreaInput";
+import {getProperty} from "dot-prop";
+
+interface InputFieldError {
+  field: string;
+  message: string;
+}
 
 interface InputFieldProps<T extends FieldValues>
   extends InputHTMLAttributes<HTMLInputElement> {
@@ -19,10 +25,9 @@ interface InputComponentProps<T extends FieldValues>
   errors: FieldErrors<T>;
   label: string;
   type?: HTMLInputTypeAttribute | "textarea";
-  className: string;
+  className?: string;
   register: UseFormRegister<T>;
 }
-
 
 const Input = <T extends object>({
   id,
@@ -35,33 +40,55 @@ const Input = <T extends object>({
   ...others
 }: InputComponentProps<T>) => {
   let InputComponent;
-  const errorMessage = errors && errors[id]?.message;
+  const errorObject = errors && (getProperty(errors, id) as InputFieldError);
+  const errorMessage = errorObject && errorObject.message;
 
   switch (type) {
     case "textarea":
       InputComponent = (
-        <TextAreaInput id={id} register={register} {...others} required={required} error={Boolean(errorMessage)} />
+        <TextAreaInput
+          id={id}
+          register={register}
+          {...others}
+          required={required}
+          error={Boolean(errorMessage)}
+        />
       );
       break;
     case "checkbox":
       InputComponent = (
-        <CheckboxInput id={id} register={register} {...others} required={required} error={Boolean(errorMessage)}
+        <CheckboxInput
+          id={id}
+          register={register}
+          {...others}
+          required={required}
+          error={Boolean(errorMessage)}
         />
       );
       break;
     case "file":
       InputComponent = (
-        <FileInput id={id} register={register} {...others} required={required} error={Boolean(errorMessage)}
+        <FileInput
+          id={id}
+          register={register}
+          {...others}
+          required={required}
+          error={Boolean(errorMessage)}
         />
       );
       break;
     default:
       InputComponent = (
-        <TextInput id={id} register={register} type={type} {...others} required={required} error={Boolean(errorMessage)}
+        <TextInput
+          id={id}
+          register={register}
+          type={type}
+          {...others}
+          required={required}
+          error={Boolean(errorMessage)}
         />
       );
   }
-
 
   return (
     <div className={`flex flex-col ${className}`}>

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import CategoryItem from "./CategoryItem";
-import Section from "@/components/common/section/section";
+import Section from "@/components/shared/section/section";
 
 // consts
 import categoryItemData from "@/utils/constants/categoryItem";

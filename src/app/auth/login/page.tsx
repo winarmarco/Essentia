@@ -1,11 +1,11 @@
 "use client";
-import Navbar from "@/components/common/navbar/Navbar";
+import Navbar from "@/components/shared/navbar/Navbar";
 import "../../globals.css";
 import React, {useState} from "react";
-import Header from "@/components/common/header/Header";
-import Main from "@/components/common/main/Main";
-import Container from "@/components/common/Container";
-import Footer from "@/components/common/footer/Footer";
+import Header from "@/components/shared/header/Header";
+import Main from "@/components/shared/main/Main";
+import Container from "@/components/shared/Container";
+import Footer from "@/components/shared/footer/Footer";
 import SignInForm from "@/components/page-components/auth/SignInForm";
 
 

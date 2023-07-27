@@ -1,4 +1,4 @@
-import Button from "@/components/common/Button";
+import Button from "@/components/shared/Button";
 import CartQuantityButton from "@/components/page-components/cart/shopping-cart-table/CartQuantityButton";
 import {findProductIndexInCart} from "@/utils/functions/CheckInCart";
 import {addItemToCart, fetchCart, removeItemFromCart} from "@/utils/redux/Cart/CartActions";

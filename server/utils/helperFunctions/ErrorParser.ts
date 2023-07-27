@@ -14,12 +14,16 @@ export interface FormattedExpressValidationError {
   message: string;
 }
 
-export const parseExpressValidatorError = (err: Result<ValidationError>) => {
+
+// lastKeyPerField converts
+// {user.firstName : 'errors'} to {firstName: 'errors'}
+// this is useful when we need to render error of each input field in the UI
+export const parseExpressValidatorError = (err: Result<ValidationError>, lastKeyPerField: boolean = false) => {
   const fieldVisited: string[] = [];
 
   const errorsObject = err.array().reduce<FormattedExpressValidationError[]>((result, currErr) => {
     if (currErr.type === "field") {
-      const formattedPath = currErr.path.split(".").pop();
+      const formattedPath = (!lastKeyPerField) ? currErr.path.split(".").pop() : currErr.path;
 
       // if there are multiple error in the same path
       // take the first one

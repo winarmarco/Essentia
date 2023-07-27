@@ -6,12 +6,14 @@ export interface AuthenticationState {
   token?: string | undefined;
   isAuthenticated: boolean;
   isLoading: boolean;
+  hasFetched: boolean;
 }
 
 const initialAuthState: AuthenticationState = {
   token: undefined,
   isAuthenticated: false,
   isLoading: false,
+  hasFetched: false,
 }
 
 
@@ -20,10 +22,18 @@ const authSlice = createSlice({
   initialState: initialAuthState,
   reducers: {
     signOut,
+    toggleLoading: (state) => {
+      console.log()
+      return {
+        ...state,
+        isLoading: !state.isLoading,
+      }
+    }
   },
   extraReducers: (builders) => {
     builders
       .addCase(signIn.pending, (state) => {
+        console.log("PENDING...");
         return {
           ...state,
           isLoading: true,
@@ -34,13 +44,11 @@ const authSlice = createSlice({
           ...state,
           token: action.payload.token,
           isAuthenticated: true,
-          isLoading: false,
         }
       })
       .addCase(signIn.rejected, (state, action) => {
         return {
           ...state,
-          isLoading: false,
         }
       });
 
@@ -55,13 +63,11 @@ const authSlice = createSlice({
       .addCase(signUp.fulfilled, (state, action: PayloadAction<AuthenticationState>) => {
         return {
           ...state,
-          isLoading: false,
         }
       })
       .addCase(signUp.rejected, (state) => {
         return {
           ...state,
-          isLoading: false,
         }
       })
   }

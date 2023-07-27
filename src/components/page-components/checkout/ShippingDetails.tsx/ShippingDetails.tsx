@@ -1,14 +1,14 @@
-import Section from "@/components/common/section/section";
+import Section from "@/components/shared/section/section";
 import React from "react";
-import CheckoutFormInputField from "../checkout-form/CheckoutFormInputField";
-import {FieldValues, UseFormRegister} from "react-hook-form";
-import { CustomerType } from "@/utils/types/Customer";
-import { CheckoutFormData } from "../checkout-form/CheckoutForm";
-
+import {FieldErrors, FieldValues, UseFormRegister} from "react-hook-form";
+import {CustomerType} from "@/utils/types/Customer";
+import {CheckoutFormData} from "../checkout-form/CheckoutForm";
+import Input from "@/components/shared/input/Input";
 
 const ShippingDetails: React.FC<{
   registerForm: UseFormRegister<CheckoutFormData>;
-}> = ({registerForm}) => {
+  errors: FieldErrors<CheckoutFormData>;
+}> = ({registerForm, errors}) => {
   return (
     <Section className="flex flex-col gap-y-5">
       <div>
@@ -17,54 +17,61 @@ const ShippingDetails: React.FC<{
         </span>
       </div>
       <div className="grid grid-cols-2 gap-x-10">
-        <CheckoutFormInputField
+        <Input
           id="firstName"
           label="First Name"
           register={registerForm}
           required
+          errors={errors}
         />
-        <CheckoutFormInputField
+        <Input
           id="lastName"
           label="Last name"
           register={registerForm}
           required
+          errors={errors}
         />
       </div>
 
-      <CheckoutFormInputField
+      <Input
         id="shippingAddress.country"
         label="Country / Region"
         register={registerForm}
         required
+        errors={errors}
       />
-      <CheckoutFormInputField
+      <Input
         id="shippingAddress.streetAddress"
         label="Street address"
         placeholder="House number and street name"
         register={registerForm}
         required
+        errors={errors}
       />
-      <CheckoutFormInputField
+      <Input
         id="shippingAddress.apartmentNumber"
         label="Apartment number (optional)"
         placeholder="Apartment, suite, unit, etc. (optional)"
         register={registerForm}
+        errors={errors}
       />
 
-      <CheckoutFormInputField
+      <Input
         id="shippingAddress.town"
         label="Town / City"
         register={registerForm}
         required
+        errors={errors}
       />
-      <CheckoutFormInputField
+      <Input
         id="shippingAddress.state"
         label="State"
         register={registerForm}
         required
+        errors={errors}
       />
 
-      <CheckoutFormInputField
+      <Input
         id="shippingAddress.zipCode"
         label="ZIP Code"
         register={registerForm}
@@ -72,14 +79,16 @@ const ShippingDetails: React.FC<{
         min={0}
         minLength={4}
         required
+        errors={errors}
       />
 
-      <CheckoutFormInputField
+      <Input
         id="email"
         label="Email address"
         type="email"
         register={registerForm}
         required
+        errors={errors}
       />
     </Section>
   );

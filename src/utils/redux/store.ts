@@ -1,12 +1,12 @@
 import {ThunkDispatch} from 'redux-thunk';
 import thunk from 'redux-thunk';
-import { AnyAction, Slice, combineReducers, configureStore } from "@reduxjs/toolkit";
-import cartSlice, { cartSliceReducer } from "./Cart/CartSlice";
-import { discountCodeReducer, discountCodeSlice } from "./DiscountCode/DiscountCodeSlice";
+import { AnyAction, combineReducers, configureStore } from "@reduxjs/toolkit";
+import cartSlice from "./Cart/CartSlice";
+import { discountCodeSlice } from "./DiscountCode/DiscountCodeSlice";
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import persistStore from 'redux-persist/es/persistStore';
-import authSlice, { authSliceReducer } from './Auth/AuthSlice';
+import authSlice from './Auth/AuthSlice';
 import UISlice, { uiReducers } from './UI/UISlice';
 import { persistAsync } from '../functions/redux-helper';
 
@@ -14,14 +14,14 @@ import { persistAsync } from '../functions/redux-helper';
 const rootReducer = combineReducers({
   [cartSlice.name]: persistAsync(cartSlice),
   [discountCodeSlice.name] : persistAsync(discountCodeSlice),
-  [authSlice.name]: authSliceReducer,
+  [authSlice.name]: persistAsync(authSlice),
   [UISlice.name]: uiReducers,
 })
 
 const persistedReducer = persistReducer({
   key: "root",
   storage: storage,
-  blacklist: ["UI"],
+  blacklist: [authSlice.name, discountCodeSlice.name, cartSlice.name],
 },rootReducer)
 
 const store = configureStore({

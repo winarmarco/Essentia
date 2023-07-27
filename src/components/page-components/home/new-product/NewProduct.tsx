@@ -1,9 +1,9 @@
 import React from "react";
-import Container from "../../../common/Container";
+import Container from "../../../shared/Container";
 import newArrivalItemsData from "@/utils/dummy-data/newProduct";
 import newProductData from "@/utils/dummy-data/newProduct";
 import NewProductItem from "./NewProductItem";
-import Section from "@/components/common/section/section";
+import Section from "@/components/shared/section/section";
 
 const NewArrival: React.FC = () => {
   return (

@@ -1,16 +1,16 @@
 "use client";
 import React, {useEffect} from "react";
 import "../globals.css";
-import Navbar from "@/components/common/navbar/Navbar";
-import Container from "@/components/common/Container";
-import Footer from "@/components/common/footer/Footer";
+import Navbar from "@/components/shared/navbar/Navbar";
+import Container from "@/components/shared/Container";
+import Footer from "@/components/shared/footer/Footer";
 import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CheckoutForm from "@/components/page-components/checkout/checkout-form/CheckoutForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { AppDispatch, RootState } from "@/utils/redux/store";
 import { fetchCart } from "@/utils/redux/Cart/CartActions";
-import Loading from "@/components/common/loading/Loading";
+import Loading from "@/components/shared/loading/Loading";
 
 const Checkout = () => {
   const disptach =  useDispatch<AppDispatch>();

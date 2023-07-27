@@ -1,6 +1,6 @@
 import ProductDetailsCarouselItem from "./ProductDetailsItem";
 import { ModalCarouselLeftButton, ModalCarouselRightButton } from "./ProductDetailsCarouselButtons";
-import Carousel from "@/components/common/carousel/Carousel";
+import Carousel from "@/components/shared/carousel/Carousel";
 import IProduct from "@/utils/types/Product";
 
 

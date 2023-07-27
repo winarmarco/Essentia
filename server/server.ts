@@ -10,7 +10,11 @@ import { productRouter } from "./routes/Product";
 import { categoryRouter } from "./routes/Category";
 import { discountCouponeRouter } from "./routes/DiscountCoupon";
 import { orderRouter } from "./routes/Order";
+import * as dotenv from "dotenv";
+import path from "path";
+
 // const Note = require('./models/Note');
+dotenv.config({path: path.join(__dirname, "../.env")});
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -18,9 +22,9 @@ const handle = app.getRequestHandler();
 
 mongoose.connect('mongodb://localhost:27017/essentia');
 cloudinary.v2.config({
-  cloud_name: 'dlxqeugrd', 
-  api_key: "842935153296659",
-  api_secret: 'k9aQtMNsEDY58E-u7-TrBr2Zerc' 
+  cloud_name: process.env.CLOUDINARY_CLOUDNAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
 
@@ -74,7 +78,7 @@ app.prepare().then(() => {
   server.use('/api/products', productRouter);
   server.use('/api/category', categoryRouter);
   server.use('/api/discount-coupon', discountCouponeRouter);
-  server.use('/api/checkout', orderRouter);
+  server.use('/api/order', orderRouter);
 
   server.all('*', (req: Request, res: Response) => {
     if (!req.path.match(/.\.(css|js|jpg|png)$/)) {

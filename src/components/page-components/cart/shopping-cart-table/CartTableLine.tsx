@@ -1,4 +1,4 @@
-import RelativeImage from "@/components/common/relative-image/RelativeImage";
+import RelativeImage from "@/components/shared/relative-image/RelativeImage";
 import React from "react";
 import CartProductProfile from "./CartTableProductProfile";
 import CartQuantityButton from "./CartQuantityButton";

@@ -1,18 +1,20 @@
-import Button from "@/components/common/Button";
-import Input from "@/components/common/input/Input";
+import Button from "@/components/shared/Button";
+import Input from "@/components/shared/input/Input";
+import Loading from "@/components/shared/loading/Loading";
 import { parseError } from "@/utils/functions/errorParser";
 import { signUp } from "@/utils/redux/Auth/AuthActions";
-import { AppDispatch } from "@/utils/redux/store";
+import { AppDispatch, RootState } from "@/utils/redux/store";
 import { ISignUpUser } from "@/utils/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { stringify } from "querystring";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const SignUpForm = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const auth = useSelector((root: RootState) => root.auth);
   const router = useRouter();
   const {
     register,
@@ -64,7 +66,7 @@ const SignUpForm = () => {
         <Input id="confirmPassword" type="password" label="Confirm Password" register={register} className="flex flex-col" errors={errors}/>
       </div>
       <div className="mt-8">
-        <Button filled className="w-full">Sign up</Button>
+        <Button filled className="w-full h-10">{auth.isLoading ? <Loading className="text-white"/> : "Sign up"}</Button>
       </div>
       <div className="flex flex-col gap-y-2">
         <span>{"Already have an account?"} <Link href={'/auth/login'} className="underline">Sign in</Link></span>

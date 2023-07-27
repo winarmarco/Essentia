@@ -49,12 +49,12 @@ export type IDiscountCouponClient = Pick<IDiscountCoupon, 'discountCode' | 'perc
 
 export interface IInvoice extends Document {
   cart: IShoppingCart;
-  discountCode: IDiscountCoupon;
+  discountCoupon: IDiscountCoupon;
 }
 
 export interface IInvoiceClient {
   cart: IShoppingCart;
-  discountCode: IDiscountCouponClient;
+  discountCoupon: IDiscountCouponClient;
 }
 
 export enum OrderStatus {
@@ -66,9 +66,9 @@ export enum OrderStatus {
 export interface IShippingAddress {
   country: string;
   streetAddress: string;
-  apartmentNumber: string;
+  apartmentNumber?: string;
   state: string;
-  town?: string;
+  town: string;
   zipCode: string;
 }
 

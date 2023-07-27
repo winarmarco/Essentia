@@ -54,8 +54,8 @@ export const signIn = async (req: Request, res: Response, next: NextFunction) =>
     })
 
     if (!token) throw new Error("Cannot generate token!");
-
-    return res.status(200).json({token: token});
+  
+    res.status(200).json({token: token});
   } catch (error) {
     const mongooseError = error as MongooseError;
     res.status(400).json({message: mongooseError.message});

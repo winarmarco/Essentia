@@ -1,12 +1,13 @@
 import { ISignInUser, ISignUpUser } from "@/utils/types";
 import { CaseReducer, createAsyncThunk } from "@reduxjs/toolkit";
-import { AuthenticationState } from "./AuthSlice";
+import { AuthenticationState, authActions } from "./AuthSlice";
+import { RootState } from "../store";
 
 const SIGN_IN = "auth/signin";
 const SIGN_UP = "auth/signup";
 const SIGN_OUT = "auth/signout";
 
-export const signIn = createAsyncThunk(SIGN_IN, async (signInData: ISignInUser) => {
+export const signIn = createAsyncThunk(SIGN_IN, async (signInData: ISignInUser, { dispatch }) => {
   try {
     const res = await fetch("http://localhost:3000/api/signin", {
       method: "POST",
@@ -20,6 +21,7 @@ export const signIn = createAsyncThunk(SIGN_IN, async (signInData: ISignInUser) 
 
     const data = await res.json();
 
+
     if (!res.ok) throw new Error(data.message);
 
     return data;
@@ -28,8 +30,9 @@ export const signIn = createAsyncThunk(SIGN_IN, async (signInData: ISignInUser) 
   }
 })
 
-export const signUp = createAsyncThunk(SIGN_UP, async (signUpData: ISignUpUser) => {
+export const signUp = createAsyncThunk(SIGN_UP, async (signUpData: ISignUpUser, { dispatch }) => {
   try {
+    
     const res = await fetch("http://localhost:3000/api/signup", {
       method: "POST",
       body: JSON.stringify({
@@ -41,6 +44,7 @@ export const signUp = createAsyncThunk(SIGN_UP, async (signUpData: ISignUpUser) 
     })
 
     const data = await res.json();
+
 
     if (!res.ok) throw new Error(data.message);
 

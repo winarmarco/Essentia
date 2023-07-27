@@ -1,10 +1,7 @@
-import Button from "@/components/common/Button";
-import productTableColumns from "./ProductTable/ProductTableHeader";
-import DataTable from "@/components/common/DataTable/DataTable";
+"use client";
+
+import Button from "@/components/shared/Button";
 import { productData } from "@/utils/dummy-data/dummyProductData";
-import Image from "next/image";
-import RelativeImage from "@/components/common/relative-image/RelativeImage";
-import { AiFillEdit } from "react-icons/ai";
 import ProductTable from "./ProductTable/ProductTable";
 
 const ProductAdmin = () => {
