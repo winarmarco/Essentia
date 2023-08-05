@@ -26,7 +26,7 @@ export const extractSalesTrends = (orderData: IOrder[]) => {
         // transform orderData to x: date formatted string, and y: sales per day
         data: orderData.map((el) => {
           return {
-            x: formatDate(new Date(el.dateOrdered)).toString(),
+            x: formatDate(new Date(el.dateOrdered), '-').toString(),
             y: calculateTotal(el.invoice),
           };
         }),

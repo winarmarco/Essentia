@@ -10,7 +10,7 @@ import ProductCard from "@/components/page-components/product/product-card/Produ
 import ProductCateogoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
 import Header from "@/components/shared/header/Header";
 import Main from "@/components/shared/main/Main";
-import IProduct from "@/utils/types/Product";
+import { IProduct } from "@/utils/types";
 
 
 export const fetchProductData = async () => {

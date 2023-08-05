@@ -3,7 +3,7 @@ import ProductForm from '../product-form/ProductForm'
 
 const NewProduct = () => {
   return (
-    <ProductForm />
+    <ProductForm newProduct />
   )
 }
 

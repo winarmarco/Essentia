@@ -5,6 +5,7 @@ import FileInput from "./FileInput";
 import CheckboxInput from "./CheckboxInput";
 import TextAreaInput from "./TextAreaInput";
 import {getProperty} from "dot-prop";
+import { twMerge } from "tailwind-merge";
 
 interface InputFieldError {
   field: string;
@@ -16,7 +17,7 @@ interface InputFieldProps<T extends FieldValues>
   id: Path<T>;
   type?: HTMLInputTypeAttribute | "textarea";
   register: UseFormRegister<T>;
-  error: boolean;
+  error: string;
 }
 
 interface InputComponentProps<T extends FieldValues>
@@ -51,7 +52,7 @@ const Input = <T extends object>({
           register={register}
           {...others}
           required={required}
-          error={Boolean(errorMessage)}
+          error={errorMessage}
         />
       );
       break;
@@ -62,7 +63,7 @@ const Input = <T extends object>({
           register={register}
           {...others}
           required={required}
-          error={Boolean(errorMessage)}
+          error={errorMessage}
         />
       );
       break;
@@ -73,7 +74,7 @@ const Input = <T extends object>({
           register={register}
           {...others}
           required={required}
-          error={Boolean(errorMessage)}
+          error={errorMessage}
         />
       );
       break;
@@ -85,19 +86,19 @@ const Input = <T extends object>({
           type={type}
           {...others}
           required={required}
-          error={Boolean(errorMessage)}
+          error={errorMessage}
         />
       );
   }
 
   return (
-    <div className={`flex flex-col ${className}`}>
+    <div className={twMerge("flex flex-col", className)}>
       <label htmlFor={id} className="font-semibold">
         {label}
         {required && <span className="text-red-500"> *</span>}
       </label>
       {InputComponent}
-      <span className="text-red-400">{errorMessage?.toString()}</span>
+      <span className="text-red-400 flex items-center">{errorMessage?.toString()}</span>
     </div>
   );
 };

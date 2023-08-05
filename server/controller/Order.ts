@@ -75,8 +75,26 @@ export const getOrder = async (req: Request, res: Response, next: NextFunction) 
   const { orderId } = req.params;
 
   try {
-    const order = await Order.find({_id: orderId});
-    console.log(order);
+    const order = await Order.findById(orderId).populate([
+      {
+        path: "invoice",
+        populate: [
+          {
+            path: "cart",
+            populate: {
+              path: "items",
+              populate: "item",
+            },
+          },
+          {
+            path: "discountCoupon",
+          }
+        ]
+      },
+      {
+        path: "shippingAddress",
+      }
+    ]);
 
     if (!order) throw new NotFoundError("Order not found!");
 

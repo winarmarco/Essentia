@@ -1,11 +1,13 @@
 import {OrderSummary} from "@/utils/types/Order";
 import {ColumnDef} from "@tanstack/react-table";
 import {useEffect, useMemo, useState} from "react";
-import { formatDateTime } from "@/utils/functions/DateFormatter";
-import { IOrder } from "@/utils/types";
+import {formatDateTime} from "@/utils/functions/DateFormatter";
+import {IOrder} from "@/utils/types";
+import {FiMoreHorizontal} from "react-icons/fi";
+import Link from "next/link";
 
 export interface IOrderColumn extends IOrder {
-  total: number,
+  total: number;
 }
 
 const orderTableColumns: ColumnDef<IOrderColumn>[] = [
@@ -42,6 +44,20 @@ const orderTableColumns: ColumnDef<IOrderColumn>[] = [
     header: "Status",
     cell: (row) => row.renderValue(),
     accessorKey: "status",
+  },
+  {
+    header: "Actions",
+    accessorFn: (data) => {
+      return (
+        <Link href={`/admin/orders/${data._id}`}>
+          <span className="text-black flex justify-center">
+            <FiMoreHorizontal />
+          </span>
+        </Link>
+      );
+    },
+    cell: (row) => row.renderValue(),
+    accessorKey: "",
   },
 ];
 

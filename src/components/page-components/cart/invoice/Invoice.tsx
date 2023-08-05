@@ -8,15 +8,12 @@ import {
   calculateDiscountDollar,
   calculateSubtotals,
 } from "@/utils/functions/Invoice";
-import { useSelector } from "react-redux";
-import { RootState } from "@/utils/redux/store";
-import { IShoppingCart } from "@/utils/types";
+import {IDiscountCouponClient, IShoppingCart } from "@/utils/types";
 
-const Invoice: React.FC<{cart: IShoppingCart}> = ({cart}) => {
-const discountCoupon = useSelector((state: RootState) => state.discountCoupon);
+const Invoice: React.FC<{cart: IShoppingCart, discountCoupon: IDiscountCouponClient}> = ({cart, discountCoupon}) => {
 
   const subtotal = calculateSubtotals(cart);
-  const discountDollarAmount: number = (discountCoupon.discountCode) ?  calculateDiscountDollar(subtotal, discountCoupon) : 0;
+  const discountDollarAmount: number = (discountCoupon && discountCoupon.discountCode) ?  calculateDiscountDollar(subtotal, discountCoupon) : 0;
   const total = subtotal - discountDollarAmount;
 
 

@@ -15,6 +15,8 @@ const StatisticsPage = async () => {
 
   const statistics = extractStatistics(data);
 
+  console.log(statistics.salesTrendsData.datasets[0].data)
+
   return (
     <AdminLayout>
       <StatisticAdmin

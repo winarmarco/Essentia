@@ -32,6 +32,10 @@ const ProductSchema: Schema<IProduct> = new Schema({
     ref: 'Category',
     required: true,
   },
+  showOnLandingCarousel: {
+    type: Boolean,
+    default: false,
+  },
   newProduct: {
     type: Boolean,
     default: false,

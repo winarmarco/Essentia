@@ -27,7 +27,7 @@ const InvoiceSubtotals: React.FC<InvoiceSubtotalsProps> = ({
         rightItem={<span className="font-medium text-right">$ {subtotal}</span>}
       />
 
-      {discount.discountCode && (
+      {(discount && discount.discountCode) && (
         <InvoiceLine
           leftItem={
             <span>

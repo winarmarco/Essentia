@@ -1,23 +1,18 @@
 import {ColumnDef} from "@tanstack/react-table";
 import ShoppingCartType, {ShoppingCartItemType} from "@/utils/types/ShoppingCart";
 import RelativeImage from "@/components/shared/relative-image/RelativeImage";
-import Product from "@/utils/types/Product";
 import {AiFillEdit} from "react-icons/ai";
+import { IProduct } from "@/utils/types";
+import { FiMoreHorizontal } from "react-icons/fi";
+import Link from "next/link";
 
-interface ProductTableType {
-  images: Product["images"];
-  name: Product["name"];
-  price: Product["price"];
-  quantity: number;
-  category: Product["category"];
-}
 
-const productTableColumns: ColumnDef<ProductTableType>[] = [
+const productTableColumns: ColumnDef<IProduct>[] = [
   {
     header: "Image",
     cell: (row) => row.renderValue(),
     accessorFn: (data) => {
-      const images = data["images"];
+      const {images} = data;
       return (
         <RelativeImage
           className="w-[50px] h-[50px] mx-auto"
@@ -49,9 +44,22 @@ const productTableColumns: ColumnDef<ProductTableType>[] = [
   {
     header: "Quantity",
     cell: (row) => row.renderValue(),
-    accessorKey: "quantity",
+    accessorKey: "stockQuantity",
+  },
+  {
+    header: "Actions",
+    accessorFn: (data) => {
+      return (
+        <Link href={`/admin/products/${data._id}`}>
+          <span className="text-black flex justify-center">
+            <FiMoreHorizontal />
+          </span>
+        </Link>
+      );
+    },
+    cell: (row) => row.renderValue(),
+    accessorKey: "",
   },
 ];
 
 export default productTableColumns;
-export type {ProductTableType};

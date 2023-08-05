@@ -2,18 +2,22 @@ import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
 import {Order, OrderStatus} from "@/utils/types/Order";
 import CustomerProfile from "../customer-profile/CustomerProfile";
+import {IOrder} from "@/utils/types";
+import Link from "next/link";
 
-const OrderDetails: React.FC<{order: Order}> = ({order}) => {
+const OrderDetails: React.FC<{order: IOrder}> = ({order}) => {
+
   return (
     <div className="w-full h-full flex flex-col gap-y-10 max-w-[2048px]">
-      <span className="cursor-pointer">
-        {"< All Orders"}
-      </span>
-      <div className="text-3xl font-bold">{`Order #${order.orderID}`}</div>
+      <Link href={"/admin/orders"}>{"< All Orders"}</Link>
+      <div className="text-3xl font-bold">{`Order #${order._id}`}</div>
       <div className="flex flex-col gap-y-20">
         <CustomerProfile {...order} />
 
-        <Invoice invoice={order.invoice} />
+        <Invoice
+          cart={order.invoice.cart}
+          discountCoupon={order.invoice.discountCoupon}
+        />
 
         <CartTable {...order.invoice.cart} />
       </div>

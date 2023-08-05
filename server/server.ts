@@ -12,23 +12,25 @@ import { discountCouponeRouter } from "./routes/DiscountCoupon";
 import { orderRouter } from "./routes/Order";
 import * as dotenv from "dotenv";
 import path from "path";
-
 // const Note = require('./models/Note');
-dotenv.config({path: path.join(__dirname, "../.env")});
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-mongoose.connect('mongodb://localhost:27017/essentia');
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUDNAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-})
 
 
 app.prepare().then(() => {
+  dotenv.config({path: path.join(__dirname, "@/.env")});
+
+  mongoose.connect('mongodb://localhost:27017/essentia');
+  cloudinary.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUDNAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  })
+
+
   const server = express();
 
   server.use(express.json()); // for parsing application/json
@@ -36,42 +38,6 @@ app.prepare().then(() => {
     extended: true
   }));
 
-
-  // server.get('/api/notes', async (req, res) => {
-  //   const notes = await Note.find();
-  //   res.json(notes);
-  // });
-
-  // server.post('/api/notes', async (req, res) => {
-  //   const newNote = new Note({
-  //     title: req.body.title,
-  //     content: req.body.content,
-  //   });
-
-  //   const savedNote = await newNote.save();
-  //   res.json(savedNote);
-  // });
-
-  // server.post('/api/upload', upload.array("images"), async (req: Request, res: Response) => {
-  //  try {
-  //   if (!req.files) {
-  //     res.status(400).send("No file uploaded");
-  //     return;
-  //   }
-  //   const urls: string[] = [];
-
-  //   for (const file of req.files as Express.Multer.File[]) {
-  //     const result =  await cloudinary.v2.uploader.upload(file.path);
-  //     urls.push(result.url);
-  //   }
-
-  //   console.log(urls);
-  //   res.send("successfully");
-  //  } catch (error) {
-  //   console.log(error);
-  //   res.send("error uploading image");
-  //  }
-  // })
 
   server.use('/api/', userRouter);
   server.use('/api/cart', cartRouter);

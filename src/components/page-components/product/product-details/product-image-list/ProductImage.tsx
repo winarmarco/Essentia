@@ -2,7 +2,7 @@ import React from "react";
 import {BsZoomIn} from "react-icons/bs";
 import Image from "next/image";
 
-const ProductImage: React.FC<{image: string, className?: string, zoomHandler: () => void}> = ({image, className = "", zoomHandler}) => {
+const ProductImage: React.FC<{imageUrl: string, className?: string, zoomHandler: () => void}> = ({imageUrl, className = "", zoomHandler}) => {
   return (
     <div className={`w-full mt-10 relative group cursor-pointer ${className}}`} onClick={zoomHandler}>
       <div
@@ -12,7 +12,7 @@ const ProductImage: React.FC<{image: string, className?: string, zoomHandler: ()
         <BsZoomIn className="text-white text-3xl" />
       </div>
       <Image
-        src={image}
+        src={imageUrl}
         alt="image"
         className="h-full w-full"
         width={0}

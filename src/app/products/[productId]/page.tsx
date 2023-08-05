@@ -17,8 +17,14 @@ import { IProduct } from "@/utils/types";
 
 const getProductDetails = async (productId: string) => {
   try {
-    const res = await fetch(`http://localhost:3000/api/products/${productId}`);
+    const res = await fetch(`http://localhost:3000/api/products/${productId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
     const resData = await res.json();
+
+    console.log(resData);
 
     return resData;
   } catch (error) {

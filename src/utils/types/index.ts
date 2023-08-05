@@ -72,11 +72,14 @@ export interface IShippingAddress {
   zipCode: string;
 }
 
-export interface IOrder {
+export interface IOrder extends Document {
   shippingAddress: IShippingAddress;
   invoice: IInvoice;
   dateOrdered: Date;
   dateCompleted: Date;
+  firstName: IUser["firstName"],
+  lastName: IUser["lastName"],
+  email: IUser["email"],
   status: OrderStatus;
 }
 

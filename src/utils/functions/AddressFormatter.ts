@@ -1,12 +1,13 @@
 import {CustomerType} from "@/utils/types/Customer";
+import { IShippingAddress } from "../types";
 
-const addressFormatter = (customer: CustomerType) => {
-  const address = customer.address;
-  const apartmentNumber = customer["apartment-number"];
-  const town = customer.town;
-  const zipCode = customer["zip-code"];
-  const state = customer.state;
-  const country = customer.country;
+const addressFormatter = (shippingAddress: IShippingAddress) => {
+  const address = shippingAddress.streetAddress;
+  const apartmentNumber = shippingAddress.apartmentNumber;
+  const town = shippingAddress.town;
+  const zipCode = shippingAddress.zipCode;
+  const state = shippingAddress.state;
+  const country = shippingAddress.country;
 
   const apartmentNumberStr = apartmentNumber && `, ${apartmentNumber}`
 

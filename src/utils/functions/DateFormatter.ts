@@ -8,7 +8,7 @@ const formatDate = (date: Date, dateSeperator: string = '/') => {
   const month = ("0" + (date.getMonth() + 1)).slice(-2);
   const year = date.getFullYear();
 
-  return `${day}${dateSeperator}${month}${dateSeperator}${year}`;
+  return `${year}${dateSeperator}${month}${dateSeperator}${day}`;
 }
 
 const formatTime = (date: Date, timeSeparator: string = ':') => {
