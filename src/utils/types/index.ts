@@ -21,6 +21,19 @@ export interface IProduct extends Document {
   images: string[];
 }
 
+export interface IProductClient extends Document {
+  _id: string;
+  name: string;
+  price: number;
+  stockQuantity: number;
+  showOnLandingCarousel: boolean;
+  category: IProductCategory["_id"],
+  newProduct: boolean;
+  description: string;
+  shortDescription: string;
+  images: string[];
+}
+
 export interface IShoppingCartItem {
   item: IProduct;
   quantity: number;

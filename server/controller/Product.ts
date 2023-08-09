@@ -5,6 +5,7 @@ import cloudinary from "cloudinary";
 import { validationResult } from "express-validator";
 import { parseExpressValidatorError } from "../utils/helperFunctions/ErrorParser";
 import { CustomError } from "../utils/Errors/CustomError";
+import { MongooseError } from "mongoose";
 
 export const getProductByCategory = async (req: Request, res: Response, next: NextFunction) => {
   const { category }  = req.query;
@@ -113,15 +114,15 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
 
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.body)
   const newProduct = new Product(req.body.product);
   
   try {
-    if (!req.files) {
-      throw new Error("No file uploaded");
-    }
+    
+    const validationErrors = validationResult(req);
 
-    if (Object.values(req.files).length < 2) {
-      throw new Error("Image file must at least 2");
+    if (!validationErrors.isEmpty()) {
+      throw new Error(parseExpressValidatorError(validationErrors, false));
     }
 
     const urls: string[] = [];
@@ -135,7 +136,6 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 
     return res.status(201).json(product);
   } catch (error) {
-    console.log({error});
-    next(error);
+    res.status(400).json({message: (error as MongooseError).message});
   }
 }

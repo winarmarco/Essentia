@@ -9,7 +9,6 @@ import Header from "@/components/shared/header/Header";
 import Main from "@/components/shared/main/Main";
 import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
-import InvoiceType from "@/utils/types/Invoice";
 import CouponInput from "@/components/page-components/cart/coupon-input/CouponInput";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/utils/redux/store";
@@ -18,19 +17,15 @@ import Link from "next/link";
 import Button from "@/components/shared/Button";
 import {useRouter} from "next/navigation";
 import Loading from "@/components/shared/loading/Loading";
-import {removeDiscountCoupon} from "@/utils/redux/DiscountCode/DiscountCodeActions";
-import {discountCodeActions} from "@/utils/redux/DiscountCode/DiscountCodeSlice";
-import {Router} from "next/router";
 import { authActions } from "@/utils/redux/Auth/AuthSlice";
+import { IInvoice } from "@/utils/types";
 
-const Cart: React.FC<{invoice: InvoiceType}> = () => {
+const Cart: React.FC<{invoice: IInvoice}> = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const cart = useSelector((state: RootState) => state.cart);
   const auth = useSelector((state: RootState) => state.auth);
-  const discountCoupon = useSelector(
-    (state: RootState) => state.discountCoupon
-  );
+  const discountCoupon = useSelector((state: RootState) => state.discountCoupon);
 
   useEffect(() => {
     try {

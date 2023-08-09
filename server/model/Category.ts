@@ -2,7 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 
 interface ICategory extends Document {
   name: string,
-  key: string,
+  categoryKey: string,
 }
 
 const CategorySchema = new Schema<ICategory>({
@@ -10,7 +10,7 @@ const CategorySchema = new Schema<ICategory>({
     type: String,
     required: true,
   }, 
-  key: {
+  categoryKey: {
     type: String,
     required: true,
     unique: true,

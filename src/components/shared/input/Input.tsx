@@ -5,7 +5,8 @@ import FileInput from "./FileInput";
 import CheckboxInput from "./CheckboxInput";
 import TextAreaInput from "./TextAreaInput";
 import {getProperty} from "dot-prop";
-import { twMerge } from "tailwind-merge";
+import {twMerge} from "tailwind-merge";
+import DropdownInput from "./DropdownInput";
 
 interface InputFieldError {
   field: string;
@@ -27,6 +28,7 @@ interface InputComponentProps<T extends FieldValues>
   label: string;
   type?: HTMLInputTypeAttribute | "textarea";
   className?: string;
+  choice?: {name: string; value: string}[];
   register: UseFormRegister<T>;
 }
 
@@ -38,6 +40,7 @@ const Input = <T extends object>({
   className,
   errors,
   register,
+  choice,
   ...others
 }: InputComponentProps<T>) => {
   let InputComponent;
@@ -78,6 +81,19 @@ const Input = <T extends object>({
         />
       );
       break;
+    case "select":
+      InputComponent = (
+        <DropdownInput
+          id={id}
+          register={register}
+          type={type}
+          choice={choice}
+          {...others}
+          required={required}
+          error={errorMessage}
+        />
+      );
+      break;
     default:
       InputComponent = (
         <TextInput
@@ -98,10 +114,12 @@ const Input = <T extends object>({
         {required && <span className="text-red-500"> *</span>}
       </label>
       {InputComponent}
-      <span className="text-red-400 flex items-center">{errorMessage?.toString()}</span>
+      <span className="text-red-400 flex items-center">
+        {errorMessage?.toString()}
+      </span>
     </div>
   );
 };
 
 export default Input;
-export type {InputFieldProps};
+export type {InputFieldProps, InputComponentProps};

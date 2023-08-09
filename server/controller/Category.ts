@@ -25,3 +25,13 @@ export const updateCategory = async (req: Request, res: Response, next: NextFunc
     next(error);
   }
 }
+
+export const getAllCategory = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const categories = await Category.find();
+
+    res.status(200).json({category: categories});
+  } catch (error) {
+    res.status(400).json({error});
+  }
+}
