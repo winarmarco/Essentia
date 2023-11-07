@@ -18,7 +18,7 @@ import Button from "@/components/shared/Button";
 import {useRouter} from "next/navigation";
 import Loading from "@/components/shared/loading/Loading";
 import { authActions } from "@/utils/redux/Auth/AuthSlice";
-import { IInvoice } from "@/utils/types";
+import { IInvoice } from "@/utils2/types";
 
 const Cart: React.FC<{invoice: IInvoice}> = () => {
   const dispatch = useDispatch<AppDispatch>();

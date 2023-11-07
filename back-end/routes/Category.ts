@@ -13,7 +13,7 @@ const router = Router();
 // method: GET
 // path: /category
 // body: -
-router.get('/', isAuth, getAllCategory);
+router.get('/', getAllCategory);
 
 // Create a new Category
 // Authorization: ADMIN

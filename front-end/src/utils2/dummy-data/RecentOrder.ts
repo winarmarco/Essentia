@@ -1,4 +1,4 @@
-import { OrderStatus, OrderSummary } from "@/utils/types/Order";
+import { OrderStatus, OrderSummary } from "@/utils2/types/Order";
 import { invoiceDummyData } from "./Invoice";
 import { calculateTotal } from "../functions/Invoice";
 

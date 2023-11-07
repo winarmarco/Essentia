@@ -4,7 +4,7 @@ import {
   formatCardNumber,
   formatCsc,
   formatExpiryDate,
-} from "@/utils/functions/InputFormatter";
+} from "@/utils2/functions/InputFormatter";
 import {CheckoutFormData} from "../checkout-form/CheckoutForm";
 import Input from "@/components/shared/input/Input";
 

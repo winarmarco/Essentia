@@ -1,11 +1,16 @@
 import React from "react";
 import Container from "../../../shared/Container";
-import newArrivalItemsData from "@/utils/dummy-data/newProduct";
-import newProductData from "@/utils/dummy-data/newProduct";
 import NewProductItem from "./NewProductItem";
 import Section from "@/components/shared/section/section";
+import { IProduct } from "@/utils/types/products";
 
-const NewArrival: React.FC = () => {
+const NewArrival: React.FC<{products: IProduct[]}> = ({products}) => {
+
+  const alignedProducts = products.map((product, index) => {
+    return {...product, alignment: (index % 2) ? "right" : "left"};
+  })
+
+
   return (
     <Section>
       <Container className="py-20">
@@ -13,7 +18,7 @@ const NewArrival: React.FC = () => {
           NEW ARRIVAL
         </h1>
         <div>
-          {newProductData.map((product, index) => {
+          {alignedProducts.map((product, index) => {
             return <NewProductItem key={index} {...product} />;
           })}
         </div>

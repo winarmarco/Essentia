@@ -1,7 +1,7 @@
-import ShoppingCartType from '@/utils/types/ShoppingCart'
+import ShoppingCartType from '@/utils2/types/ShoppingCart'
 import React from 'react'
 import CartTableLine from './CartTableLine'
-import { IShoppingCart } from '@/utils/types'
+import { IShoppingCart } from '@/utils2/types'
 
 const CartTableBody: React.FC<{items: IShoppingCart["items"]}> = ({items}) => {
   return (

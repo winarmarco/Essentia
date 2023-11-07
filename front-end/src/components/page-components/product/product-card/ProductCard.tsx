@@ -1,5 +1,5 @@
-import IProduct from "@/utils/types/Product";
-import Product from "@/utils/types/Product";
+
+import { IProduct } from "@/utils/types/products";
 import Image from "next/image";
 import Link from "next/link";
 

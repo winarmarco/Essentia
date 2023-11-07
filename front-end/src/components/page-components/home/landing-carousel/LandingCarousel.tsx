@@ -1,9 +1,10 @@
 "use client"
 
 import Carousel from "@/components/shared/carousel/Carousel";
-import LandingCarouselItem from "./LandingCarouselItem";
+import LandingCarouselItem, { LandingCarouselItemType } from "./LandingCarouselItem";
 import {BiSolidRightArrow, BiSolidLeftArrow} from "react-icons/bi";
-import landingCarouselDatas from "@/utils/dummy-data/landingCarouselData";
+// import landingCarouselDatas from "@/utils2/dummy-data/landingCarouselData";
+import { IProduct } from "@/utils/types/products";
 
 
 
@@ -27,13 +28,19 @@ const LandingCarouselRightButton = () => {
   );
 };
 
-const LandingCarousel = () => {
+const LandingCarousel: React.FC<{products: IProduct[]}> = ({products}) => {
+
+  const alignedProducts = products.map((product, index) => {
+    return {...product, alignment: (index % 2 == 0) ? "left" : "right"}
+  })
+
+
   return (
     <div className="relative flex-grow h-full">
       <Carousel
         leftButton={<LandingCarouselLeftButton />}
         rightButton={<LandingCarouselRightButton />}
-        datas={landingCarouselDatas}
+        datas={alignedProducts}
         CarouselItem={LandingCarouselItem}
       />
     </div>

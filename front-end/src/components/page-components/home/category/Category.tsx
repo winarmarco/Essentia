@@ -4,13 +4,14 @@ import CategoryItem from "./CategoryItem";
 import Section from "@/components/shared/section/section";
 
 // consts
-import categoryItemData from "@/utils/constants/categoryItem";
+import categoryItemData from "@/utils2/constants/categoryItem";
+import { ICategory } from "@/utils/types/category";
 
-const Category = () => {
+const Category: React.FC<{categories: ICategory[]}> = ({categories}) => {
   return (
     <Section className="relative flex flex-col sm:flex-row my-20">
       <div className="relative sm:w-1/2 w-full">
-        <Image src="/image 38.jpg" alt="blackCouchImage.png" fill />
+        <Image src={"/image 38.jpg"} alt={"-"} height={0} width={0} className="h-full w-full" sizes="100vw"/>
       </div>
 
       <div className="flex-1 p-20 flex flex-col ">
@@ -20,7 +21,7 @@ const Category = () => {
           </h1>
         </div>
         <ul className="flex-1 justify-between h-full flex flex-col mt-10">
-          {categoryItemData.map((item) => (
+          {categories.map((item) => (
             <CategoryItem key={item._id} {...item} />
           ))}
         </ul>

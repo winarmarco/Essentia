@@ -1,5 +1,5 @@
-import { IProduct } from "@/utils/types";
-import ShoppingCartType, {ShoppingCartItemType} from "@/utils/types/ShoppingCart";
+import { IProduct } from "@/utils2/types";
+import ShoppingCartType, {ShoppingCartItemType} from "@/utils2/types/ShoppingCart";
 
 type ProductProfileProps = Pick<IProduct, "name" | "category">;
 

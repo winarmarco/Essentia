@@ -1,8 +1,8 @@
 import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
-import {Order, OrderStatus} from "@/utils/types/Order";
+import {Order, OrderStatus} from "@/utils2/types/Order";
 import CustomerProfile from "../customer-profile/CustomerProfile";
-import {IOrder} from "@/utils/types";
+import {IOrder} from "@/utils2/types";
 import Link from "next/link";
 
 const OrderDetails: React.FC<{order: IOrder}> = ({order}) => {

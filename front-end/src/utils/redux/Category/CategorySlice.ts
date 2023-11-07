@@ -1,4 +1,4 @@
-import {IProductCategory} from "@/utils/types";
+import {IProductCategory} from "@/utils2/types";
 import {PayloadAction, createSlice} from "@reduxjs/toolkit";
 import {getCategory} from "./CategoryActions";
 

@@ -3,7 +3,7 @@ import AdminLayout from "@/components/layout/AdminLayout";
 import NewProduct from "@/components/page-components/admin/new-product/NewProduct";
 import ProductForm from "@/components/page-components/admin/product-form/ProductForm";
 import Loading from "@/components/shared/loading/Loading";
-import { IProduct } from "@/utils/types";
+import { IProduct } from "@/utils2/types";
 import { useParams } from "next/navigation";
 import React, {useEffect, useState} from "react";
 

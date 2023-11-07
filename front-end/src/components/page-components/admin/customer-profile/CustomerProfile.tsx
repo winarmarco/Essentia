@@ -1,10 +1,10 @@
 import React from "react";
 import CustomerProfileItem from "./CustomerProfileLine";
-import {formatDateTime} from "@/utils/functions/DateFormatter";
-import {addressFormatter} from "@/utils/functions/AddressFormatter";
+import {formatDateTime} from "@/utils2/functions/DateFormatter";
+import {addressFormatter} from "@/utils2/functions/AddressFormatter";
 import CustomerName from "./CustomerName";
-import { IOrder } from "@/utils/types";
-import { OrderStatus } from "@/utils/types";
+import { IOrder } from "@/utils2/types";
+import { OrderStatus } from "@/utils2/types";
 
 const CustomerProfile: React.FC<IOrder> = ({
   firstName,

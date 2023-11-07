@@ -2,7 +2,7 @@
 
 import Button from "@/components/shared/Button";
 import ProductTable from "./ProductTable/ProductTable";
-import {IProduct} from "@/utils/types";
+import {IProduct} from "@/utils2/types";
 import Link from "next/link";
 
 const ProductAdmin: React.FC<{productData: IProduct[]}> = ({productData}) => {

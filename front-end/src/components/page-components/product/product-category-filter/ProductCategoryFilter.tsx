@@ -1,27 +1,31 @@
-import CategoryFilterType from "@/utils/types/CategoryFilter";
-import CategoryItemType from "@/utils/types/CategoryItem";
+import CategoryFilterType from "@/utils2/types/CategoryFilter";
+import CategoryItemType from "@/utils2/types/CategoryItem";
 import React from "react";
-import ProductCategoryFilterList from "./ProductCategoryFilterList";
+import {ICategory} from "@/utils/types/category";
+import Link from "next/link";
+import {twMerge} from "tailwind-merge";
 
-const ProductCateogoryFilter: React.FC<{
-  categoryFilters: CategoryFilterType[];
-  selectedFilter: number;
-  onSelect: (filter: number) => void;
-}> = ({categoryFilters, selectedFilter, onSelect}) => {
+const ProductCategoryFilter: React.FC<{
+  categories: ICategory[];
+  active: number;
+}> = ({categories, active}) => {
   return (
     <ul>
-      {categoryFilters.map((categoryFilter, index) => (
-        <ProductCategoryFilterList
-          key={categoryFilter.key}
-          categoryFilter={categoryFilter}
-          active={index === selectedFilter}
-          onClick={() => {
-            onSelect(index);
-          }}
-        />
+      {categories.map((category, index) => (
+        <Link key={category._id} href={"/"}>
+          <li
+            className={twMerge(
+              `text-xl mt-5 capitalize cursor-pointer, ${
+                active == index ? "font-bold" : "font-normal"
+              }`
+            )}
+          >
+            {category.name}
+          </li>
+        </Link>
       ))}
     </ul>
   );
 };
 
-export default ProductCateogoryFilter;
+export default ProductCategoryFilter;

@@ -1,4 +1,4 @@
-import { IShoppingCart } from "@/utils/types";
+import { IShoppingCart } from "@/utils2/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { addItemToCart, checkoutCart, fetchCart, removeItemFromCart } from "./CartActions";
 

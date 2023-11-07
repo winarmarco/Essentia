@@ -1,5 +1,3 @@
-"use client";
-
 import "../../globals.css";
 import Footer from "@/components/shared/footer/Footer";
 import Navbar from "@/components/shared/navbar/Navbar";
@@ -13,7 +11,15 @@ import ProductDetailsDescription from "@/components/page-components/product/prod
 import Modal from "@/components/shared/modal/Modal";
 import ProductDetailsCarousel from "@/components/page-components/product/product-details/product-details-image-carousel/ProductDetailsCarousel";
 import {redirect, useParams} from "next/navigation";
-import { IProduct } from "@/utils/types";
+import { IProduct } from "@/utils2/types";
+import { fetchProductDetails } from "@/utils/actions/products-action";
+import Link from "next/link";
+import ProductDisplay from "@/components/page-components/product/product-details/product-display/ProductDisplay";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { fetchCart } from "@/utils/actions/cart-action";
+import { CartSchema } from "@/utils/types/cart";
+
 
 const getProductDetails = async (productId: string) => {
   try {
@@ -32,71 +38,40 @@ const getProductDetails = async (productId: string) => {
   }
 };
 
-const ProductDetails = () => {
-  const searchParams = useParams();
-  const productId = searchParams["productId"];
-  const [productDetails, setProductDetails] = useState<IProduct>();
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [zoomImage, toggleZoomImage] = useState(false);
+const ProductDetails = async ({params} : {params: {productId: string}}) => {
 
-  const zoomHandler = (index?: number | undefined) => {
-    toggleZoomImage((prevState) => !prevState);
-    if (index !== undefined) {
-      setActiveSlide(index);
-    }
-  };
+  const {productId} = params;
+  const fetchedProduct = await fetchProductDetails(productId);
+  const { product } = fetchedProduct;
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const session = await getServerSession(authOptions);
+  let quantity = 0;
+  if (session) {
+    const {token} = session.user;
+    const fetchedCart = await fetchCart(token.id);
 
-      if (!productId) return redirect("/products");
-      const productDetailsData = await getProductDetails(productId);
-      
-      setProductDetails(productDetailsData)
-    }
+    const cart = CartSchema.parse(fetchedCart.cart);
 
-    fetchData();
-  }, [productId]);
-  console.log(productDetails);
+    const cartItemAdded = cart.items.filter((cartItem) => {
+      const {item, quantity} = cartItem;
+      return item._id == productId;
+    });
+
+    quantity = cartItemAdded.length > 0 ? cartItemAdded[0].quantity : 0;
+  }
+
   
 
   return (
     <div className="relative min-h-screen w-full flex flex-col">
-      <Modal
-        visible={zoomImage}
-        closeModal={() => {
-          toggleZoomImage((prevState) => !prevState);
-        }}
-      >
-        {productDetails && (
-          <ProductDetailsCarousel
-            images={productDetails.images}
-            initialSlide={activeSlide}
-            key={activeSlide}
-          />
-        )}
-      </Modal>
       <Header className="sticky top-0 z-30 bg-white">
         <Navbar />
       </Header>
 
       <Main className="flex-grow">
         <Container className="w-full flex flex-col pt-10">
-          <span>{"< Back"}</span>
-          {productDetails && (
-            <div className="flex flex-col md:flex-row w-full flex-grow gap-x-6 ">
-              <ProductImageList
-                images={productDetails.images}
-                zoomImage={(imageIndex) => {
-                  zoomHandler(imageIndex);
-                }}
-              />
-
-              <div className="w-full md:w-1/2 sticky flex-grow top-20 h-full">
-                <ProductDetailsDescription {...productDetails} />
-              </div>
-            </div>
-          )}
+          <Link href={"/products"}>{"< All Products"}</Link>
+          <ProductDisplay product={product} quantity={quantity}/>
         </Container>
       </Main>
       <Footer />

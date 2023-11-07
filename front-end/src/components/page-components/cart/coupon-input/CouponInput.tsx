@@ -1,7 +1,7 @@
 import TextInput from "@/components/shared/input/TextInput";
 import React, {InputHTMLAttributes} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {IDiscountCoupon} from "@/utils/types";
+import {IDiscountCoupon} from "@/utils2/types";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/utils/redux/store";
 import {getDiscountCoupon} from "@/utils/redux/DiscountCode/DiscountCodeActions";

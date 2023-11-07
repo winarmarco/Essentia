@@ -1,7 +1,7 @@
 import Section from "@/components/shared/section/section";
 import React from "react";
 import {FieldErrors, FieldValues, UseFormRegister} from "react-hook-form";
-import {CustomerType} from "@/utils/types/Customer";
+import {CustomerType} from "@/utils2/types/Customer";
 import {CheckoutFormData} from "../checkout-form/CheckoutForm";
 import Input from "@/components/shared/input/Input";
 

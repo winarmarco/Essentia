@@ -1,6 +1,6 @@
 import React from "react";
 import InvoiceLine from "./InvoiceLine";
-import { IShoppingCartItem } from "@/utils/types";
+import { IShoppingCartItem } from "@/utils2/types";
 
 const InvoiceProductLine: React.FC<IShoppingCartItem> = ({
   item,

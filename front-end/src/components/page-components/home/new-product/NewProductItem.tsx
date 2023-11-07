@@ -1,15 +1,11 @@
 import Button from "@/components/shared/Button";
 import RelativeImage from "@/components/shared/relative-image/RelativeImage";
-import NewProductType from "@/utils/types/NewProduct";
-import IProduct from "@/utils/types/Product";
+import NewProductType from "@/utils2/types/NewProduct";
+import { IProduct } from "@/utils/types/products";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 
-export interface NewProductItemType extends IProduct {
-  alignment: "left" | "right";
-}
-
-const NewProductItem: React.FC<NewProductItemType> = ({alignment, name, images, shortDescription}) => {
+const NewProductItem: React.FC<IProduct & {alignment: string}> = ({alignment, name, images, shortDescription}) => {
   const contentAlignment = (alignment === "left") ? "sm:flex-row" : "sm:flex-row-reverse";
   const textAlignment = (alignment === "left") ? "sm:text-right" : "sm:text-left"; 
 

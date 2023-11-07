@@ -1,4 +1,4 @@
-import { IDiscountCouponClient } from "@/utils/types";
+import { IDiscountCouponClient } from "@/utils2/types";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { getDiscountCoupon, removeDiscountCoupon } from "./DiscountCodeActions";
 

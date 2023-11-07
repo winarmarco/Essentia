@@ -1,10 +1,10 @@
 "use client";
-import {OrderSummary} from "@/utils/types/Order";
+import {OrderSummary} from "@/utils2/types/Order";
 import {ChartData} from "chart.js";
 import StatisticBox from "./StatisticBox";
 import {Line} from "react-chartjs-2";
-import {salesTrendsDummyData} from "@/utils/dummy-data/StatisticAdmin";
-import {recentOrderDummyData} from "@/utils/dummy-data/RecentOrder";
+import {salesTrendsDummyData} from "@/utils2/dummy-data/StatisticAdmin";
+import {recentOrderDummyData} from "@/utils2/dummy-data/RecentOrder";
 import {CategoryScale, TimeScale} from "chart.js";
 import Chart from "chart.js/auto";
 import "chartjs-adapter-moment";

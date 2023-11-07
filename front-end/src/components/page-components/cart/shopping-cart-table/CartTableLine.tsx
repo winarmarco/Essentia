@@ -2,7 +2,7 @@ import RelativeImage from "@/components/shared/relative-image/RelativeImage";
 import React from "react";
 import CartProductProfile from "./CartTableProductProfile";
 import CartQuantityButton from "./CartQuantityButton";
-import {IShoppingCartItem} from "@/utils/types";
+import {IShoppingCartItem} from "@/utils2/types";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "@/utils/redux/store";
 import {

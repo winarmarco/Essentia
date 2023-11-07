@@ -1,16 +1,23 @@
 import { CarouselItemProps } from "@/components/shared/carousel/Carousel";
-import { IProduct } from "@/utils/types";
+import { IProduct } from "@/utils/types/products";
 import Image from "next/image";
+import { twMerge } from "tailwind-merge";
+
+// export interface LandingCarouselItemType extends IProduct {
+//   alignment: "left" | "right";
+// }
 
 export interface LandingCarouselItemType extends IProduct {
   alignment: "left" | "right";
 }
 
-const LandingCarouselItem: React.FC<CarouselItemProps<LandingCarouselItemType>> = ({ data }) => {
+
+const LandingCarouselItem: React.FC<CarouselItemProps<IProduct & {alignment: string}>> = ({data}) => {
   const { alignment, name, images, shortDescription } = data;
 
   const textAlign = `text-${alignment}`;
   const justifyText = alignment === "right" ? "justify-end" : "";
+  const className = twMerge("absolute inset-0 flex items-center", justifyText, textAlign);
 
   return (
     <div className="h-full relative">
@@ -23,7 +30,7 @@ const LandingCarouselItem: React.FC<CarouselItemProps<LandingCarouselItemType>> 
       />
       <div className="absolute inset-0 bg-black bg-opacity-20"></div>
       <div
-        className={`absolute inset-0 flex items-center ${justifyText} ${textAlign}`}
+        className = {className}
       >
         <div className="w-full sm:w-[50%]">
           <div className="text-white p-20">

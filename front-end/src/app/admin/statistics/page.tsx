@@ -1,7 +1,7 @@
 import AdminLayout from "@/components/layout/AdminLayout";
 import StatisticAdmin from "@/components/page-components/admin/Statistic/Statistic";
-import { extractStatistics } from "@/utils/functions/extractStatistics";
-import {IOrder} from "@/utils/types";
+import { extractStatistics } from "@/utils2/functions/extractStatistics";
+import {IOrder} from "@/utils2/types";
 import React from "react";
 
 const StatisticsPage = async () => {

@@ -10,6 +10,7 @@ import { discountCouponeRouter } from "./routes/DiscountCoupon";
 import { orderRouter } from "./routes/Order";
 import { CustomError } from "./utils/Errors/CustomError";
 import { isJsonString } from "./utils/helperFunctions/CheckJSON";
+import cors from "cors";
 
 
 dotenv.config();
@@ -33,6 +34,7 @@ server.use(express.json()); // for parsing application/json
 server.use(express.urlencoded({
   extended: true,
 }));
+server.use(cors<Request>());
 
 
 server.use('/', userRouter);
@@ -55,6 +57,6 @@ server.use((error: MongooseError, req: Request, res: Response, next: NextFunctio
 })
 
 server.listen(process.env.PORT, () => {
-  console.log(`> Ready on http://localhost: ${process.env.PORT}`);
+  console.log(`> Ready on http://localhost:${process.env.PORT}`);
 });
 

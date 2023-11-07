@@ -1,42 +1,22 @@
-"use client";
-
 import Navbar from "@/components/shared/navbar/Navbar";
 import "../globals.css";
-import React, {useEffect, useState} from "react";
 import Container from "@/components/shared/Container";
 import Footer from "@/components/shared/footer/Footer";
-import categoryFilters from "@/utils/constants/categoryFilter";
 import ProductCard from "@/components/page-components/product/product-card/ProductCard";
-import ProductCateogoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
 import Header from "@/components/shared/header/Header";
 import Main from "@/components/shared/main/Main";
-import { IProduct } from "@/utils/types";
+import { fetchProduct } from "@/utils/actions/products-action";
+import { IProduct, ProductSchema } from "@/utils/types/products";
+import { fetchCategory } from "@/utils/actions/category-action";
+import ProductCategoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
 
 
-export const fetchProductData = async () => {
-  try {
-    const response = await fetch("http://localhost:3000/api/products", {
-      cache: "no-store",
-    });
-    const data = await response.json();
+const Products = async () => {
 
-    return data;
-  } catch (error) {}
-};
+  const fetchedProduct = fetchProduct();
+  const fetchedCategory = fetchCategory();
 
-const Products = () => {
-  const [products, setProducts] = useState<IProduct[]>();
-  const [selectedFilter, setSelectedFilter] = useState(0);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedProducts: IProduct[] = await fetchProductData();
-      setProducts(fetchedProducts);
-    }
-
-    fetchData();
-  }, []);
-
+  const [products, category] = await Promise.all([fetchedProduct, fetchedCategory]);
 
   return (
     <div className="relative min-h-screen w-full flex flex-col">
@@ -52,17 +32,14 @@ const Products = () => {
         <Container className="flex-grow h-full w-full">
           <div className="flex flex-row flex-grow w-full h-full">
             <div className="w-1/3 mr-20 sticky top-[12rem] h-full">
-              <ProductCateogoryFilter
-                categoryFilters={categoryFilters}
-                selectedFilter={selectedFilter}
-                onSelect={(filter) => {
-                  setSelectedFilter(filter);
-                }}
+              <ProductCategoryFilter 
+                categories={category}
+                active={0}
               />
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6 w-full">
-              {products && products.map((product) => {
+              {products && products.map((product: IProduct) => {
                 return (
                   <ProductCard
                     key={product._id}

@@ -1,4 +1,4 @@
-import { CustomerType } from "@/utils/types/Customer";
+import { CustomerType } from "@/utils2/types/Customer";
 
 const dummyCustomerData: CustomerType = {
   "first-name": "Marco",

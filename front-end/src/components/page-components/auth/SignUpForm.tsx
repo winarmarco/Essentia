@@ -1,10 +1,10 @@
 import Button from "@/components/shared/Button";
 import Input from "@/components/shared/input/Input";
 import Loading from "@/components/shared/loading/Loading";
-import { parseError } from "@/utils/functions/errorParser";
+import { parseError } from "@/utils2/functions/errorParser";
 import { signUp } from "@/utils/redux/Auth/AuthActions";
 import { AppDispatch, RootState } from "@/utils/redux/store";
-import { ISignUpUser } from "@/utils/types";
+import { ISignUpUser } from "@/utils2/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { stringify } from "querystring";

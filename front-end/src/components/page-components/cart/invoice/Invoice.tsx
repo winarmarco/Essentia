@@ -7,8 +7,8 @@ import InvoiceTotal from "./InvoiceTotal";
 import {
   calculateDiscountDollar,
   calculateSubtotals,
-} from "@/utils/functions/Invoice";
-import {IDiscountCouponClient, IShoppingCart } from "@/utils/types";
+} from "@/utils2/functions/Invoice";
+import {IDiscountCouponClient, IShoppingCart } from "@/utils2/types";
 
 const Invoice: React.FC<{cart: IShoppingCart, discountCoupon: IDiscountCouponClient}> = ({cart, discountCoupon}) => {
 

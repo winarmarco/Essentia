@@ -1,4 +1,4 @@
-import FooterItemProps from "@/utils/types/FooterItem"
+import FooterItemProps from "@/utils2/types/FooterItem"
 import Link from "next/link";
 
 const FooterItem: React.FC<FooterItemProps> = ({icon, profile, href}) => {

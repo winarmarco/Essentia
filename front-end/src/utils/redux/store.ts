@@ -8,7 +8,7 @@ import storage from "redux-persist/lib/storage";
 import persistStore from "redux-persist/es/persistStore";
 import authSlice from "./Auth/AuthSlice";
 import UISlice, {uiReducers} from "./UI/UISlice";
-import {persistAsync} from "../functions/redux-helper";
+import {persistAsync} from "../../utils2/functions/redux-helper";
 import {categorySlice} from "./Category/CategorySlice";
 
 const rootReducer = combineReducers({

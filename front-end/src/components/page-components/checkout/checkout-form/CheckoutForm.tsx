@@ -5,11 +5,11 @@ import ShippingDetails from "../ShippingDetails.tsx/ShippingDetails";
 import PaymentMethod from "../PaymentMethod/PaymentMethod";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Button from "@/components/shared/Button";
-import { IDiscountCouponClient, IShippingAddress, IUser } from "@/utils/types";
+import { IDiscountCouponClient, IShippingAddress, IUser } from "@/utils2/types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/utils/redux/store";
 import { checkoutCart } from "@/utils/redux/Cart/CartActions";
-import { parseError } from "@/utils/functions/errorParser";
+import { parseError } from "@/utils2/functions/errorParser";
 
 export interface CheckoutFormData {
   "firstName": IUser["firstName"];

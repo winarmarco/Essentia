@@ -1,8 +1,8 @@
 import {ColumnDef} from "@tanstack/react-table";
-import ShoppingCartType, {ShoppingCartItemType} from "@/utils/types/ShoppingCart";
+import ShoppingCartType, {ShoppingCartItemType} from "@/utils2/types/ShoppingCart";
 import RelativeImage from "@/components/shared/relative-image/RelativeImage";
 import {AiFillEdit} from "react-icons/ai";
-import { IProduct } from "@/utils/types";
+import { IProduct } from "@/utils2/types";
 import { FiMoreHorizontal } from "react-icons/fi";
 import Link from "next/link";
 

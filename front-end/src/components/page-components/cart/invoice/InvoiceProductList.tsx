@@ -1,7 +1,7 @@
-import ShoppingCartType from "@/utils/types/ShoppingCart";
+import ShoppingCartType from "@/utils2/types/ShoppingCart";
 import React from "react";
 import InvoiceProductLine from "./InvoiceProductLine";
-import { IShoppingCart } from "@/utils/types";
+import { IShoppingCart } from "@/utils2/types";
 
 const InvoiceProductList: React.FC<{items: IShoppingCart["items"]}> = ({items}) => {
   return (

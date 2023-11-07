@@ -1,4 +1,4 @@
-import { ISignInUser, ISignUpUser } from "@/utils/types";
+import { ISignInUser, ISignUpUser } from "@/utils2/types";
 import { CaseReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthenticationState, authActions } from "./AuthSlice";
 import { RootState } from "../store";

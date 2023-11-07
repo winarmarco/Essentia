@@ -1,39 +1,71 @@
-import Button from "@/components/shared/Button";
 import CartQuantityButton from "@/components/page-components/cart/shopping-cart-table/CartQuantityButton";
-import {findProductIndexInCart} from "@/utils/functions/CheckInCart";
-import {addItemToCart, fetchCart, removeItemFromCart} from "@/utils/redux/Cart/CartActions";
-import {AppDispatch, RootState} from "@/utils/redux/store";
-import { IProduct } from "@/utils/types";
+import React from "react";
+import {IProduct} from "@/utils/types/products";
+import {cookies} from "next/dist/client/components/headers";
+import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import {getServerSession} from "next-auth";
+import {addToCart, fetchCart, removeFromCart} from "@/utils/actions/cart-action";
+import {CartSchema} from "@/utils/types/cart";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
-import {useDispatch, useSelector} from "react-redux";
 
-const ProductDetailsDescription: React.FC<IProduct> = ({_id, name, category, description, price}) => {
-  const dispatch = useDispatch<AppDispatch>();
+const ProductDetailsDescription: React.FC<{product: IProduct, quantity: number}> = ({product, quantity}) => {
+  const {_id: productId, name, description, price} = product;
+  const {data: session} = useSession();
   const router = useRouter();
-  const cart = useSelector((state: RootState) => state.cart);
-  const auth = useSelector((state: RootState) => state.auth);
 
-  useEffect(() => {
-    // first when load, we check whether user is authenticated or not
-    if (auth.isAuthenticated) {
-      dispatch(fetchCart());
-    }
-  }, [dispatch, auth]);
+  // if (!authenticated) {
+  //   return redirect("/login");
+  // }
+  // const cart = await fetchCart();
 
-  const addToCartHandler = () => {
-    // if the user is authenticated
-    if (auth.isAuthenticated) {
-      // add item to cart
-      dispatch(addItemToCart(_id))
+  // console.log(cart);
+
+  // const dispatch = useDispatch<AppDispatch>();
+  // const cart = useSelector((state: RootState) => state.cart);
+  // const auth = useSelector((state: RootState) => state.auth);
+
+  // useEffect(() => {
+  //   // first when load, we check whether user is authenticated or not
+  //   if (auth.isAuthenticated) {
+  //     dispatch(fetchCart());
+  //   }
+  // }, [dispatch, auth]);
+
+  // const addToCartHandler = () => {
+  //   // if the user is authenticated
+  //   if (auth.isAuthenticated) {
+  //     // add item to cart
+  //     dispatch(addItemToCart(_id))
+  //   } else {
+  //     // navigate to login
+  //     router.push('/auth/login');
+  //   }
+  // }
+
+  const addToCartHandler = async () => {
+    if (session && session.user.token && session.user.token.id) {
+      const {token} = session.user;
+      const res = await addToCart(token.id, productId);
+      
     } else {
-      // navigate to login
-      router.push('/auth/login');
+      router.push("/auth/signin");
     }
-  }
+  };
 
-  const productIndex = findProductIndexInCart(cart, _id);
-  const addedToCart = productIndex !== -1;
+  const removeFromCartHandler = async () => {
+    if (session && session.user.token && session.user.token.id) {
+      const {token} = session.user;
+      const res = await removeFromCart(token.id, productId);
+
+    } else {
+      // navigate to /auth/login
+      router.push("/auth/signin");
+    }
+  };
+
+  // const productIndex = findProductIndexInCart(cart, _id);
+  // const addedToCart = productIndex !== -1;
 
   return (
     <div className="flex flex-col px-5 mt-10 md:pt-20">
@@ -41,24 +73,14 @@ const ProductDetailsDescription: React.FC<IProduct> = ({_id, name, category, des
       <p className="leading-loose pt-2 whitespace-pre-line">
         {description.trim()}
       </p>
-      <span className="mt-10">Category : {`$ ${category}`}</span>
+      <span className="mt-10">Category : {``}</span>
       <span className="mt-5">Price : {`$ ${price}`}</span>
-
-      {/* Check has been fetched yet and is not currently loading */}
-      {(!cart.isLoading && cart.hasFetched) &&
-          // render button, if it is added to cart, then render quantity button
-          (addedToCart) ? 
-            <CartQuantityButton 
-              className="justify-start mt-10" 
-              initQuantity={cart.items[productIndex].quantity}
-              incrementQtyHandler={() => {dispatch(addItemToCart(_id))}}
-              decrementQtyHandler={() => {dispatch(removeItemFromCart(_id))}}
-            /> : 
-            // else render add to cart button
-            <Button className="mt-20"
-              filled 
-              onClick={addToCartHandler}> Add to cart +</Button>
-      }
+      <CartQuantityButton
+        className="justify-start mt-10"
+        initQuantity={quantity}
+        incrementQtyHandler={addToCartHandler}
+        decrementQtyHandler={removeFromCartHandler}
+      />
     </div>
   );
 };

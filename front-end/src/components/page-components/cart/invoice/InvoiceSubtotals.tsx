@@ -1,6 +1,6 @@
 import React from "react";
 import InvoiceLine from "./InvoiceLine";
-import {IDiscountCouponClient} from "@/utils/types";
+import {IDiscountCouponClient} from "@/utils2/types";
 import {LiaTimesSolid} from "react-icons/lia";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/store";

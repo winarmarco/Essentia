@@ -1,7 +1,7 @@
 import ProductDetailsCarouselItem from "./ProductDetailsItem";
 import { ModalCarouselLeftButton, ModalCarouselRightButton } from "./ProductDetailsCarouselButtons";
 import Carousel from "@/components/shared/carousel/Carousel";
-import IProduct from "@/utils/types/Product";
+import { IProduct } from "@/utils/types/products";
 
 
 type ProductDetailsCarouselProps = {
@@ -10,6 +10,8 @@ type ProductDetailsCarouselProps = {
 }
 
 const ProductDetailsCarousel:  React.FC<ProductDetailsCarouselProps>= ({images, initialSlide}) => {
+
+  console.log(images);
   return (
     <Carousel
       leftButton={<ModalCarouselLeftButton />}
