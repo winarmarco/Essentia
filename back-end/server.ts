@@ -11,6 +11,7 @@ import { orderRouter } from "./routes/Order";
 import { CustomError } from "./utils/Errors/CustomError";
 import { isJsonString } from "./utils/helperFunctions/CheckJSON";
 import cors from "cors";
+import { invoiceRouter } from "./routes/Invoice";
 
 
 dotenv.config();
@@ -41,6 +42,7 @@ server.use('/', userRouter);
 server.use('/cart', cartRouter);
 server.use('/products', productRouter);
 server.use('/category', categoryRouter);
+server.use('/invoice', invoiceRouter);
 server.use('/discount-coupon', discountCouponeRouter);
 server.use('/order', orderRouter);
 

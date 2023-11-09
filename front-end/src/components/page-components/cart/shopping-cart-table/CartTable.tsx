@@ -1,9 +1,9 @@
 import React from 'react'
 import CartTableHeader from './CartTableHeader'
 import CartTableBody from './CartTableBody'
-import { IShoppingCart } from '@/utils2/types'
+import { ICart } from '@/utils/types/cart'
 
-const CartTable: React.FC<{items: IShoppingCart["items"]}> = ({items}) => {
+const CartTable: React.FC<{items: ICart["items"]}> = ({items}) => {
   return (
     <div className="flex flex-col w-full">
       <CartTableHeader />

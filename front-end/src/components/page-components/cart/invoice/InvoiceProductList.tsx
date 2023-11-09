@@ -1,9 +1,8 @@
-import ShoppingCartType from "@/utils2/types/ShoppingCart";
 import React from "react";
 import InvoiceProductLine from "./InvoiceProductLine";
-import { IShoppingCart } from "@/utils2/types";
+import { ICart } from "@/utils/types/cart";
 
-const InvoiceProductList: React.FC<{items: IShoppingCart["items"]}> = ({items}) => {
+const InvoiceProductList: React.FC<{items: ICart["items"]}> = ({items}) => {
   return (
     <ul>
       {items.map((cartItem, index) => (

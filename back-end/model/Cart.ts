@@ -1,13 +1,14 @@
-import { Document, Schema, model } from "mongoose";
+import { Document, PopulatedDoc, Schema, model } from "mongoose";
 import Product, { IProduct } from "./Product";
 
 export interface ICartItem {
-  item: IProduct["_id"],
+  item: PopulatedDoc<IProduct & Document>;
   quantity: number;
 }
 
 interface ICart extends Document {
   items: ICartItem[],
+  calculateTotalPrice: () => Promise<Number>;
 }
 
 const CartSchema: Schema<ICart> = new Schema({
@@ -23,6 +24,20 @@ const CartSchema: Schema<ICart> = new Schema({
   }]
 })
 
+CartSchema.methods.calculateTotalPrice = async function(this: ICart) {
+  let totalPrice = 0;
+  const populatedCart = await this.populate({path: "items", populate: "item"});
+
+  for (const cartItem of populatedCart.items) {
+    const product = cartItem;
+    if (product) {
+
+      totalPrice += product.item.price * product.quantity;
+    }
+  }
+
+  return totalPrice;
+}
 
 const Cart = model<ICart>("Cart", CartSchema);
 

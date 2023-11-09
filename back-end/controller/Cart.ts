@@ -26,8 +26,10 @@ export const getCart = async (req: Request, res: Response, next: NextFunction) =
 
     const cart = await user.cart.populate({path: "items.item"});
 
+    const totalPrice = await cart.calculateTotalPrice();
+
     return res.status(201).json({
-      data: {cart: cart}
+      data: {cart: cart, totalPrice: totalPrice}
     });
   } catch (error) {
     next(error);

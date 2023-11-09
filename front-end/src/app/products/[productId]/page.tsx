@@ -6,12 +6,6 @@ import React, {useEffect, useState} from "react";
 
 import Header from "@/components/shared/header/Header";
 import Main from "@/components/shared/main/Main";
-import ProductImageList from "@/components/page-components/product/product-details/product-image-list/ProductImageList";
-import ProductDetailsDescription from "@/components/page-components/product/product-details/product-details-description/ProductDetailsDescription";
-import Modal from "@/components/shared/modal/Modal";
-import ProductDetailsCarousel from "@/components/page-components/product/product-details/product-details-image-carousel/ProductDetailsCarousel";
-import {redirect, useParams} from "next/navigation";
-import { IProduct } from "@/utils2/types";
 import { fetchProductDetails } from "@/utils/actions/products-action";
 import Link from "next/link";
 import ProductDisplay from "@/components/page-components/product/product-details/product-display/ProductDisplay";
@@ -19,24 +13,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { fetchCart } from "@/utils/actions/cart-action";
 import { CartSchema } from "@/utils/types/cart";
-
-
-const getProductDetails = async (productId: string) => {
-  try {
-    const res = await fetch(`http://localhost:3000/api/products/${productId}`, {
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
-    const resData = await res.json();
-
-    console.log(resData);
-
-    return resData;
-  } catch (error) {
-    return error;
-  }
-};
 
 const ProductDetails = async ({params} : {params: {productId: string}}) => {
 

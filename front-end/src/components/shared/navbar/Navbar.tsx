@@ -4,13 +4,8 @@ import Link from "next/link";
 import React from "react";
 import Container from "../Container";
 import Button from "../Button";
-import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, RootState} from "@/utils/redux/store";
-import {authActions} from "@/utils/redux/Auth/AuthSlice";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const Logo = () => {
   return (

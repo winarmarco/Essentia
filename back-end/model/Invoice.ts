@@ -15,6 +15,7 @@ export interface IInvoiceItemProduct {
 
 interface IInvoice extends Document {
   items: [IInvoiceItemProduct],
+  cart: ICart["_id"];
   discountCoupon: IDiscountCoupon["_id"],
 }
 
@@ -45,6 +46,10 @@ const InvoiceSchema: Schema<IInvoice> = new Schema({
       }
     },
   ],
+  cart: {
+    type: Schema.Types.ObjectId,
+    ref: "Cart",
+  },
   discountCoupon: {
     type: Schema.Types.ObjectId,
     ref: "DiscountCode",

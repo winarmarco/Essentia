@@ -18,7 +18,7 @@ interface InputFieldProps<T extends FieldValues>
   id: Path<T>;
   type?: HTMLInputTypeAttribute | "textarea";
   register: UseFormRegister<T>;
-  error: string;
+  error?: string;
 }
 
 interface InputComponentProps<T extends FieldValues>

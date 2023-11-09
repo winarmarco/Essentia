@@ -56,11 +56,11 @@ export const authOptions: AuthOptions = {
     },
     redirect: async({url, baseUrl}) => {
       return baseUrl;
-    }
+    },
   }
 }
 
 
-const handler = NextAuth(authOptions);
+export const handler = NextAuth(authOptions);
 
 export {handler as GET, handler as POST};

@@ -3,6 +3,8 @@ import DiscountCoupon, { IDiscountCouponStatus } from "../model/DiscountCoupon";
 import { NotFoundError } from "../utils/Errors/NotFoundError";
 import { BadRequestError } from "../utils/Errors/ValidationError";
 import { validationResult } from "express-validator";
+import { AuthenticatedRequest } from "../utils/middleware/Authentication";
+import User from "../model/User";
 
 
 // Get an existing coupon
@@ -13,24 +15,21 @@ import { validationResult } from "express-validator";
 // return: {data:  {discountCoupon: DiscountCoupon}}
 export const getDiscountCoupon = async (req: Request, res: Response, next: NextFunction) => {
   const { code } = req.params;
+  const userId = (req as AuthenticatedRequest).token;
   
   try {
 
-    const discountCode = code;
+    const user = await User.findById(userId).populate({path: "cart"});
 
+    if (!user) throw new NotFoundError("User not found!");
+    
+    const discountCode = code;
     const discountCoupon = await DiscountCoupon.findOne({discountCode: discountCode});
 
     if (!discountCoupon) throw new NotFoundError("Discount Coupon not found");
 
-    // validate discountCoupon
-    const currentDate = new Date();
-    const {validStart, validEnd, status}  = discountCoupon;
-
-    const isStartDateValid = validStart <= currentDate;
-    const isEndDateValid = !validEnd || validEnd < currentDate;
-    const isActiveValid = (status == IDiscountCouponStatus.ACTIVE);
-
-    if (!(isStartDateValid && isEndDateValid && isActiveValid)) throw new NotFoundError("Discount Coupon not found");
+    await discountCoupon.validateCoupon(user.cart);
+    const discountDollarAmount = await discountCoupon.applyCoupon(user.cart);
 
     const {percentAmount, discountAmount, maxDiscountDollar} = discountCoupon;
     return res.status(200).json({data: {
@@ -39,7 +38,8 @@ export const getDiscountCoupon = async (req: Request, res: Response, next: NextF
         percentAmount,
         discountAmount,
         maxDiscountDollar,
-      }
+      },
+      discountDollarAmount,
     }});
 
   } catch (error) {

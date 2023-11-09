@@ -1,6 +1,7 @@
+import { ICart } from "@/utils/types/cart";
 import { IDiscountCouponClient, IShoppingCart, IDiscountCoupon, IInvoice } from "../types";
 
-const calculateSubtotals = (cart: IShoppingCart) => {
+const calculateSubtotals = (cart: ICart) => {
   const {items} = cart;
 
   // calculate the subtotal

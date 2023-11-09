@@ -41,6 +41,10 @@ router.post('/',
       }
       return Promise.resolve();
     }),
+  body("discountCoupon.maxUser")
+    .notEmpty().withMessage("Max User is required")
+    .isNumeric().withMessage("Max User must be numericcal")
+  ,
   createDiscountCoupon);
 
 

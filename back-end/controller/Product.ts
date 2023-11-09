@@ -55,8 +55,10 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
 
     if (!product) throw new NotFoundError("Product not found")
 
+    const populatedProduct = await product.populate("category");
+
     return res.json({
-      data: {product: product}
+      data: {product: populatedProduct}
     });
   } catch (error) {
     next(error);
