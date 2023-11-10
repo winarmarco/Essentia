@@ -2,6 +2,8 @@ import React from "react";
 import InvoiceLine from "./InvoiceLine";
 import {LiaTimesSolid} from "react-icons/lia";
 import { IDiscountCouponClient } from "@/utils/types/discountCoupon";
+import { useDispatch } from "react-redux";
+import { discountCouponActions } from "@/utils/redux/DiscountCoupon/DiscountCouponSlice";
 
 type InvoiceSubtotalsProps = {
   subtotal: number;
@@ -14,6 +16,7 @@ const InvoiceSubtotals: React.FC<InvoiceSubtotalsProps> = ({
   discount,
   discountDollarAmount,
 }) => {
+  const dispatch = useDispatch();
   const discountPercentText = discount?.percentAmount && `(- ${discount.discountAmount}%)`;
 
   
@@ -34,7 +37,7 @@ const InvoiceSubtotals: React.FC<InvoiceSubtotalsProps> = ({
           rightItem={
             <span className="text-right flex flex-row items-center justify-between cursor-pointer mr-4">
               <span>- ${discountDollarAmount}</span>
-              <LiaTimesSolid onClick={() => {console.log("CLicked")}} />
+              <LiaTimesSolid onClick={() => {dispatch(discountCouponActions.removeDiscountCoupon())}} />
             </span>
           }
         />

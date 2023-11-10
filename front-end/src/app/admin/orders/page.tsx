@@ -1,7 +1,7 @@
 
 import AdminLayout from '@/components/layout/AdminLayout'
 import Order from '@/components/page-components/admin/order/Order'
-import { transformToOrderTableData } from '@/utils2/functions/extractStatistics';
+import { transformToOrderTableData } from '@/utils/functions/extractStatistics';
 import { IOrder } from '@/utils2/types';
 import React from 'react'
 

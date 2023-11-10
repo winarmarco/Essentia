@@ -9,7 +9,7 @@ import { ErrorMessage } from "@/utils2/types/Error";
 import { useDispatch, useSelector } from "react-redux";
 // import { AppDispatch, RootState } from "@/utils2/redux/store";
 // import { signIn } from "@/utils2/redux/Auth/AuthActions";
-import { parseError } from "@/utils2/functions/errorParser";
+import { parseError } from "@/utils/functions/errorParser";
 import { useRouter } from "next/navigation";
 // import { UIActions } from "@/utils2/redux/UI/UISlice";
 import Loading from "@/components/shared/loading/Loading";

@@ -1,8 +1,9 @@
-import {Document, Error, HydratedDocument, Model, Schema, model} from "mongoose";
+import {Document, Error, HydratedDocument, Model, PopulatedDoc, Schema, model} from "mongoose";
 import Cart, {ICart} from "./Cart";
 import {IInvoice} from "./Invoice";
 import {compare, genSalt, hash} from "bcryptjs";
 import ShippingAddress, { IShippingAddress } from "./ShippingAddress";
+import { IOrder } from "./Order";
 
 export enum UserRole {
   ADMIN = "ADMIN",
@@ -15,11 +16,11 @@ interface IUser extends Document {
   lastName: string;
   email: string;
   phoneNumber: string;
-  address: IShippingAddress["_id"];
+  address: PopulatedDoc<IShippingAddress & Document>;
   password: string;
   confirmPassword: string;
-  cart: ICart["_id"];
-  history: IInvoice["_id"][];
+  cart: PopulatedDoc<ICart & Document>;
+  history: PopulatedDoc<IOrder & Document>;
 }
 
 interface IUserMethods {}

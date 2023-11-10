@@ -8,7 +8,7 @@ import ProductDetailsCarousel from "../../product/product-details/product-detail
 import {IProduct, IProductClient} from "@/utils2/types";
 import Input from "@/components/shared/input/Input";
 import {LiaTimesSolid} from "react-icons/lia";
-import {parseError} from "@/utils2/functions/errorParser";
+import {parseError} from "@/utils/functions/errorParser";
 import Loading from "@/components/shared/loading/Loading";
 import {useDispatch, useSelector} from "react-redux";
 import {getCategory} from "@/utils/redux/Category/CategoryActions";

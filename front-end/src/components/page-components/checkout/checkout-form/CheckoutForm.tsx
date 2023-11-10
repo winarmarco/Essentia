@@ -9,7 +9,7 @@ import { IDiscountCouponClient, IShippingAddress, IUser } from "@/utils2/types";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/utils/redux/store";
 import { checkoutCart } from "@/utils/redux/Cart/CartActions";
-import { parseError } from "@/utils2/functions/errorParser";
+import { parseError } from "@/utils/functions/errorParser";
 
 export interface CheckoutFormData {
   "firstName": IUser["firstName"];

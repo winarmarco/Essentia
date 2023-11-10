@@ -1,5 +1,5 @@
 import {IOrderColumn} from "@/components/page-components/admin/order/OrderTable/OrderTableHeader";
-import {IOrder} from "../types";
+import {IOrder} from "../../utils2/types";
 import {calculateTotal} from "./Invoice";
 import {formatDate} from "./DateFormatter";
 import {ChartData} from "chart.js";

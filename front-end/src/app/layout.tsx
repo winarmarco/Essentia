@@ -1,6 +1,6 @@
 import { AuthProvider } from "@/utils/providers/AuthProvider";
 import { Providers } from "@/utils/redux/Provider";
-import { Session, getServerSession } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export const metadata = {
@@ -18,9 +18,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AuthProvider session={session || undefined}>
-          {children}
-        </AuthProvider>
+        <Providers>
+          <AuthProvider session={session || undefined}>
+            {children}
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

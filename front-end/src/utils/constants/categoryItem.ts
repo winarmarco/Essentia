@@ -1,5 +1,5 @@
 import CategoryItemType from "@/utils2/types/CategoryItem";
-import { IProductCategory } from "../types";
+import { IProductCategory } from "../../utils2/types";
 
 const categoryItemData: IProductCategory[] = [
   {

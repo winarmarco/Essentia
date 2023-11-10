@@ -4,7 +4,7 @@ import CategoryItem from "./CategoryItem";
 import Section from "@/components/shared/section/section";
 
 // consts
-import categoryItemData from "@/utils2/constants/categoryItem";
+import categoryItemData from "@/utils/constants/categoryItem";
 import { ICategory } from "@/utils/types/category";
 
 const Category: React.FC<{categories: ICategory[]}> = ({categories}) => {

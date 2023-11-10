@@ -2,19 +2,22 @@
 
 import Button from "@/components/shared/Button";
 import { addToCart, removeFromCart } from "@/utils/actions/cart-action";
-import {ShoppingCartItemType} from "@/utils2/types/ShoppingCart";
+import { discountCouponActions } from "@/utils/redux/DiscountCoupon/DiscountCouponSlice";
+import { ICart } from "@/utils/types/cart";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, {useState} from "react";
+import { useDispatch } from "react-redux";
 import { twMerge } from "tailwind-merge";
 
 type CartQuantityButtonProps = {
   className?: string;
-  initQuantity: ShoppingCartItemType["quantity"];
+  initQuantity: ICart["items"][0]["quantity"];
   productId: string
 };
 
 const CartQuantityButton: React.FC<CartQuantityButtonProps> = ({className = "", initQuantity, productId}) => {
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(initQuantity);
 
   const {data: session} = useSession();
@@ -23,6 +26,7 @@ const CartQuantityButton: React.FC<CartQuantityButtonProps> = ({className = "", 
     if (session && session.user.token && session.user.token.id) {
       const {token} = session.user;
       const res = await addToCart(token.id, productId);
+      dispatch(discountCouponActions.removeDiscountCoupon());
       router.refresh();
       
     } else {
@@ -34,6 +38,7 @@ const CartQuantityButton: React.FC<CartQuantityButtonProps> = ({className = "", 
     if (session && session.user.token && session.user.token.id) {
       const {token} = session.user;
       const res = await removeFromCart(token.id, productId);
+      dispatch(discountCouponActions.removeDiscountCoupon());
       router.refresh();
 
     } else {

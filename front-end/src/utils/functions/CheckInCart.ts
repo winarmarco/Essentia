@@ -1,5 +1,5 @@
-import { IShoppingCart } from "../types";
-import { IProduct } from "../types";
+import { IShoppingCart } from "../../utils2/types";
+import { IProduct } from "../../utils2/types";
 
 export const findProductIndexInCart = (cart: IShoppingCart, productId: IProduct["_id"]) =>{
   const cartItems = cart.items;

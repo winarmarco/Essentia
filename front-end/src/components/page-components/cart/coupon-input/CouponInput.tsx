@@ -6,18 +6,20 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import { IDiscountCoupon, IDiscountCouponClient } from "@/utils/types/discountCoupon";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "@/utils/redux/store";
-import {getDiscountCoupon} from "@/utils/redux/DiscountCode/DiscountCodeActions";
+import {getDiscountCoupon} from "@/utils/redux/DiscountCoupon/DiscountCouponActions";
 import Button from "@/components/shared/Button";
 import { fetchDiscountCoupon } from "@/utils/actions/discount-code-actions";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { discountCouponActions } from "@/utils/redux/DiscountCoupon/DiscountCouponSlice";
 
 interface CouponInput extends InputHTMLAttributes<HTMLInputElement> {
-  setDiscountCoupon: (discountCoupon: IDiscountCouponClient, discountDollarAmount: number) => void;
+
 }
 
-const CouponInput: React.FC<CouponInput> = ({id, setDiscountCoupon, ...others}) => {
+const CouponInput: React.FC<CouponInput> = ({id, ...others}) => {
   const {data: session} = useSession();
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const {
@@ -28,7 +30,6 @@ const CouponInput: React.FC<CouponInput> = ({id, setDiscountCoupon, ...others}) 
   } = useForm<{discountCode: IDiscountCouponClient["discountCode"]}>();
 
 
-
   const submitHandler: SubmitHandler<{
     discountCode: IDiscountCouponClient["discountCode"];
   }> = async(data) => {
@@ -37,7 +38,9 @@ const CouponInput: React.FC<CouponInput> = ({id, setDiscountCoupon, ...others}) 
       const {token} = session.user;
       const fetchedDiscountCoupon = await fetchDiscountCoupon(token.id, data.discountCode);
       const {discountCoupon, discountDollarAmount} = fetchedDiscountCoupon;
-      setDiscountCoupon(discountCoupon, discountDollarAmount);
+      
+      dispatch(discountCouponActions.addDiscountCoupon({discountCoupon, totalDiscountAmount: discountDollarAmount}));
+      
     } else {
       router.push("/auth/signin");
     }

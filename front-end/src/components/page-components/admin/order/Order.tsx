@@ -1,5 +1,5 @@
 "use client";
-import { recentOrderDummyData } from "@/utils2/dummy-data/RecentOrder";
+import { recentOrderDummyData } from "@/utils/dummy-data/RecentOrder";
 import OrderTable from "./OrderTable/OrderTable";
 import { IOrderColumn } from "./OrderTable/OrderTableHeader";
 

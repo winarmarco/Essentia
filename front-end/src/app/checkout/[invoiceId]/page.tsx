@@ -1,30 +1,23 @@
-"use client";
-import React, {useEffect} from "react";
-import "../globals.css";
+import React from "react";
+import "../../globals.css";
 import Navbar from "@/components/shared/navbar/Navbar";
 import Container from "@/components/shared/Container";
 import Footer from "@/components/shared/footer/Footer";
 import Invoice from "@/components/page-components/cart/invoice/Invoice";
 import CheckoutForm from "@/components/page-components/checkout/checkout-form/CheckoutForm";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
-import { AppDispatch, RootState } from "@/utils/redux/store";
-import { fetchCart } from "@/utils/redux/Cart/CartActions";
-import Loading from "@/components/shared/loading/Loading";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
+import { fetchCart } from "@/utils/actions/cart-action";
+import { fetchInvoice } from "@/utils/actions/invoice-action";
 
-const Checkout = () => {
-  const disptach =  useDispatch<AppDispatch>();
-  const router = useRouter();
-  const cart = useSelector((state: RootState) => state.cart);
-  const auth = useSelector((state: RootState) => state.auth);
-
-  useEffect(() => {
-    if (auth.isAuthenticated) {
-      disptach(fetchCart());
-    } else {
-      router.push("/auth/login");
-    }
-  }, [disptach, auth, router]);
+const Checkout = async ({params} : {params: {invoiceId: string}}) => {
+  const session = await getServerSession(authOptions);
+  const {token} = session?.user;
+  const fetchedInvoice = await fetchInvoice(token.id, params.invoiceId);
+  const {invoice, totalDiscountAmount, totalPrice} = fetchedInvoice;
+  const {items, discountCoupon} = invoice;
+  
+  // console.log(fetchedInvoice);
 
 
   return (
@@ -39,7 +32,7 @@ const Checkout = () => {
             <CheckoutForm />
           </div>
           <div className="w-1/3 sticky flex-grow top-[10rem] h-full">
-            {(cart.hasFetched && !cart.isLoading) ? <Invoice cart={cart} /> : <Loading />}
+            <Invoice cart={{items}} subTotalPrice={totalPrice} discountCoupon={discountCoupon} discountAmount={totalDiscountAmount}/>
           </div>
         </div>
       </Container>

@@ -7,7 +7,7 @@ const CartTable: React.FC<{items: ICart["items"]}> = ({items}) => {
   return (
     <div className="flex flex-col w-full">
       <CartTableHeader />
-      <CartTableBody items={items} />
+      {(items.length > 0) ? <CartTableBody items={items} /> : <p>There are no items in your cart.</p>}
     </div>
   )
 }

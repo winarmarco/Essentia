@@ -1,5 +1,5 @@
 import { ICart } from "@/utils/types/cart";
-import { IDiscountCouponClient, IShoppingCart, IDiscountCoupon, IInvoice } from "../types";
+import { IDiscountCouponClient, IShoppingCart, IDiscountCoupon, IInvoice } from "../../utils2/types";
 
 const calculateSubtotals = (cart: ICart) => {
   const {items} = cart;

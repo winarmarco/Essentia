@@ -1,4 +1,4 @@
-import { Document, Schema, model } from "mongoose";
+import { Document, PopulatedDoc, Schema, model } from "mongoose";
 import Category, { ICategory } from "./Category"
 
 interface IProduct extends Document {
@@ -6,7 +6,7 @@ interface IProduct extends Document {
   price: number,
   stockQuantity: number,
   showOnLandingCarousel: boolean,
-  category: ICategory["_id"],
+  category: PopulatedDoc<ICategory & Document>,
   newProduct: boolean,
   description: string,
   shortDescription: string,

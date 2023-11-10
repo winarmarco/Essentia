@@ -1,4 +1,4 @@
-import { ErrorMessage } from "../types/Error";
+import { ErrorMessage } from "../../utils2/types/Error";
 
 export const parseError = (error: any) => {
   const errMessage = error as ErrorMessage;

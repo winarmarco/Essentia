@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "../Container";
-import footerItems from "@/utils2/constants/footer";
+import footerItems from "@/utils/constants/footer";
 import FooterItem from "./FooterItem";
 
 const Footer: React.FC = () => {

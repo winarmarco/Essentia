@@ -1,22 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useReducer } from "react";
 import InvoiceProductList from "./InvoiceProductList";
 import InvoiceSubtotals from "./InvoiceSubtotals";
 import InvoiceTotal from "./InvoiceTotal";
 import {
   calculateDiscountDollar,
   calculateSubtotals,
-} from "@/utils2/functions/Invoice";
+} from "@/utils/functions/Invoice";
 import {ICart} from "@/utils/types/cart";
 import { IDiscountCouponClient } from "@/utils/types/discountCoupon";
+import { RootState } from "@/utils/redux/store";
+import { useSelector } from "react-redux";
 
 const Invoice: React.FC<{
   cart: ICart;
-  subTotalPrice: number;
   discountCoupon?: IDiscountCouponClient;
   discountAmount: number;
-}> = ({cart, subTotalPrice, discountCoupon, discountAmount}) => {
+  subTotalPrice: number;
+}> = ({cart, subTotalPrice, discountCoupon, discountAmount = 0}) => {
+
   const total = subTotalPrice - discountAmount;
 
   return (

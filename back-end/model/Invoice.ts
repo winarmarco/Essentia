@@ -1,4 +1,4 @@
-import { Document, Schema, model } from "mongoose";
+import { Document, PopulatedDoc, Schema, model } from "mongoose";
 import Cart, { ICart, ICartItem } from "./Cart";
 import  { IDiscountCoupon } from "./DiscountCoupon";
 import { IProduct } from "./Product";
@@ -9,14 +9,14 @@ export interface IInvoiceItemProduct {
     price: number,
     images: string[]
   },
-  originalItem: IProduct["_id"],
+  originalItem: PopulatedDoc<IProduct & Document>,
   quantity: number,
 }
 
 interface IInvoice extends Document {
   items: [IInvoiceItemProduct],
-  cart: ICart["_id"];
-  discountCoupon: IDiscountCoupon["_id"],
+  cart: PopulatedDoc<ICart & Document>;
+  discountCoupon: PopulatedDoc<IDiscountCoupon & Document>,
 }
 
 const InvoiceSchema: Schema<IInvoice> = new Schema({
@@ -52,7 +52,8 @@ const InvoiceSchema: Schema<IInvoice> = new Schema({
   },
   discountCoupon: {
     type: Schema.Types.ObjectId,
-    ref: "DiscountCode",
+    required: false,
+    ref: "DiscountCoupon",
   }
 })
 

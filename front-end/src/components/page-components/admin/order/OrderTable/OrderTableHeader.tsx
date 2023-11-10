@@ -1,7 +1,7 @@
 import {OrderSummary} from "@/utils2/types/Order";
 import {ColumnDef} from "@tanstack/react-table";
 import {useEffect, useMemo, useState} from "react";
-import {formatDateTime} from "@/utils2/functions/DateFormatter";
+import {formatDateTime} from "@/utils/functions/DateFormatter";
 import {IOrder} from "@/utils2/types";
 import {FiMoreHorizontal} from "react-icons/fi";
 import Link from "next/link";

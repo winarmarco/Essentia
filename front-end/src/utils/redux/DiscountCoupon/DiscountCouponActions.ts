@@ -1,5 +1,5 @@
 import { CaseReducer, createAsyncThunk } from "@reduxjs/toolkit";
-import { DiscountCouponState, initialDiscountCouponState } from "./DiscountCodeSlice";
+import { DiscountCouponState, initialDiscountCouponState } from "./DiscountCouponSlice";
 
 const GET_DISCOUNT_COUPON = "discountCoupon/get";
 

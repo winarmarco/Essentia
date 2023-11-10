@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Document, PopulatedDoc, Schema, model } from "mongoose";
 import { IInvoice } from "./Invoice";
 import { IUser } from "./User";
 import { IShippingAddress } from "./ShippingAddress";
@@ -9,9 +9,9 @@ export enum OrderStatus {
   CANCELLED = "Cancelled",
 }
 
-interface IOrder {
-  shippingAddress: IShippingAddress["_id"];
-  invoice: IInvoice["_id"];
+export interface IOrder extends Document {
+  shippingAddress: PopulatedDoc<IShippingAddress & Document>;
+  invoice: PopulatedDoc<IInvoice & Document>;
   email: IUser["email"];
   firstName: IUser["firstName"];
   lastName: IUser["lastName"];
@@ -19,6 +19,7 @@ interface IOrder {
   dateCompleted: Date;
   status: OrderStatus;
 }
+
 
 const OrderSchema: Schema<IOrder> = new Schema({
   shippingAddress: {type: Schema.Types.ObjectId, ref: 'ShippingAddress', required: true},

@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { createInvoice } from "../controller/Invoice";
+import { createInvoice, getInvoice } from "../controller/Invoice";
+import { isAuth } from "../utils/middleware/Authentication";
 
 const router = Router();
 
-router.post("/", createInvoice);
+router.post("/", isAuth, createInvoice);
+
+router.get("/:invoiceId", isAuth, getInvoice);
 
 export { router as invoiceRouter };
