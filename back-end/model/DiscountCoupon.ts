@@ -20,7 +20,7 @@ interface IDiscountCoupon extends Document {
   usageTotal: Number,
   maxUser: Number,
   validateCoupon: (cart: ICart) => Promise<IDiscountCoupon>;
-  applyCoupon: (cart: ICart) => Promise<{discountCoupon: IDiscountCoupon, discountDollarAmount: number}>;
+  applyCoupon: (cart: ICart) => Promise<number>;
 }
 
 const DiscountCouponSchema: Schema<IDiscountCoupon> = new Schema({

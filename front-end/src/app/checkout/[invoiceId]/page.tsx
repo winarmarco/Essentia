@@ -16,9 +16,6 @@ const Checkout = async ({params} : {params: {invoiceId: string}}) => {
   const fetchedInvoice = await fetchInvoice(token.id, params.invoiceId);
   const {invoice, totalDiscountAmount, totalPrice} = fetchedInvoice;
   const {items, discountCoupon} = invoice;
-  
-  // console.log(fetchedInvoice);
-
 
   return (
     <div className="relative min-h-screen w-full flex flex-col">

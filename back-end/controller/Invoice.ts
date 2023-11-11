@@ -25,17 +25,15 @@ export const createInvoice = async (
     if (!user) throw new NotFoundError("User not found");
 
     // parse the discountCoupon if there is any
-    let discountCoupon;
+    let discountCoupon = null;
 
-    if (req.body.discountCoupon) {
+    if (req.body.discountCoupon.discountCode) {
       const {discountCode} = req.body.discountCoupon;
       discountCoupon = await DiscountCoupon.findOne({discountCode});
 
-      console.log(discountCoupon);
-
       if (!discountCoupon) throw new NotFoundError("Discount Coupon not found");
 
-      await discountCoupon.validate(user.cart);
+      await (discountCoupon as IDiscountCoupon).validate(user.cart);
     }
 
     // create an updated invoice item
@@ -111,9 +109,13 @@ export const getInvoice = async (
       ["discountCode", "percentAmount", "discountAmount"]
     );
 
-    const totalDiscountAmount = await (
-      invoice.discountCoupon as IDiscountCoupon
-    ).applyCoupon(user.cart);
+    let totalDiscountAmount = 0;
+
+    if (invoice.discountCoupon) {
+      totalDiscountAmount = await (
+        invoice.discountCoupon as IDiscountCoupon
+      ).applyCoupon(user.cart);
+    }
 
     // calculate total price in cart
     const totalPrice = await (user.cart as ICart).calculateTotalPrice();

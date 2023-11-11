@@ -11,14 +11,11 @@ export const fetchInvoice = async (token: string, invoiceId: string) => {
   });
 
   const {data} = await response.json();
-
-  console.log(data);
   return data;
 };
 
 export const createInvoice = async (
   token: string,
-  cart: ICart,
   discountCode?: IDiscountCoupon["discountCode"]
 ) => {
   try {
@@ -28,12 +25,10 @@ export const createInvoice = async (
         Authorization: `Bearer ${token}`,
       },
       method: "POST",
-      body: JSON.stringify({cart, discountCoupon: {discountCode}}),
+      body: JSON.stringify({discountCoupon: {discountCode}}),
     });
 
     const {data} = await response.json();
-
-    console.log({data});
     return data;
   } catch (error) {}
 };

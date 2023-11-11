@@ -31,10 +31,10 @@ router.post("/",
   body("shippingAddress.zipCode")
     .notEmpty().withMessage("Zip Code is required")
     .isNumeric().isLength({min: 4, max: 6}).withMessage("Invalid zip code"),
-  body("cardNumber") 
+  body("card.cardNumber") 
     .notEmpty().withMessage("Card Number is required")
     .isCreditCard().withMessage("Invalid Card Number"),
-  body("cardExpiry")
+  body("card.expiryDate")
     .notEmpty().withMessage("Card Expiry is required")
     .matches(/\d{2}\/\d{2}/)
     .withMessage("Invalid Card Expiry")
@@ -50,9 +50,11 @@ router.post("/",
 
       return Promise.resolve();
     }),
-  body("cardCsc")
+  body("card.CSC")
     .notEmpty().withMessage("Card CSC is required")
     .isNumeric().isLength({min: 3, max:3}).withMessage("Invalid Card CSC"),
+  body("card.holder")
+    .notEmpty().withMessage("Card Holder is required"),
 createOrder);
 
 

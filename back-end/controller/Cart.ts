@@ -24,7 +24,9 @@ export const getCart = async (req: Request, res: Response, next: NextFunction) =
 
     if (!user) throw new NotFoundError("User not found");
 
-    const cart = await user.cart.populate({path: "items.item"});
+    const cart: ICart = await user.cart.populate({path: "items.item"});
+
+    await cart.checkAvailability();
 
     const totalPrice = await cart.calculateTotalPrice();
 
@@ -71,6 +73,8 @@ export const addToCart = async (req: Request, res: Response, next: NextFunction)
         quantity: 1
       })
     }
+
+    await cart.checkAvailability();
     
     const updatedCart = await cart.save();
 
@@ -120,6 +124,8 @@ export const removeFromCart = async (req: Request, res: Response, next: NextFunc
     } else {
       throw new NotFoundError(`Product with id ${productId} not exist in user's cart`);
     }
+
+    await cart.checkAvailability();
     
     // if not exist in cart, we dont do anything
     const updatedCart = await cart.save();

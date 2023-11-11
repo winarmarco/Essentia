@@ -5,13 +5,13 @@ import {
   formatCsc,
   formatExpiryDate,
 } from "@/utils/functions/InputFormatter";
-import {CheckoutFormData} from "../checkout-form/CheckoutForm";
 import Input from "@/components/shared/input/Input";
+import {ICheckoutDetails} from "../checkout-form/CheckoutForm";
 
 const PaymentMethod: React.FC<{
-  registerForm: UseFormRegister<CheckoutFormData>;
-  setValue: UseFormSetValue<CheckoutFormData>;
-  errors: FieldErrors<CheckoutFormData>;
+  registerForm: UseFormRegister<ICheckoutDetails>;
+  setValue: UseFormSetValue<ICheckoutDetails>;
+  errors: FieldErrors<ICheckoutDetails>;
 }> = ({registerForm, setValue, errors}) => {
   return (
     <Section className="flex flex-col gap-y-5">
@@ -22,14 +22,14 @@ const PaymentMethod: React.FC<{
         <span>Credit card</span>
       </div>
       <Input
-        id="cardNumber"
+        id="card.cardNumber"
         label="Card Number"
         placeholder="**** **** **** ****"
         required
         register={registerForm}
         onChange={(e) => {
           const inputtedCardNumber = e.target.value;
-          setValue("cardNumber", formatCardNumber(inputtedCardNumber));
+          setValue("card.cardNumber", formatCardNumber(inputtedCardNumber));
         }}
         maxLength={19}
         errors={errors}
@@ -37,20 +37,20 @@ const PaymentMethod: React.FC<{
 
       <div className="grid grid-cols-2 gap-x-5">
         <Input
-          id="cardExpiry"
+          id="card.expiryDate"
           label="Expiration (MM/YY)"
           placeholder="MM / YY"
           required
           onChange={(e) => {
             const inputtedValue = e.target.value;
-            setValue("cardExpiry", formatExpiryDate(inputtedValue));
+            setValue("card.expiryDate", formatExpiryDate(inputtedValue));
           }}
           maxLength={5}
           register={registerForm}
           errors={errors}
         />
         <Input
-          id="cardCsc"
+          id="card.CSC"
           label="Card Security Code"
           placeholder="CSC"
           required
@@ -58,11 +58,20 @@ const PaymentMethod: React.FC<{
           maxLength={3}
           onChange={(e) => {
             const inputtedValue = e.target.value;
-            setValue("cardCsc", formatCsc(inputtedValue));
+            setValue("card.CSC", formatCsc(inputtedValue));
           }}
           errors={errors}
         />
       </div>
+
+      <Input
+          id="card.holder"
+          label="Card Holder"
+          placeholder=""
+          required
+          register={registerForm}
+          errors={errors}
+        />
     </Section>
   );
 };

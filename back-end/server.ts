@@ -50,9 +50,9 @@ server.use((error: MongooseError, req: Request, res: Response, next: NextFunctio
   if (error instanceof CustomError) {
     const errorCode = (error as CustomError).errorCode;
     const errorMessage = (error as CustomError).message;
-    const errorData = isJsonString(errorMessage) ? JSON.parse(errorMessage) : {"message": errorMessage};
+    const errorData = (error as CustomError).details;
     
-    return res.status(errorCode).json(errorData);
+    return res.status(errorCode).json({message: errorMessage, details: errorData});
   }
 
   return res.status(500).json({error: error.message});

@@ -56,8 +56,9 @@ const Cart = () => {
       if (cart) {
         const {token} = session.user;
         const {discountCoupon} = discountCouponState;
-        const {invoice} = await createInvoice(token.id, cart, discountCoupon?.discountCode);
+        const {invoice} = await createInvoice(token.id, discountCoupon?.discountCode);
 
+        router.refresh();
         return router.push(`/checkout/${invoice._id}`);
       }
     }
