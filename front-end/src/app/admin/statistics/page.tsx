@@ -1,7 +1,6 @@
 import AdminLayout from "@/components/layout/AdminLayout";
 import StatisticAdmin from "@/components/page-components/admin/Statistic/Statistic";
 import { extractStatistics } from "@/utils/functions/extractStatistics";
-import {IOrder} from "@/utils2/types";
 import React from "react";
 
 const StatisticsPage = async () => {
@@ -11,7 +10,7 @@ const StatisticsPage = async () => {
     },
     cache: "no-store"
   });
-  const data: IOrder[] = await res.json();
+  const data = await res.json();
 
   const statistics = extractStatistics(data);
 

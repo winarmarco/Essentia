@@ -4,6 +4,7 @@ import {IInvoice} from "./Invoice";
 import {compare, genSalt, hash} from "bcryptjs";
 import ShippingAddress, { IShippingAddress } from "./ShippingAddress";
 import { IOrder } from "./Order";
+import { NotFoundError } from "../utils/Errors/NotFoundError";
 
 export enum UserRole {
   ADMIN = "ADMIN",
@@ -99,14 +100,14 @@ UserSchema.static("signIn", async function signIn(email: string, password: strin
     const user = await User.findOne({email});
 
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundError('User not found');
     }
     
     // Compare with the encrypted password
     const match = await compare(password, user.password);
 
     if (!match) {
-      throw new Error("No user with that credentials");
+      throw new NotFoundError("No user with that credentials");
     }
 
     return user;

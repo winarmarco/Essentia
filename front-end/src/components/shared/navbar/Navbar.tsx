@@ -6,6 +6,7 @@ import Container from "../Container";
 import Button from "../Button";
 import { useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { SIGNIN_PAGE_URL } from "@/utils/constants";
 
 const Logo = () => {
   return (
@@ -43,7 +44,7 @@ const LogoutButton: React.FC = () => {
 
 const LoginButton: React.FC = () => {
   return (
-    <NavLink href="/auth/login">
+    <NavLink href={SIGNIN_PAGE_URL}>
       <Button filled>Login</Button>
     </NavLink>
   );

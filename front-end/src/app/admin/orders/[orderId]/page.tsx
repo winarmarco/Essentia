@@ -13,7 +13,7 @@ const AdminOrderDetailsPage =  () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`http://localhost:3000/api/order/${orderId}`, {
+      const res = await fetch(`http://localhost:3000/order/${orderId}`, {
         headers: {
           "Content-Type": "application/json",
         }

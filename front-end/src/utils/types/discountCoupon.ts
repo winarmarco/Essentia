@@ -10,12 +10,12 @@ export const DiscountCouponSchema = z.object({
   status: z.enum(["Active", "Expired"]),
 });
 
-export const DiscountCouponClient = DiscountCouponSchema.pick({
+export const DiscountCouponClientSchema = DiscountCouponSchema.pick({
   discountCode: true,
   discountAmount: true,
   percentAmount: true,
   maxDiscountDollar: true,
 });
 
-export type IDiscountCouponClient = z.infer<typeof DiscountCouponClient>;
+export type IDiscountCouponClient = z.infer<typeof DiscountCouponClientSchema>;
 export type IDiscountCoupon = z.infer<typeof DiscountCouponSchema>;

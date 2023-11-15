@@ -15,24 +15,28 @@ export const authOptions: AuthOptions = {
       async authorize(credentials, req) {
         const email = credentials?.email;
         const password = credentials?.password;
-
-        const res = await fetch("http://localhost:3000/signin", {
+              
+        const res = await fetch(`${process.env.API_URL}/signin`, {
           method: 'POST',
           body: JSON.stringify({user : {email, password}}),
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json"},
         })
+
         const resData = await res.json();
 
-        const { token } = resData.data;
-  
         // If no error and we have user data, return it
-        if (res.ok && token) {
-          return token;
-        }
-        // Return null if user data could not be retrieved
-        return null
+        if (!res.ok) {
+          console.log(resData);
+          if (res.status == 500) {
+            throw new Error("Server not responding");
+          }
+
+          throw new Error(resData.error);
+        } 
+        
+        const { token } = resData.data;
+        return token;
       },
-      
     }
   )
   ],

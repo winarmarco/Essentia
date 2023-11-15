@@ -2,7 +2,6 @@
 import AdminLayout from '@/components/layout/AdminLayout'
 import Order from '@/components/page-components/admin/order/Order'
 import { transformToOrderTableData } from '@/utils/functions/extractStatistics';
-import { IOrder } from '@/utils2/types';
 import React from 'react'
 
 const OrderAdminPage = async () => {
@@ -12,7 +11,7 @@ const OrderAdminPage = async () => {
     },
     cache: "no-store"
   });
-  const data: IOrder[] = await res.json();
+  const data = await res.json();
 
   const orderData = transformToOrderTableData(data);
 

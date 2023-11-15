@@ -19,7 +19,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
   try {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
-      throw new BadRequestError(JSON.stringify(validationErrors));
+      throw new BadRequestError("Validation Error", validationErrors);
     }
 
     const user = await newUser.save();
@@ -43,7 +43,7 @@ export const signIn = async (req: Request, res: Response, next: NextFunction) =>
     const validationErrors = validationResult(req);
 
     if (!validationErrors.isEmpty()) {
-      throw new BadRequestError(JSON.stringify(validationErrors));
+      throw new BadRequestError("Validation Error", validationErrors);
     }
 
     const { email, password } = req.body.user;

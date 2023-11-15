@@ -7,7 +7,7 @@ export const UserSchema=  z.object({
   lastName: z.string().min(1, {message: "Last name is required"}),
   email: z.string().min(1, {message: "Email is required"}).email({message: "Invalid email"}),
   address: ShippingAddressSchema,
-  phoneNumber: z.string(),
+  phoneNumber: z.string().min(1, {message: "Phone number is required"}),
 })
 
 export type IUser = z.infer<typeof UserSchema>;
