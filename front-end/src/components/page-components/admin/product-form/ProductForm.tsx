@@ -1,33 +1,44 @@
 "use client";
+
+import * as z from "zod";
 import React, {useEffect, useState} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import Button from "@/components/shared/Button";
 import ProductImage from "../../product/product-details/product-image-list/ProductImage";
 import Modal from "@/components/shared/modal/Modal";
 import ProductDetailsCarousel from "../../product/product-details/product-details-image-carousel/ProductDetailsCarousel";
-import {IProduct, IProductClient} from "@/utils2/types";
 import Input from "@/components/shared/input/Input";
 import {LiaTimesSolid} from "react-icons/lia";
 import {parseError} from "@/utils/functions/errorParser";
 import Loading from "@/components/shared/loading/Loading";
-import {useDispatch, useSelector} from "react-redux";
-import {getCategory} from "@/utils/redux/Category/CategoryActions";
-import {AppDispatch, RootState} from "@/utils/redux/store";
-import {CategoryState} from "@/utils/redux/Category/CategorySlice";
+import {IProduct, ProductSchema} from "@/utils/types/products";
+import {fetchCategory} from "@/utils/actions/category-action";
+import toast from "react-hot-toast";
+import {ICategory} from "@/utils/types/category";
+import {createProduct, updateProduct} from "@/utils/actions/products-action";
+import {useParams, useRouter} from "next/navigation";
+import {useSession} from "next-auth/react";
+import {zodResolver} from "@hookform/resolvers/zod";
+
+const ProductFormSchema = ProductSchema.omit({images: true}).extend({
+  images: z.any(),
+});
 
 const ProductForm: React.FC<{
   formTitle?: string;
   newProduct?: boolean;
-  defaultValues?: IProductClient;
+  defaultValues?: IProduct;
 }> = ({formTitle = "New Product", newProduct = false, defaultValues}) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const category: CategoryState = useSelector(
-    (state: RootState) => state.category
-  );
   const [images, setImages] = useState<IProduct["images"]>(
     defaultValues ? defaultValues.images : []
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const {data: session} = useSession();
+  const searchParams = useParams();
+  const router = useRouter();
+  const productId = searchParams["productId"];
+  const [category, setCategory] = useState<ICategory[]>([]);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [zoomImage, toggleZoomImage] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -37,17 +48,26 @@ const ProductForm: React.FC<{
     formState: {errors},
     setValue,
     setError,
-  } = useForm<IProductClient>({
+  } = useForm<IProduct>({
     defaultValues,
+    resolver: zodResolver(ProductFormSchema),
   });
 
   useEffect(() => {
-    try {
-      dispatch(getCategory());
-    } catch (error) {
-      console.log(error);
-    }
-  }, [dispatch]);
+    const fetchData = async () => {
+      try {
+        const fetchedCategory = await fetchCategory();
+
+        if (!fetchedCategory) throw new Error("Error fetching category");
+
+        setCategory(fetchedCategory);
+      } catch (error) {
+        toast.error("Error fetching category");
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const zoomHandler = (index?: number | undefined) => {
     toggleZoomImage((prevState) => !prevState);
@@ -56,60 +76,54 @@ const ProductForm: React.FC<{
     }
   };
 
-  const onSubmit: SubmitHandler<IProductClient> = async (data) => {
-    console.log(data);
-    
-    const productId = defaultValues?._id;
-    setIsLoading(true);
+  const onSubmit: SubmitHandler<IProduct> = async (data) => {
+    setIsUploading(true);
     try {
-      const form = new FormData();
-      const {images: newImages, ...productDetails} = data;
+      if (session && session.user.token) {
+        const {token} = session.user;
+        const form = new FormData();
+        const {images: newImages, ...productDetails} = data;
 
-      const oldImages = images.filter((image) => !image.startsWith("blob:"));
+        // check for image
+        if (images.length < 2) {
+          setIsUploading(false);
+          setError("images", {message: "Product image needs to be at least 2"});
+        }
 
-      // add to formdata
-      Object.values(newImages).forEach((file) => {
-        form.append("images", file);
-      });
-      form.append(
-        "product",
-        JSON.stringify({...productDetails, images: oldImages})
-      );
+        // Get Old Images
+        const oldImages = images.filter((image) => !image.startsWith("blob:"));
 
-      // post to server
-      const url = newProduct
-        ? "http://localhost:3000/api/products/add"
-        : `http://localhost:3000/api/products/${productId}`;
-      console.log(url);
-      const res = await fetch(url, {
-        method: "POST",
-        body: form,
-      });
-
-      const resData = await res.json();
-
-      if (!res.ok) throw new Error(resData.message);
-    } catch (error) {
-      const errMessage = parseError(error);
-
-      console.log(errMessage);
-
-      if (Array.isArray(errMessage)) {
-        errMessage.forEach((err) => {
-          setError(err.field, {
-            type: "custom",
-            message: err.message,
-          });
+        // Add To formData
+        Object.values(newImages).forEach((file) => {
+          form.append("images", file);
         });
+
+        form.append(
+          "product",
+          JSON.stringify({...productDetails, images: oldImages})
+        );
+
+        // post to server
+        let fetchedProduct;
+        if (!newProduct) {
+          fetchedProduct = await updateProduct(token.id, productId, form);
+        } else {
+          fetchedProduct = await createProduct(token.id, form);
+        }
+
+        if (!fetchedProduct) throw new Error("Cannot fetch product");
+
+        toast.success(
+          `Successfully ${newProduct ? "created" : "updated"} product!`
+        );
       } else {
-        setError("root", {
-          type: "custom",
-          message: errMessage.message,
-        });
+        router.push("/login");
       }
+    } catch (error: any) {
+      toast.error(error.message);
     }
 
-    setIsLoading(false);
+    setIsUploading(false);
   };
 
   return (
@@ -127,7 +141,7 @@ const ProductForm: React.FC<{
         />
       </Modal>
       <h1 className="text-3xl font-bold">{formTitle}</h1>
-      {!category.isLoading && category.hasFetched && (
+      {category && (
         <form
           className="flex flex-col gap-y-5"
           onSubmit={handleSubmit(onSubmit)}
@@ -144,6 +158,8 @@ const ProductForm: React.FC<{
           <Input
             id={"price"}
             label="Price"
+            type="number"
+            step=".01"
             register={register}
             className="grid grid-cols-3 w-2/3 gap-x-4"
             errors={errors}
@@ -153,6 +169,7 @@ const ProductForm: React.FC<{
             id="stockQuantity"
             label="Stock Quantity"
             type="number"
+            step="1"
             register={register}
             className="grid grid-cols-3 w-2/3 gap-x-4"
             errors={errors}
@@ -162,7 +179,7 @@ const ProductForm: React.FC<{
             id="category"
             label="Category"
             type="select"
-            choice={category.category.map((item) => {
+            choice={category.map((item) => {
               return {name: item.name, value: item._id};
             })}
             register={register}
@@ -250,7 +267,6 @@ const ProductForm: React.FC<{
                   <button
                     type="button"
                     onClick={() => {
-                      console.log();
                       setImages((prevImages) => {
                         prevImages = prevImages.filter((prevImageUrl) => {
                           return prevImageUrl !== imageUrl;
@@ -268,11 +284,12 @@ const ProductForm: React.FC<{
 
           <div className="flex flex-row gap-x-10 mt-10">
             <Button filled>
-              {isLoading && <Loading />}
-              {!isLoading && newProduct ? "+ Add Product" : "Update Product"}
+              {isUploading && <Loading className="text-white" />}
+              {!isUploading && newProduct && "+ Add Product"}
+              {!isUploading && !newProduct && "Update Product"}
             </Button>
             {!newProduct && (
-              <Button>{isLoading ? <Loading /> : "Delete Product"}</Button>
+              <Button>{isDeleting ? <Loading /> : "Delete Product"}</Button>
             )}
           </div>
         </form>

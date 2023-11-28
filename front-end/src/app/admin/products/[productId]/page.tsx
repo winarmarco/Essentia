@@ -1,11 +1,12 @@
 "use client";
-import AdminLayout from "@/components/layout/AdminLayout";
-import NewProduct from "@/components/page-components/admin/new-product/NewProduct";
+
 import ProductForm from "@/components/page-components/admin/product-form/ProductForm";
 import Loading from "@/components/shared/loading/Loading";
-import { IProduct } from "@/utils2/types";
+import { fetchProductDetails } from "@/utils/actions/products-action";
+import { IProduct } from "@/utils/types/products";
 import { useParams } from "next/navigation";
 import React, {useEffect, useState} from "react";
+import toast from "react-hot-toast";
 
 const AdminProductDetailsPages = () => {
   const searchParams = useParams();
@@ -14,27 +15,26 @@ const AdminProductDetailsPages = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`http://localhost:3000/api/products/${productId}`, {
-        headers: {
-          "Content-Type": "applicaion/json",
-        },
-      });
+      try {
+        const fetchedProduct = await fetchProductDetails(productId);
 
-      const productData: IProduct = await res.json();
+        if (!fetchedProduct) throw new Error("Error fetching product")
 
-      console.log(productData)
-
-      setProductData(productData)
+        setProductData(fetchedProduct.product);
+      } catch (error) {
+        toast.error("Error fetching product. Please try again later");
+      }
     };
 
     fetchData();
   }, [productId]);
 
 
+
   return (
-    <AdminLayout>
+    <>
       {productData ? <ProductForm defaultValues={productData} formTitle="Product Details" /> : <Loading />}
-    </AdminLayout>
+    </>
   );
 };
 

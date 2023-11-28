@@ -1,13 +1,11 @@
-import NewProduct from '@/components/page-components/admin/new-product/NewProduct'
-import "../../../globals.css";
+import ProductForm from "@/components/page-components/admin/product-form/ProductForm";
+import "@/app/globals.css";
 import React from 'react'
 import AdminLayout from '@/components/layout/AdminLayout';
 
 const AddProductPage = () => {
   return (
-    <AdminLayout>
-      <NewProduct />
-    </AdminLayout>
+    <ProductForm newProduct />
   )
 }
 

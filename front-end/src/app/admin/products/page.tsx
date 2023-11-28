@@ -1,22 +1,17 @@
 import AdminLayout from '@/components/layout/AdminLayout'
 import ProductAdmin from '@/components/page-components/admin/product/Product'
+import { fetchProduct } from '@/utils/actions/products-action'
+import { notFound } from 'next/navigation'
 import React from 'react'
 
 const ProductAdminPage = async () => {
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: "no-store",
-    headers: {
-      "Content-Type": "applicaion/json",
-    }
-  })
+  const fetchedProduct = await fetchProduct();
 
-  const productsData = await res.json();
+  if (!fetchedProduct) return notFound();
 
 
   return (
-    <AdminLayout>
-      <ProductAdmin productData={productsData}/>
-    </AdminLayout>
+    <ProductAdmin productData={fetchedProduct}/>
   )
 }
 
