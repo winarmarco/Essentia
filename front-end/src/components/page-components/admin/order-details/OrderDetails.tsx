@@ -1,11 +1,18 @@
-import Invoice from "@/components/page-components/cart/invoice/Invoice";
-import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
-import {Order, OrderStatus} from "@/utils2/types/Order";
+import Invoice, {
+  IInvoiceItem,
+} from "@/components/page-components/cart/invoice/Invoice";
 import CustomerProfile from "../customer-profile/CustomerProfile";
-import {IOrder} from "@/utils2/types";
 import Link from "next/link";
+import {IFetchedOrder} from "@/utils/functions/extractStatistics";
 
-const OrderDetails: React.FC<{order: IOrder}> = ({order}) => {
+const OrderDetails: React.FC<{order: IFetchedOrder}> = ({order}) => {
+  const invoiceItems: IInvoiceItem[] = order.invoice.items.map(
+    (invoiceItem) => {
+      const {quantity} = invoiceItem;
+      const {name, price} = invoiceItem.item;
+      return {name, price, quantity};
+    }
+  );
 
   return (
     <div className="w-full h-full flex flex-col gap-y-10 max-w-[2048px]">
@@ -15,11 +22,13 @@ const OrderDetails: React.FC<{order: IOrder}> = ({order}) => {
         <CustomerProfile {...order} />
 
         <Invoice
-          cart={order.invoice.cart}
+          items={invoiceItems}
           discountCoupon={order.invoice.discountCoupon}
+          subTotalPrice={order.subTotal}
+          discountAmount={order.discountDollarAmount}
+          isAdmin
         />
-
-        <CartTable {...order.invoice.cart} />
+        {/* <CartTable {...order.invoice.cart} /> */}
       </div>
     </div>
   );

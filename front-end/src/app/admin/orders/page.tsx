@@ -1,26 +1,22 @@
-
-import AdminLayout from '@/components/layout/AdminLayout'
-import Order from '@/components/page-components/admin/order/Order'
-import { transformToOrderTableData } from '@/utils/functions/extractStatistics';
-import React from 'react'
+import {authOptions} from "@/app/api/auth/[...nextauth]/route";
+import AdminLayout from "@/components/layout/AdminLayout";
+import Order from "@/components/page-components/admin/order/Order";
+import {fetchOrder, fetchOrders} from "@/utils/actions/order-action";
+import {transformToOrderTableData} from "@/utils/functions/extractStatistics";
+import {getServerSession} from "next-auth";
+import {notFound} from "next/navigation";
+import React from "react";
 
 const OrderAdminPage = async () => {
-  const res = await fetch("http://localhost:3000/api/order", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store"
-  });
-  const data = await res.json();
+  const session = await getServerSession(authOptions);
+  const {token} = session?.user;
+  const fetchedOrder = await fetchOrders(token.id);
 
-  const orderData = transformToOrderTableData(data);
+  if (!fetchedOrder) return notFound();
 
-  return (
-    <AdminLayout>
-      <Order orderData={orderData}/>
-    </AdminLayout>
-  )
-}
+  const orderTableData = transformToOrderTableData(fetchedOrder.orders);
 
+  return <Order orderData={orderTableData} />;
+};
 
-export default OrderAdminPage
+export default OrderAdminPage;

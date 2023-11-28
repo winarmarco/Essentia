@@ -4,9 +4,11 @@ import { DiscountCouponSchema } from "./discountCoupon";
 
 export const InvoiceSchema = z.object({
   items: z.array(z.object({
-    name: z.string(),
-    price: z.number(),
-    images: z.array(z.string()),
+    item: z.object({
+      name: z.string(),
+      price: z.number(),
+      images: z.array(z.string()),
+    }),
     originalItem: ProductSchema,
     quantity: z.number(),
   })),

@@ -1,8 +1,8 @@
 import {NextFunction, Request, Response} from "express";
-import Order, {OrderStatus} from "../model/Order";
+import Order, {IOrder, OrderStatus} from "../model/Order";
 import {NotFoundError} from "../utils/Errors/NotFoundError";
 import User, {UserRole} from "../model/User";
-import Invoice, {IInvoiceItemProduct} from "../model/Invoice";
+import Invoice, {IInvoice, IInvoiceItemProduct} from "../model/Invoice";
 import ShippingAddress from "../model/ShippingAddress";
 import Cart, {ICart} from "../model/Cart";
 import {validationResult} from "express-validator";
@@ -49,7 +49,6 @@ export const createOrder = async (
       path: "discountCoupon",
     });
 
-
     if (!invoice) throw new NotFoundError("Invoice not found");
 
     // last check whether discountCoupon is applicable
@@ -60,7 +59,7 @@ export const createOrder = async (
     // check each item's availability
     const userCart: ICart = user.cart;
     await userCart.checkAvailability();
-  
+
     const newShippingAddress = new ShippingAddress(shippingAddress);
     const shippingAddressData = await newShippingAddress.save({session}); // Pass the session
 
@@ -134,14 +133,43 @@ export const getOrders = async (
           {
             path: "discountCoupon",
           },
+          {
+            path: "cart",
+          },
         ],
+      },
+      {
+        path: "shippingAddress",
       },
     ]);
 
     if (!orders) throw new NotFoundError("Order not found!");
 
+    const calculatedTotalOrders = await Promise.all(
+      orders.map(async (order: IOrder) => {
+        const invoice: IInvoice = order.invoice;
+
+        // calculate subTotal
+        const subTotal = await invoice.calculateTotalPrice();
+
+        // calculate discounDollarAmount
+        const discountCoupon: IDiscountCoupon = invoice.discountCoupon;
+        let discountDollarAmount = 0;
+        if (discountCoupon) {
+          discountDollarAmount = await discountCoupon.applyCouponInvoice(
+            invoice
+          );
+        }
+
+        // calculate total
+        const total = subTotal - discountDollarAmount;
+
+        return {...order.toObject(), subTotal, discountDollarAmount, total};
+      })
+    );
+
     return res.status(200).json({
-      data: {orders},
+      data: {orders: calculatedTotalOrders},
     });
   } catch (error) {
     next(error);
@@ -189,6 +217,9 @@ export const getOrder = async (
           {
             path: "discountCoupon",
           },
+          {
+            path: "cart",
+          },
         ],
       },
       {
@@ -198,8 +229,27 @@ export const getOrder = async (
 
     if (!populatedFoundOrder) throw new NotFoundError("Order not found!");
 
+    const invoice: IInvoice = populatedFoundOrder.invoice;
+
+    // calculate subTotal
+    const subTotal = await invoice.calculateTotalPrice();
+
+    // calculate discounDollarAmount
+    const discountCoupon: IDiscountCoupon = invoice.discountCoupon;
+    let discountDollarAmount = 0;
+    if (discountCoupon) {
+      discountDollarAmount = await discountCoupon.applyCouponInvoice(
+        invoice
+      );
+    }
+
+    // calculate total
+    const total = subTotal - discountDollarAmount;
+
+    const calculatedOrder = {...populatedFoundOrder.toObject(), total, subTotal, discountDollarAmount};
+      
     return res.status(200).json({
-      data: {order: populatedFoundOrder},
+      data: {order: calculatedOrder},
     });
   } catch (error) {
     next(error);

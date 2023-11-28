@@ -3,8 +3,7 @@ import CustomerProfileItem from "./CustomerProfileLine";
 import {formatDateTime} from "@/utils/functions/DateFormatter";
 import {addressFormatter} from "@/utils/functions/AddressFormatter";
 import CustomerName from "./CustomerName";
-import { IOrder } from "@/utils2/types";
-import { OrderStatus } from "@/utils2/types";
+import {IOrder, OrderSchema} from "@/utils/types/order";
 
 const CustomerProfile: React.FC<IOrder> = ({
   firstName,
@@ -13,9 +12,8 @@ const CustomerProfile: React.FC<IOrder> = ({
   email,
   dateOrdered,
   dateCompleted,
-  status
+  status,
 }) => {
-
   return (
     <div className="flex flex-col gap-y-10">
       <div className="w-1/2 grid grid-cols-2">
@@ -28,10 +26,7 @@ const CustomerProfile: React.FC<IOrder> = ({
           title="Address"
           content={addressFormatter(shippingAddress)}
         />
-        <CustomerProfileItem
-          title="Email Address"
-          content={email}
-        />
+        <CustomerProfileItem title="Email Address" content={email} />
         <CustomerProfileItem
           title="Date Ordered"
           content={formatDateTime(new Date(dateOrdered))}
@@ -44,11 +39,20 @@ const CustomerProfile: React.FC<IOrder> = ({
           title="Status"
           content={
             <select
-              id="countries"
+              id="status"
               className="bg-white px-2 py-2 border border-gray-200"
+              value={status}
+              onChange={() => {
+                // TODO: IMPLEMENT CHANGED
+                console.log("CHANGED");
+              }}
             >
-              {Object.values(OrderStatus).map((orderStatus) => {
-                return <option key={orderStatus} value={orderStatus} selected={(orderStatus) === status}>{orderStatus}</option>
+              {OrderSchema.shape.status.options.map((orderStatus) => {
+                return (
+                  <option key={orderStatus} value={orderStatus}>
+                    {orderStatus}
+                  </option>
+                );
               })}
             </select>
           }

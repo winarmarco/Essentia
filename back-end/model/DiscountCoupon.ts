@@ -2,6 +2,7 @@ import { Document, Schema, model } from "mongoose";
 import { BadRequestError } from "../utils/Errors/ValidationError";
 import Cart, { ICart } from "./Cart";
 import { NotFoundError } from "../utils/Errors/NotFoundError";
+import { IInvoice } from "./Invoice";
 
 export enum IDiscountCouponStatus {
   ACTIVE = "Active",
@@ -21,6 +22,7 @@ interface IDiscountCoupon extends Document {
   maxUser: Number,
   validateCoupon: (cart: ICart) => Promise<IDiscountCoupon>;
   applyCoupon: (cart: ICart) => Promise<number>;
+  applyCouponInvoice: (invoice: IInvoice) => Promise<number>;
 }
 
 const DiscountCouponSchema: Schema<IDiscountCoupon> = new Schema({
@@ -93,7 +95,7 @@ DiscountCouponSchema.methods.validateCoupon = async function (this: IDiscountCou
   return this;
 }
 
-DiscountCouponSchema.methods.applyCoupon = async function(this: IDiscountCoupon, cart: ICart) {
+DiscountCouponSchema.methods.applyCoupon = async function(this: IDiscountCoupon, cart:  ICart) {
   await this.validateCoupon(cart);
 
   const totalPrice = await cart.calculateTotalPrice();
@@ -103,6 +105,19 @@ DiscountCouponSchema.methods.applyCoupon = async function(this: IDiscountCoupon,
 
   return Math.min(discountDollarAmount, maxDiscountDollarAmount.valueOf());
 }
+
+DiscountCouponSchema.methods.applyCouponInvoice = async function(this: IDiscountCoupon, invoice: IInvoice) {
+
+  const totalPrice = await invoice.calculateTotalPrice();
+
+  const discountDollarAmount = (this.percentAmount) ? (this.discountAmount.valueOf() / 100 * totalPrice.valueOf()) : (this.discountAmount.valueOf());
+  const maxDiscountDollarAmount = (this.maxDiscountDollar) || Infinity;
+
+
+  return Math.min(discountDollarAmount, maxDiscountDollarAmount.valueOf());
+}
+
+
 
 const DiscountCoupon = model<IDiscountCoupon>("DiscountCoupon", DiscountCouponSchema);
 

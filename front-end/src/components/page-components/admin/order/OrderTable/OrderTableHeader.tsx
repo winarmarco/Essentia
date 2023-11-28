@@ -1,13 +1,11 @@
-import {OrderSummary} from "@/utils2/types/Order";
 import {ColumnDef} from "@tanstack/react-table";
 import {useEffect, useMemo, useState} from "react";
 import {formatDateTime} from "@/utils/functions/DateFormatter";
-import {IOrder} from "@/utils2/types";
+import { IOrder } from "@/utils/types/order";
 import {FiMoreHorizontal} from "react-icons/fi";
 import Link from "next/link";
 
 export interface IOrderColumn extends IOrder {
-  total: number;
 }
 
 const orderTableColumns: ColumnDef<IOrderColumn>[] = [
@@ -19,7 +17,7 @@ const orderTableColumns: ColumnDef<IOrderColumn>[] = [
   {
     header: "Date",
     accessorFn: (data) => {
-      const date = data["dateOrdered"];
+      const date = data.dateOrdered
       return <span>{formatDateTime(date)}</span>;
     },
     cell: (row) => row.renderValue(),

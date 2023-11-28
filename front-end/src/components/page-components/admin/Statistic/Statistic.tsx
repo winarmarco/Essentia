@@ -1,5 +1,4 @@
 "use client";
-import {OrderSummary} from "@/utils2/types/Order";
 import {ChartData} from "chart.js";
 import StatisticBox from "./StatisticBox";
 import {Line} from "react-chartjs-2";

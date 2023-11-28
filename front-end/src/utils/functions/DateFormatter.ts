@@ -1,5 +1,5 @@
 const formatDateTime = (date: Date, dateSeperator: string = '/', timeSeparator: string = ':', dateTimeSeparator: string = '-') => {
-
+  date = new Date(date);
   return `${formatDate(date, dateSeperator)} ${timeSeparator} ${formatTime(date, timeSeparator)}`;
 }
 

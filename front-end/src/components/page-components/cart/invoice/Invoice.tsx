@@ -1,25 +1,28 @@
 "use client";
 
-import React, { useReducer } from "react";
+import React, {useReducer} from "react";
 import InvoiceProductList from "./InvoiceProductList";
 import InvoiceSubtotals from "./InvoiceSubtotals";
 import InvoiceTotal from "./InvoiceTotal";
-import {
-  calculateDiscountDollar,
-  calculateSubtotals,
-} from "@/utils/functions/Invoice";
 import {ICart} from "@/utils/types/cart";
-import { IDiscountCouponClient } from "@/utils/types/discountCoupon";
-import { RootState } from "@/utils/redux/store";
-import { useSelector } from "react-redux";
+import {IDiscountCouponClient} from "@/utils/types/discountCoupon";
+import {RootState} from "@/utils/redux/store";
+import {useSelector} from "react-redux";
+import {IInvoice} from "@/utils/types/Invoice";
+
+export interface IInvoiceItem {
+  name: string;
+  price: number;
+  quantity: number;
+}
 
 const Invoice: React.FC<{
-  cart: ICart;
+  items:  IInvoiceItem[];
   discountCoupon?: IDiscountCouponClient;
   discountAmount: number;
   subTotalPrice: number;
-}> = ({cart, subTotalPrice, discountCoupon, discountAmount = 0}) => {
-
+  isAdmin?: boolean;
+}> = ({items, subTotalPrice, discountCoupon, discountAmount = 0, isAdmin = false}) => {
   const total = subTotalPrice - discountAmount;
 
   return (
@@ -28,7 +31,7 @@ const Invoice: React.FC<{
 
       <div className="flex flex-col mt-5">
         <div className="mt-4 pb-4 border-b border-gray-200">
-          <InvoiceProductList items={cart.items} />
+          <InvoiceProductList items={items} />
         </div>
 
         <div className="mt-4 pb-4 border-b border-gray-200">
@@ -36,6 +39,7 @@ const Invoice: React.FC<{
             subtotal={subTotalPrice}
             discount={discountCoupon}
             discountDollarAmount={discountAmount}
+            isAdmin={isAdmin}
           />
         </div>
 

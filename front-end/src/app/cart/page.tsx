@@ -7,7 +7,7 @@ import Container from "@/components/shared/Container";
 import Footer from "@/components/shared/footer/Footer";
 import Header from "@/components/shared/header/Header";
 import Main from "@/components/shared/main/Main";
-import Invoice from "@/components/page-components/cart/invoice/Invoice";
+import Invoice, { IInvoiceItem } from "@/components/page-components/cart/invoice/Invoice";
 import CartTable from "@/components/page-components/cart/shopping-cart-table/CartTable";
 import CouponInput from "@/components/page-components/cart/coupon-input/CouponInput";
 import {fetchCart} from "@/utils/actions/cart-action";
@@ -30,6 +30,12 @@ const Cart = () => {
   );
   const discountAmount = discountCouponState.totalDiscountAmount || 0;
   const discountCoupon = discountCouponState.discountCoupon;
+  
+  const invoiceItems: IInvoiceItem[] = cart ? cart.items.map((cartItem) => {
+    const {quantity} = cartItem;
+    const {name, price} = cartItem.item;
+    return  {name, price, quantity};
+  }) : [];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +46,9 @@ const Cart = () => {
           const {cart, totalPrice} = fetchedCart;
           setCart(cart);
           setTotalPrice(totalPrice);
-        } catch (error) {}
+        } catch (error) {
+          // TODO: IMPLEMENT ERROR
+        }
       }
     };
 
@@ -72,7 +80,7 @@ const Cart = () => {
         {cart && cart.items.length > 0 && (
           <div className="sm:w-1/3 sticky flex-grow top-[10rem] h-full">
             <Invoice
-              cart={cart}
+              items={invoiceItems}
               subTotalPrice={totalPrice}
               discountCoupon={discountCoupon}
               discountAmount={discountAmount}

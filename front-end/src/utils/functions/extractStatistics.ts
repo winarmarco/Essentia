@@ -1,33 +1,39 @@
+import * as z from "zod";
 import {IOrderColumn} from "@/components/page-components/admin/order/OrderTable/OrderTableHeader";
-import {IOrder} from "../../utils2/types";
-import {calculateTotal} from "./Invoice";
 import {formatDate} from "./DateFormatter";
 import {ChartData} from "chart.js";
+import { IOrder, OrderSchema } from "../types/order";
 
-export const transformToOrderTableData = (orderData: IOrder[]) => {
+export const FetchedOrderSchema = OrderSchema.extend({
+  subTotal: z.number(),
+  discountDollarAmount: z.number(),
+  total: z.number(),
+})
+
+export type IFetchedOrder = z.infer<typeof FetchedOrderSchema>;
+
+export const transformToOrderTableData = (orderData: IFetchedOrder[]) => {
   // Transform orderData to type of IOrderColumn[], to be presented in
   // order table
-  const recentOrderData: IOrderColumn[] = orderData.map((el) => {
+  const recentOrderData: IOrderColumn[] = orderData.map((order) => {
     return {
-      ...el,
-      total: calculateTotal(el.invoice),
-      dateOrdered: new Date(el.dateOrdered),
+      ...order,
     };
   });
 
   return recentOrderData;
 };
 
-export const extractSalesTrends = (orderData: IOrder[]) => {
+export const extractSalesTrends = (orderData: IFetchedOrder[]) => {
   // Extract the sales trends data to be plotted in the sales trends graph
   const salesTrendsData: ChartData<"line", {x: string; y: number}[]> = {
     datasets: [
       {
         // transform orderData to x: date formatted string, and y: sales per day
-        data: orderData.map((el) => {
+        data: orderData.map((order) => {
           return {
-            x: formatDate(new Date(el.dateOrdered), '-').toString(),
-            y: calculateTotal(el.invoice),
+            x: formatDate(new Date(order.dateOrdered), '-').toString(),
+            y: order.total,
           };
         }),
         borderColor: "#000000",
@@ -39,7 +45,9 @@ export const extractSalesTrends = (orderData: IOrder[]) => {
   return salesTrendsData;
 };
 
-export const extractStatistics = (orderData: IOrder[]) => {
+
+export const extractStatistics = (orderData: IFetchedOrder[]) => {
+  console.log(orderData);
   // Transform to order table data
   const recentOrderData: IOrderColumn[] = transformToOrderTableData(orderData);
 
@@ -51,7 +59,7 @@ export const extractStatistics = (orderData: IOrder[]) => {
 
   // Extract the total sales
   const totalSales = orderData.reduce((acc, el) => {
-    return acc + calculateTotal(el.invoice);
+    return acc + el.total;
   }, 0);
 
   return {

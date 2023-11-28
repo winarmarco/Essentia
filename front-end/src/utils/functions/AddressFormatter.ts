@@ -1,5 +1,4 @@
-import {CustomerType} from "@/utils2/types/Customer";
-import { IShippingAddress } from "../../utils2/types";
+import { IShippingAddress } from "../types/shippingAddress";
 
 const addressFormatter = (shippingAddress: IShippingAddress) => {
   const address = shippingAddress.streetAddress;

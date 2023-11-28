@@ -11,12 +11,14 @@ type InvoiceSubtotalsProps = {
   subtotal: number;
   discount?: IDiscountCouponClient,
   discountDollarAmount?: number;
+  isAdmin?: boolean;
 };
 
 const InvoiceSubtotals: React.FC<InvoiceSubtotalsProps> = ({
   subtotal,
   discount,
   discountDollarAmount,
+  isAdmin = false,
 }) => {
   const {data: session} = useSession();
   const dispatch = useDispatch();
@@ -45,7 +47,7 @@ const InvoiceSubtotals: React.FC<InvoiceSubtotalsProps> = ({
           rightItem={
             <span className="text-right flex flex-row items-center justify-between cursor-pointer mr-4">
               <span>- ${discountDollarAmount}</span>
-              <LiaTimesSolid onClick={removeDiscountHandler} />
+              {!isAdmin && <LiaTimesSolid onClick={removeDiscountHandler} />}
             </span>
           }
         />

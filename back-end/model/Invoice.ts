@@ -17,6 +17,7 @@ interface IInvoice extends Document {
   items: [IInvoiceItemProduct],
   cart: PopulatedDoc<ICart & Document>;
   discountCoupon: PopulatedDoc<IDiscountCoupon & Document>,
+  calculateTotalPrice: () =>  Promise<number>;
 }
 
 const InvoiceSchema: Schema<IInvoice> = new Schema({
@@ -56,6 +57,21 @@ const InvoiceSchema: Schema<IInvoice> = new Schema({
     ref: "DiscountCoupon",
   }
 })
+
+InvoiceSchema.methods.calculateTotalPrice = async function (this: IInvoice) {
+  let total = 0;
+
+  await this.populate([{
+    path: "items",
+  },])
+
+  for (const invoiceItem of this.items) {
+    const {item, quantity} = invoiceItem;
+    total += item.price * quantity;
+  } 
+
+  return total;
+}
 
 const Invoice = model("Invoice", InvoiceSchema);
 

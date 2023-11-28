@@ -1,30 +1,28 @@
+import {authOptions} from "@/app/api/auth/[...nextauth]/route";
 import AdminLayout from "@/components/layout/AdminLayout";
 import StatisticAdmin from "@/components/page-components/admin/Statistic/Statistic";
-import { extractStatistics } from "@/utils/functions/extractStatistics";
+import {fetchOrders} from "@/utils/actions/order-action";
+import {extractStatistics} from "@/utils/functions/extractStatistics";
+import {getServerSession} from "next-auth";
+import {notFound} from "next/navigation";
 import React from "react";
 
 const StatisticsPage = async () => {
-  const res = await fetch("http://localhost:3000/api/order", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-store"
-  });
-  const data = await res.json();
+  const session = await getServerSession(authOptions);
+  const {token} = session?.user;
+  const fetchedOrder = await fetchOrders(token.id);
 
-  const statistics = extractStatistics(data);
+  if (!fetchedOrder) return notFound();
 
-  console.log(statistics.salesTrendsData.datasets[0].data)
+  const statistics = extractStatistics(fetchedOrder.orders);
 
   return (
-    <AdminLayout>
-      <StatisticAdmin
-        recentOrderData={statistics.recentOrderData}
-        salesTrendsData={statistics.salesTrendsData}
-        totalOrder={statistics.totalOrder}
-        totalSales={statistics.totalSales}
-      />
-    </AdminLayout>
+    <StatisticAdmin
+      recentOrderData={statistics.recentOrderData}
+      salesTrendsData={statistics.salesTrendsData}
+      totalOrder={statistics.totalOrder}
+      totalSales={statistics.totalSales}
+    />
   );
 };
 
