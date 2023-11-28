@@ -9,6 +9,8 @@ import { fetchProduct } from "@/utils/actions/products-action";
 import { IProduct, ProductSchema } from "@/utils/types/products";
 import { fetchCategory } from "@/utils/actions/category-action";
 import ProductCategoryFilter from "@/components/page-components/product/product-category-filter/ProductCategoryFilter";
+import { Suspense } from "react";
+import Loading from "@/components/shared/loading/Loading";
 
 
 const Products = async () => {
@@ -31,23 +33,23 @@ const Products = async () => {
       <Main className="flex-grow">
         <Container className="flex-grow h-full w-full">
           <div className="flex flex-row flex-grow w-full h-full">
-            <div className="w-1/3 mr-20 sticky top-[12rem] h-full">
-              <ProductCategoryFilter 
-                categories={category}
-                active={0}
-              />
-            </div>
+              <div className="w-1/3 mr-20 sticky top-[12rem] h-full">
+                <ProductCategoryFilter 
+                  categories={category}
+                  active={0}
+                />
+              </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6 w-full">
-              {products && products.map((product: IProduct) => {
-                return (
-                  <ProductCard
-                    key={product._id}
-                    {...product}
-                  />
-                );
-              })}
-            </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-6 w-full">
+                {products && products.map((product: IProduct) => {
+                  return (
+                    <ProductCard
+                      key={product._id}
+                      {...product}
+                    />
+                  );
+                })}
+              </div>
           </div>
         </Container>
       </Main>

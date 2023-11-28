@@ -11,7 +11,6 @@ export const signUp = async (body: ISignUpSchema) => {
   const resData = await res.json();
 
   if (!res.ok) {
-    console.log(JSON.stringify(resData));
     throw new Error(JSON.stringify(resData));
   }
   

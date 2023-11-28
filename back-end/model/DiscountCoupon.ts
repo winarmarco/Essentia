@@ -68,7 +68,7 @@ const DiscountCouponSchema: Schema<IDiscountCoupon> = new Schema({
 DiscountCouponSchema.methods.validateCoupon = async function (this: IDiscountCoupon, cart: ICart) {
   
   if (this.status != IDiscountCouponStatus.ACTIVE) {
-    throw new BadRequestError(`Coupon with id ${this._id} is expired`);
+    throw new BadRequestError(`Coupon with code ${this.discountCode} is expired`);
   }
   
   const currDate = new Date();
@@ -77,17 +77,17 @@ DiscountCouponSchema.methods.validateCoupon = async function (this: IDiscountCou
   }
 
   if (this.validEnd && currDate > this.validEnd) {
-    throw new BadRequestError(`Coupon with id ${this._id} is expired`);
+    throw new BadRequestError(`Coupon with code ${this.discountCode} is expired`);
   }
 
 
   const totalPrice = await cart.calculateTotalPrice();
   if (totalPrice < this.minDollarSpent) {
-    throw new BadRequestError(`Coupon with id ${this._id}, needs at least $${this.minDollarSpent} spent`);
+    throw new BadRequestError(`Coupon with code ${this.discountCode}, needs at least $${this.minDollarSpent} spent`);
   }
 
   if ((this.usageTotal.valueOf() + 1) > this.maxUser.valueOf()) {
-    throw new BadRequestError(`Coupon with id ${this._id} has reached its maximum usage limit`);
+    throw new BadRequestError(`Coupon with code ${this.discountCode} has reached its maximum usage limit`);
   }
 
   return this;

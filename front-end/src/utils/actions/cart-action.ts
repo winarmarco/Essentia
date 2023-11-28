@@ -5,13 +5,13 @@ export const fetchCart = async (token: string) => {
     },
   })
 
-  const { data } = await response.json();
 
+  const { data } = await response.json();
   return data;
 };
 
-
 export const addToCart = async (token: string, productId: string) => {
+
   const response = await fetch("http://localhost:3000/cart/add",  {
     method: "POST",
     body: JSON.stringify({product: {_id: productId}}),
@@ -20,8 +20,14 @@ export const addToCart = async (token: string, productId: string) => {
       "Content-Type": "application/json"
     }
   })
+  
+  const resData = await response.json();
 
-  const { data } = await response.json();
+  if (!response.ok) {
+    throw new Error(JSON.stringify(resData));
+  }
+
+  const { data } = resData;
 
   return data;
 }
@@ -36,7 +42,13 @@ export const removeFromCart = async (token: string, productId: string) => {
     }
   })
 
-  const { data } = await response.json();
+  const resData = await response.json();
+
+  if (!response.ok) {
+    throw new Error(JSON.stringify(resData));
+  }
+
+  const { data } = await resData;
 
   return data;
 }

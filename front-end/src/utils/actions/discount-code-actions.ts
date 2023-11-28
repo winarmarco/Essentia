@@ -5,7 +5,13 @@ export const fetchDiscountCoupon = async (token: string, discountCode: string) =
       "Content-Type": "application/json",
     }
   });
-  const {data} = await response.json();
+
+  const resData = await response.json();
+  
+  if (!response.ok) throw new Error(JSON.stringify(resData));
+
+  const {data} = resData;
+
   return data;
 
 }

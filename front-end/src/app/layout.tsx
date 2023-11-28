@@ -2,6 +2,7 @@ import { AuthProvider } from "@/utils/providers/AuthProvider";
 import { Providers } from "@/utils/redux/Provider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Create Next App",
@@ -20,6 +21,7 @@ export default async function RootLayout({
       <body>
         <Providers>
           <AuthProvider session={session || undefined}>
+            <Toaster />
             {children}
           </AuthProvider>
         </Providers>

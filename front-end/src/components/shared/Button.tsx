@@ -2,15 +2,17 @@
 import React, { DOMAttributes } from "react";
 
 const Button: React.FC<{
-  filled?: boolean | false;
-  className?: string | "";
+  filled?: boolean;
+  disabled?: boolean;
+  className?: string;
   children?: React.ReactNode;
   onClick?: () => void,
-}> = ({ filled = false, className = "", children, onClick = () => {} }) => {
+}> = ({ filled = false, className = "", children, onClick = () => {}, disabled = false}) => {
   
   
   return (
     <button onClick={onClick}
+      disabled = {disabled}
       className={`px-10 py-2 
         ${
           filled

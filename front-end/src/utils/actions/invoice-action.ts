@@ -10,7 +10,8 @@ export const fetchInvoice = async (token: string, invoiceId: string) => {
     method: "GET",
   });
 
-  const {data} = await response.json();
+  const resData = await response.json();
+  const {data} = resData;
   return data;
 };
 
@@ -18,17 +19,19 @@ export const createInvoice = async (
   token: string,
   discountCode?: IDiscountCoupon["discountCode"]
 ) => {
-  try {
-    const response = await fetch("http://localhost:3000/invoice", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      method: "POST",
-      body: JSON.stringify({discountCoupon: {discountCode}}),
-    });
+  const response = await fetch("http://localhost:3000/invoice", {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    method: "POST",
+    body: JSON.stringify({discountCoupon: {discountCode}}),
+  });
 
-    const {data} = await response.json();
-    return data;
-  } catch (error) {}
+  const resData = await response.json();
+
+  if (!response.ok) throw new Error(JSON.stringify(resData));
+
+  const {data} = resData;
+  return data;
 };

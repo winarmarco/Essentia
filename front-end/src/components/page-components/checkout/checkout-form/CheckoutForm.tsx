@@ -14,7 +14,8 @@ import {UserSchema} from "@/utils/types/user";
 import { CardSchema } from "@/utils/types/card";
 import { createOrder } from "@/utils/actions/order-action";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 
 const UserDetailsCheckoutSchema = UserSchema.pick({
@@ -46,12 +47,16 @@ const CheckoutForm = () => {
   });
 
   const checkoutHandler: SubmitHandler<ICheckoutDetails> = async (data) => {
-
-
-    if (session && session.user.token && session.user.token.id) {
-      const {token} = session.user;
-      const createdOrder = await createOrder(token.id, data);
+    try {
+      if (session && session.user.token) {
+        const {token} = session.user;
+        const createdOrder = await createOrder(token.id, data);  
+        toast.success("Order success!");
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      }
       return router.push("/");
+    } catch (error) {
+      toast.error("Could not create order. Please try again later!");
     }
   };
 

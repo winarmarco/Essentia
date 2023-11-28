@@ -7,7 +7,6 @@ const InvoiceProductLine: React.FC<ICart["items"][0]> = ({
   item,
   quantity,
 }) => {
-  console.log(item, quantity);
   const ItemQuantity = (
     <span>
       <span className="font-medium">{item.name}</span>

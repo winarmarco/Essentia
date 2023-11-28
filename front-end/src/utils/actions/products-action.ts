@@ -1,17 +1,20 @@
 import { IProduct, ProductSchema } from "../types/products";
 
 export const fetchProduct = async () => {
-
-  const response = await fetch("http://localhost:3000/products");
-
-  const {data} =  await response.json();
-
-  return data.products;
+  try {
+    const response = await fetch(`${process.env.API_URL}/products`);
+  
+    const {data} =  await response.json();
+  
+    return data.products;
+  } catch (error) {
+    
+  }
   
 };
 
 export const fetchLandingProducts = async () => {
-  const response = await fetch("http://localhost:3000/products");
+  const response = await fetch(`${process.env.API_URL}/products`);
   const {data} = await response.json();
 
 
@@ -29,7 +32,7 @@ export const fetchLandingProducts = async () => {
 }
 
 export const fetchProductDetails = async (_id: IProduct["_id"]) => {
-  const response = await fetch(`http://localhost:3000/products/${_id}`, {
+  const response = await fetch(`${process.env.API_URL}/products/${_id}`, {
     headers: {
       "Content-Type": "application/json",
     }

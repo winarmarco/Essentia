@@ -7,10 +7,10 @@ export  async function middleware (req: NextRequest) {
 
   if (!token) {
     const url = req.nextUrl.clone();
-    url.pathname = "/auth/login";
+    url.pathname = "/login";
     return NextResponse.redirect(url);
   }
 
 }
 
-export const config = {matcher: ["/cart"]}
+export const config = {matcher: ["/cart", "/checkout/:id*"]}

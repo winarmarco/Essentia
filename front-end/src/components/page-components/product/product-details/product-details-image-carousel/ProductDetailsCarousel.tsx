@@ -10,8 +10,6 @@ type ProductDetailsCarouselProps = {
 }
 
 const ProductDetailsCarousel:  React.FC<ProductDetailsCarouselProps>= ({images, initialSlide}) => {
-
-  console.log(images);
   return (
     <Carousel
       leftButton={<ModalCarouselLeftButton />}
